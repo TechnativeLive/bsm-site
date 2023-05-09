@@ -1,0 +1,6 @@
+<svg width="100" height="100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    path{fill:#002550}@media (prefers-color-scheme:dark){path{fill:#ffed00}}
+  </style>
+  <path d="M48 12H27.37a4.99 4.99 0 0 0-4.8 3.77L17 37h24.45L48 12ZM67 37h20.63a5 5 0 0 0 4.8-3.77L98 12H77.37a5 5 0 0 0-4.8 3.77L67 37ZM61.26 58.23 67 37H41.76L35 62h21.3a5.12 5.12 0 0 0 4.96-3.77ZM29.26 83.23 35 62H13.7a5.12 5.12 0 0 0-4.96 3.77L3 87h21.3a5.12 5.12 0 0 0 4.96-3.77Z"/>
+</svg>
