@@ -1,6 +1,7 @@
 import { containerRow } from '@/components/tailwind';
 import { Countdown } from '@/components/upcoming-event/countdown';
 import clsx from 'clsx';
+import Link from 'next/link';
 
 type Event = {
   name: string; // round 4
@@ -47,7 +48,9 @@ const EventCountdown = ({ event }: { event: Event }) => {
         {secondsTilStart <= 0 ? (
           <div className='flex items-center gap-4'>
             <div className='h-4 w-4 rounded-full bg-red-500' />
-            <div className='font-display text-2xl'>LIVE NOW</div>
+            <Link href='https://www.youtube.com/c/technativelive' className='font-display text-2xl'>
+              LIVE NOW
+            </Link>
           </div>
         ) : (
           <Countdown secondsRemaining={secondsTilStart} />

@@ -31,8 +31,8 @@ export const CalendarCarouselItem = ({ event }: { event: Event }) => {
       onFocus={onFocus}
       className={clsx(
         'group relative flex shrink-0 overflow-hidden border border-neutral p-4 text-white focus:outline-none',
-        'rounded-md first:rounded-l-xl last:rounded-r-xl',
-        'after:rounded first:after:rounded-l-lg last:after:rounded-r-lg',
+        'rounded-md first:rounded-l-2xl last:rounded-r-2xl',
+        'after:rounded first:after:rounded-l-xl last:after:rounded-r-xl',
         'after:absolute after:inset-1 after:bg-gradient-to-b after:from-primary-300/30 after:to-75%',
         'after:opacity-0 after:transition-opacity hover:after:opacity-100 focus:after:opacity-100'
       )}
