@@ -48,6 +48,13 @@ export default {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
+      transitionTimingFunction: {
+        slide: 'cubic-bezier(.2, 0, .05, 1)',
+      },
+      maxWidth: {
+        '2/5': '40%',
+        '3/5': '60%',
+      },
     },
   },
   plugins: [],

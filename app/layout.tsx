@@ -10,7 +10,7 @@ const audiowide = Audiowide({
   variable: '--font-display',
   weight: '400',
   subsets: ['latin'],
-  display: 'swap',
+  display: 'block',
 });
 const saira = Saira({ variable: '--font-numeric', subsets: ['latin'], display: 'swap' });
 
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang='en'>
       <body className={`font-sans ${figtree.variable} ${audiowide.variable} ${saira.variable}`}>
         {children}
       </body>
