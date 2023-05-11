@@ -1,3 +1,4 @@
+import { EventStatus } from '@/app/(home)/page';
 import { containerRow } from '@/components/tailwind';
 import { Countdown } from '@/components/upcoming-event/countdown';
 import clsx from 'clsx';
@@ -10,34 +11,37 @@ type Event = {
   endDate: string; // Date string
 };
 
-export const UpcomingEvent = ({ allEvents }: { allEvents: Event[] }) => {
-  const now = new Date();
-  const futureEventIndex = allEvents.findIndex((event) => new Date(event.startDate) > now);
-
-  if (futureEventIndex === -1) return null;
-
-  if (futureEventIndex > 0) {
-    const maybeCurrentEvent = allEvents[futureEventIndex - 1];
-    if (new Date(maybeCurrentEvent.endDate) > now) {
-      return <EventCountdown event={maybeCurrentEvent} />;
-    }
+export const UpcomingEvent = ({
+  allEvents,
+  eventStatus,
+}: {
+  allEvents: Event[];
+  eventStatus: { index?: number; status: EventStatus };
+}) => {
+  if (!eventStatus.index) {
+    return null;
   }
 
-  return <EventCountdown event={allEvents[futureEventIndex]} />;
+  return <EventCountdown event={allEvents[eventStatus.index!]} />;
 };
 
 const EventCountdown = ({ event }: { event: Event }) => {
   const now = new Date();
   const startDate = new Date(event.startDate);
+  const endDate = new Date(event.endDate);
   const secondsTilStart = Math.floor((startDate.getTime() - now.getTime()) / 1000);
 
   return (
     <div className='w-full bg-primary font-semibold text-white'>
       <div className={clsx(containerRow, 'py-4')}>
         <div className='flex grow flex-col'>
-          <div className='flex items-center justify-between'>
+          <div className='flex items-center gap-4'>
             <div className='rounded bg-secondary px-2 py-1 text-primary'>
               {startDate.toLocaleDateString()}
+            </div>
+            {'-'}
+            <div className='rounded bg-secondary px-2 py-1 text-primary'>
+              {endDate.toLocaleDateString()}
             </div>
             {/* <div>Time til thing:</div> */}
           </div>

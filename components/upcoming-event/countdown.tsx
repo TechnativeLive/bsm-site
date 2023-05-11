@@ -1,5 +1,6 @@
 'use client';
 import { useInterval } from '@/hooks/use-interval';
+import clsx from 'clsx';
 import { useState } from 'react';
 
 export const Countdown = ({
@@ -27,15 +28,31 @@ export const Countdown = ({
   );
 
   return (
-    <div className="grid grid-cols-4 grid-rows-2 place-items-center">
-      <div>DAYS</div>
-      <div>HOURS</div>
-      <div>MINS</div>
-      <div>SECS</div>
-      <div className="font-display text-2xl">{daysRemaining}</div>
-      <div className="font-display text-2xl">{hoursToDisplay}</div>
-      <div className="font-display text-2xl">{minutesToDisplay}</div>
-      <div className="font-display text-2xl">{secondsToDisplay}</div>
+    <div className='grid grid-cols-4 grid-rows-2 items-center'>
+      <CountdownGridItem>DAYS</CountdownGridItem>
+      <CountdownGridItem>HOURS</CountdownGridItem>
+      <CountdownGridItem>MINS</CountdownGridItem>
+      <CountdownGridItem>SECS</CountdownGridItem>
+      <CountdownGridItem className='font-display text-2xl'>
+        {daysRemaining.toString().padStart(2, '0')}
+      </CountdownGridItem>
+      <CountdownGridItem className='font-display text-2xl'>
+        {hoursToDisplay.toString().padStart(2, '0')}
+      </CountdownGridItem>
+      <CountdownGridItem className='font-display text-2xl'>
+        {minutesToDisplay.toString().padStart(2, '0')}
+      </CountdownGridItem>
+      <CountdownGridItem className='font-display text-2xl'>
+        {secondsToDisplay.toString().padStart(2, '0')}
+      </CountdownGridItem>
     </div>
   );
 };
+
+const CountdownGridItem = ({
+  children,
+  className,
+}: {
+  className?: string;
+  children: React.ReactNode;
+}) => <div className={clsx(className, 'bg-secondary text-primary')}>{children}</div>;
