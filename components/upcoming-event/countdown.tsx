@@ -28,7 +28,7 @@ export const Countdown = ({
   );
 
   return (
-    <div className='grid grid-cols-4 grid-rows-2 items-center'>
+    <div className='grid grid-cols-4 justify-stretch gap-1 overflow-hidden rounded-lg'>
       <CountdownGridItem>DAYS</CountdownGridItem>
       <CountdownGridItem>HOURS</CountdownGridItem>
       <CountdownGridItem>MINS</CountdownGridItem>
@@ -55,4 +55,13 @@ const CountdownGridItem = ({
 }: {
   className?: string;
   children: React.ReactNode;
-}) => <div className={clsx(className, 'bg-secondary text-primary')}>{children}</div>;
+}) => (
+  <div
+    className={clsx(
+      className,
+      'flex w-full items-center justify-center rounded-sm bg-secondary px-1 text-primary'
+    )}
+  >
+    {children}
+  </div>
+);
