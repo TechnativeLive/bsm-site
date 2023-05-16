@@ -4,9 +4,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 export const FeaturedLatest = () => (
-  <div className='my-6 w-full'>
+  <section className='my-6 w-full'>
     <div className={clsx(container, 'p-8')}>
-      <div className='grid grid-cols-[3fr,2fr] gap-12'>
+      <div className='grid gap-12 md:grid-cols-[3fr,2fr]'>
         <article className='pt-2' aria-label='Featured Story'>
           <Feature />
         </article>
@@ -23,7 +23,7 @@ export const FeaturedLatest = () => (
         see latest news <span className='-tracking-widest'>{'>>>'}</span>
       </Link>
     </div>
-  </div>
+  </section>
 );
 
 const Feature = () => (

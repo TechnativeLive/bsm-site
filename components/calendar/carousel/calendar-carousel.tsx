@@ -9,7 +9,7 @@ export const CalendarCarousel = ({
   eventStatus: { index?: number; status: EventStatus };
 }) => {
   return (
-    <div className='flex w-full flex-col items-center bg-primary-950 bg-gradient-to-b'>
+    <section className='flex w-full flex-col items-center bg-primary-950 bg-gradient-to-b'>
       {/* <CarouselHeader /> */}
       <div className='flex w-full flex-nowrap gap-3 overflow-x-scroll p-6 px-12 scrollbar-thin scrollbar-track-slate-500/0 scrollbar-thumb-primary-700'>
         {sampleEvents.map((event, i) => (
@@ -20,7 +20,7 @@ export const CalendarCarousel = ({
           />
         ))}
       </div>
-    </div>
+    </section>
   );
 };
 

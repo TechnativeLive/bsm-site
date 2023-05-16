@@ -51,7 +51,7 @@ export const CalendarCarouselItem = ({ event, status }: { event: Event; status: 
       onClick={handleClick}
       onFocus={handleFocus}
       className={clsx(
-        'group relative flex shrink-0 overflow-hidden p-4 text-white focus:outline-none',
+        'group relative flex shrink-0 select-text overflow-hidden p-4 text-white focus:outline-none',
         'bg-gradient-to-br to-85%',
         'rounded-md first:rounded-l-2xl last:rounded-r-2xl',
         'before:absolute before:inset-0.5 before:z-0 before:bg-primary',
@@ -67,10 +67,10 @@ export const CalendarCarouselItem = ({ event, status }: { event: Event; status: 
       )}
     >
       <div className='z-20 flex flex-col items-center gap-2'>
-        <div className={'relative h-24 w-32'}>
+        <div className={'relative h-24 w-32 text-white'}>
           <Image src={event.trackImage} alt={event.location} fill />
         </div>
-        <h3>{event.location}</h3>
+        <h3 className='uppercase'>{event.location}</h3>
         <h4>{event.name}</h4>
         <h4>
           {/* TODO: fix this mess */}
@@ -80,7 +80,8 @@ export const CalendarCarouselItem = ({ event, status }: { event: Event; status: 
         </h4>
       </div>
       <div className={clsx('z-20 h-full w-0 transition-all ease-slide group-focus:w-36')}>
-        <p className='min-w-[9rem] pl-6'>some info</p>
+        {status !== 'inactive' && <p className='min-w-[9rem] pl-6 uppercase underline'>{status}</p>}
+        <p className='min-w-[9rem] pl-6'>Schedule info</p>
       </div>
     </button>
   );

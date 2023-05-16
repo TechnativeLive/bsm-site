@@ -1,5 +1,6 @@
 import { CalendarCarousel } from '@/components/calendar/carousel/calendar-carousel';
 import { FeaturedLatest } from '@/components/latest/featured/featured-latest';
+import { container } from '@/components/tailwind';
 import { sampleEvents } from '@/components/upcoming-event/sample-data';
 import { UpcomingEvent } from '@/components/upcoming-event/upcoming-event';
 import { useMemo } from 'react';
@@ -36,16 +37,13 @@ export default function Home() {
   return (
     <>
       <article>
-        p
         <UpcomingEvent allEvents={sampleEvents} eventStatus={eventStatus} />
       </article>
-      <section>
-        <FeaturedLatest />
+      <FeaturedLatest />
+      <CalendarCarousel eventStatus={eventStatus} />
+      <section className='my-6 w-full'>
+        <div className={`${container} items-center`}>driver standings</div>
       </section>
-      <section>
-        <CalendarCarousel eventStatus={eventStatus} />
-      </section>
-      <section>latest standings - drivers / teams</section>
       <section>featured long-standing articles</section>
     </>
   );
