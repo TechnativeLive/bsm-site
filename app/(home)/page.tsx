@@ -1,8 +1,10 @@
 import { CalendarCarousel } from '@/components/calendar/carousel/calendar-carousel';
 import { FeaturedLatest } from '@/components/latest/featured/featured-latest';
+import { Standings } from '@/components/standings/standings';
 import { container } from '@/components/tailwind';
 import { sampleEvents } from '@/components/upcoming-event/sample-data';
 import { UpcomingEvent } from '@/components/upcoming-event/upcoming-event';
+import clsx from 'clsx';
 import { useMemo } from 'react';
 
 export type EventStatus = 'inactive' | 'active' | 'upcoming';
@@ -33,7 +35,7 @@ export default function Home() {
     }
     return { index, status };
   }, []);
-  console.log({ eventStatus });
+
   return (
     <>
       <article>
@@ -41,10 +43,38 @@ export default function Home() {
       </article>
       <FeaturedLatest />
       <CalendarCarousel eventStatus={eventStatus} />
-      <section className='my-6 w-full'>
-        <div className={`${container} items-center`}>driver standings</div>
+      <Standings />
+      <section className={clsx(container, 'my-6 w-full')}>
+        <div className='grid grid-cols-3 gap-x-8'>
+          <div className='flex flex-col gap-4'>
+            <div className='aspect-video rounded-lg bg-gradient-to-br from-slate-300'></div>
+            <div className='flex flex-col gap-2 rounded-md bg-gradient-to-b from-slate-200 p-4 drop-shadow-sm'>
+              <div className='text-lg font-normal uppercase tracking-widest'>
+                Featured Article Title
+              </div>
+              <div>Description of article limitied to 3 lines maximum</div>
+            </div>
+          </div>
+          <div className='flex flex-col gap-4'>
+            <div className='aspect-video rounded-lg bg-gradient-to-br from-slate-300'></div>
+            <div className='flex flex-col gap-2 rounded-md bg-gradient-to-b from-slate-200 p-4 drop-shadow-sm'>
+              <div className='text-lg font-normal uppercase tracking-widest'>
+                Featured Article Title
+              </div>
+              <div>Description of article limitied to 3 lines maximum</div>
+            </div>
+          </div>
+          <div className='flex flex-col gap-4'>
+            <div className='aspect-video rounded-lg bg-gradient-to-br from-slate-300'></div>
+            <div className='flex flex-col gap-2 rounded-md bg-gradient-to-b from-slate-200 p-4 drop-shadow-sm'>
+              <div className='text-lg font-normal uppercase tracking-widest'>
+                Featured Article Title
+              </div>
+              <div>Description of article limitied to 3 lines maximum</div>
+            </div>
+          </div>
+        </div>
       </section>
-      <section>featured long-standing articles</section>
     </>
   );
 }

@@ -70,7 +70,7 @@ const Article = () => (
     <div className='flex flex-col'>
       <div
         className={clsx(
-          'relative grid grid-cols-[3fr,2fr] gap-4 overflow-hidden',
+          'relative grid grid-cols-[3fr,2fr] gap-4 overflow-hidden pr-2',
           'after:absolute after:right-0 after:top-0 after:h-full after:w-1 after:translate-y-[calc(-100%-1px)] after:bg-primary-500 after:transition-transform after:duration-300 after:ease-slide after:group-hover:translate-y-0'
         )}
       >
@@ -83,7 +83,9 @@ const Article = () => (
 
         <div className='flex flex-col space-y-1'>
           <p className='font-display text-sm uppercase text-primary-500'>TYPE</p>
-          <h2 className='text-xl font-bold uppercase'>Title for the article</h2>
+          <h2 className='text-xl font-bold uppercase md:text-base lg:text-xl'>
+            Title for the article
+          </h2>
         </div>
       </div>
     </div>

@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 const HomeLogo = () => (
-  <Link href={'/'} className='z-10 py-4 pr-4'>
+  <Link href={'/'} className='z-10 shrink-0 py-4 pr-4'>
     <Image priority src='/logo.svg' width={182} height={48} alt='BSM Logo' />
   </Link>
 );
@@ -13,7 +13,7 @@ const HomeLogo = () => (
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className='flex min-h-screen flex-col'>
-      <header className='sticky top-0 z-20 w-full overflow-hidden'>
+      <header className='sticky top-0 z-40 w-full overflow-hidden'>
         <div className={clsx(containerRow, 'items-center justify-between')}>
           <HomeLogo />
           <div
@@ -45,7 +45,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               />
             </svg>
           </div>
-          <nav className='-mr-2 flex gap-6 font-bold uppercase'>
+          <nav className='-mr-2 flex items-center gap-2 font-bold uppercase lg:gap-6'>
             <MainNavLink href='/latest'>Latest</MainNavLink> {/* Article feed */}
             {/* <MainNavLink href="/teams">Teams & Drivers</MainNavLink> */}
             <MainNavLink href='/calendar'>Calendar</MainNavLink>

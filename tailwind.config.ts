@@ -1,5 +1,6 @@
 import { Config } from 'tailwindcss';
 import scrollbar from 'tailwind-scrollbar';
+import radix from 'tailwindcss-radix';
 
 export default {
   content: [
@@ -7,7 +8,7 @@ export default {
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
-  plugins: [scrollbar],
+  plugins: [scrollbar, radix],
   theme: {
     extend: {
       fontFamily: {
