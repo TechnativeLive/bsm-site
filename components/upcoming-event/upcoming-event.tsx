@@ -1,9 +1,10 @@
 import { EventStatus } from '@/app/(home)/page';
 import { containerRow } from '@/components/tailwind';
-import { Countdown } from '@/components/upcoming-event/countdown';
 import { ordinalSuffix } from '@/utils/ordinal-suffix';
 import clsx from 'clsx';
-import Link from 'next/link';
+import dynamic from 'next/dynamic';
+
+const EventClock = dynamic(() => import('./event-clock'), { ssr: false });
 
 const fmtMonth = new Intl.DateTimeFormat('en-GB', { month: 'short' });
 
@@ -29,10 +30,8 @@ export const UpcomingEvent = ({
 };
 
 const EventCountdown = ({ event }: { event: Event }) => {
-  const now = new Date();
   const startDate = new Date(event.startDate);
   const endDate = new Date(event.endDate);
-  const secondsTilStart = Math.floor((startDate.getTime() - now.getTime()) / 1000);
 
   const startMonth = fmtMonth.format(startDate);
   const endMonth = fmtMonth.format(endDate);
@@ -56,16 +55,7 @@ const EventCountdown = ({ event }: { event: Event }) => {
             {event.location.toLocaleUpperCase()} {'//'} {event.name.toLocaleUpperCase()}
           </div>
         </div>
-        {secondsTilStart <= 0 ? (
-          <div className='flex items-center gap-4'>
-            <div className='h-4 w-4 rounded-full bg-red-500' />
-            <Link href='https://www.youtube.com/c/technativelive' className='font-display text-2xl'>
-              LIVE NOW
-            </Link>
-          </div>
-        ) : (
-          <Countdown secondsRemaining={secondsTilStart} />
-        )}
+        <EventClock startTimeInMs={startDate.getTime()} />
       </div>
     </div>
   );

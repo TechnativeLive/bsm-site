@@ -28,6 +28,15 @@ export default {
   plugins: [scrollbar, radix, Icons(icons)],
   theme: {
     extend: {
+      animation: {
+        appear: 'appear 300ms ease-in-out both',
+      },
+      keyframes: {
+        appear: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+      },
       fontFamily: {
         sans: ['var(--font-sans)'],
         display: ['var(--font-display)'],

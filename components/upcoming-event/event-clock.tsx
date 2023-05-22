@@ -1,21 +1,14 @@
 'use client';
+
 import { useInterval } from '@/hooks/use-interval';
 import clsx from 'clsx';
+import Link from 'next/link';
 import { useState } from 'react';
 
-export const Countdown = ({
-  secondsRemaining: initialSecondsRemaining,
-}: {
-  secondsRemaining: number;
-}) => {
-  const [secondsRemaining, setSecondsRemaining] = useState(initialSecondsRemaining);
-
-  const secondsToDisplay = secondsRemaining % 60;
-  const minutesRemaining = (secondsRemaining - secondsToDisplay) / 60;
-  const minutesToDisplay = minutesRemaining % 60;
-  const hoursRemaining = (minutesRemaining - minutesToDisplay) / 60;
-  const hoursToDisplay = hoursRemaining % 24;
-  const daysRemaining = (hoursRemaining - hoursToDisplay) / 24;
+const EventClock = ({ startTimeInMs }: { startTimeInMs: number }) => {
+  const [secondsRemaining, setSecondsRemaining] = useState(() =>
+    Math.floor((startTimeInMs - Date.now()) / 1000)
+  );
 
   useInterval(
     () => {
@@ -26,6 +19,30 @@ export const Countdown = ({
     // passing null stops the interval
     secondsRemaining > 0 ? 1000 : null
   );
+
+  return (
+    <div className='animate-appear '>
+      {secondsRemaining <= 0 ? (
+        <div className='flex items-center gap-4'>
+          <div className='h-4 w-4 rounded-full bg-red-500' />
+          <Link href='https://www.youtube.com/c/technativelive' className='font-display text-2xl'>
+            LIVE NOW
+          </Link>
+        </div>
+      ) : (
+        <Countdown secondsRemaining={secondsRemaining} />
+      )}
+    </div>
+  );
+};
+
+export const Countdown = ({ secondsRemaining }: { secondsRemaining: number }) => {
+  const secondsToDisplay = secondsRemaining % 60;
+  const minutesRemaining = (secondsRemaining - secondsToDisplay) / 60;
+  const minutesToDisplay = minutesRemaining % 60;
+  const hoursRemaining = (minutesRemaining - minutesToDisplay) / 60;
+  const hoursToDisplay = hoursRemaining % 24;
+  const daysRemaining = (hoursRemaining - hoursToDisplay) / 24;
 
   return (
     <div className='grid grid-cols-4 justify-stretch gap-1 overflow-hidden rounded-md'>
@@ -65,3 +82,5 @@ const CountdownGridItem = ({
     {children}
   </div>
 );
+
+export default EventClock;
