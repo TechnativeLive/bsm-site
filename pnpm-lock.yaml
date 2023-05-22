@@ -1,6 +1,8 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@iconify-json/basil': ^1.1.1
+  '@iconify-json/ic': ^1.1.13
   '@radix-ui/react-tabs': ^1.0.3
   '@types/node': 20.1.1
   '@types/react': 18.2.6
@@ -17,6 +19,7 @@ specifiers:
   react-dom: 18.2.0
   tailwind-scrollbar: ^3.0.1
   tailwindcss: 3.3.2
+  tailwindcss-plugin-icons: ^2.1.1
   tailwindcss-radix: ^2.8.0
   typescript: 5.0.4
 
@@ -37,9 +40,12 @@ dependencies:
   typescript: 5.0.4
 
 devDependencies:
+  '@iconify-json/basil': 1.1.1
+  '@iconify-json/ic': 1.1.13
   prettier: 2.8.8
   prettier-plugin-tailwindcss: 0.2.8_prettier@2.8.8
   tailwind-scrollbar: 3.0.1_tailwindcss@3.3.2
+  tailwindcss-plugin-icons: 2.1.1_tailwindcss@3.3.2
   tailwindcss-radix: 2.8.0
 
 packages:
@@ -111,6 +117,22 @@ packages:
   /@humanwhocodes/object-schema/1.2.1:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
     dev: false
+
+  /@iconify-json/basil/1.1.1:
+    resolution: {integrity: sha512-Whj9D1+nbqOE0HB0EXqUxpZB4CePD8RVDViHvTBTkuR8i9RwYudr/ob/OxcaBzwH5s99dDIl9bc2R4Py+9OxXw==}
+    dependencies:
+      '@iconify/types': 2.0.0
+    dev: true
+
+  /@iconify-json/ic/1.1.13:
+    resolution: {integrity: sha512-5i5zal/VRwTrs99iMTnG1Zu97bgX9Mkiu9TzR1U1rHBylUnBW+HkOweoQVEPgQITGG024/lNbZxU+3Aa2xuDww==}
+    dependencies:
+      '@iconify/types': 2.0.0
+    dev: true
+
+  /@iconify/types/2.0.0:
+    resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
+    dev: true
 
   /@jridgewell/gen-mapping/0.3.3:
     resolution: {integrity: sha512-HLhSWOLRi875zjjMG/r+Nv0oCW8umGb0BgEhyX3dDX3egwZtB8PqLnjz3yedt8R5StBrzcg4aBpnh8UA9D1BoQ==}
@@ -2658,6 +2680,14 @@ packages:
   /tailwind-scrollbar/3.0.1_tailwindcss@3.3.2:
     resolution: {integrity: sha512-mM0ecSf/RGRGWw/qB0Zg1bWhuXIkpmleNAFgMxdb4eERgA6eQ0kVouYsF3/OvBqDSK8RJikZC/ynGPxnfXeddw==}
     engines: {node: '>=12.13.0'}
+    peerDependencies:
+      tailwindcss: 3.x
+    dependencies:
+      tailwindcss: 3.3.2
+    dev: true
+
+  /tailwindcss-plugin-icons/2.1.1_tailwindcss@3.3.2:
+    resolution: {integrity: sha512-9WTcvyBhAt1/PzMbTdv4ez+46qZp7qUMcC5aI9iq17GU95rcDbfnar0mV2kqkvfJcpyW8njbxtquBY1y0LBZiw==}
     peerDependencies:
       tailwindcss: 3.x
     dependencies:

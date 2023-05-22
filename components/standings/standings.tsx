@@ -15,35 +15,33 @@ const tabTrigger = clsx(
 
 export const Standings = () => {
   return (
-    <section className='my-6 w-full bg-slate-100 pb-6'>
-      <Tabs.Root defaultValue='drivers' className='mx-auto'>
-        <Tabs.List
-          aria-label='tabs example'
-          className='flex justify-center border border-slate-300'
-        >
-          <Tabs.Trigger value='drivers' className={tabTrigger}>
-            Drivers
-          </Tabs.Trigger>
-          <Tabs.Trigger value='teams' className={clsx(tabTrigger, 'border-x border-slate-300')}>
-            Teams
-          </Tabs.Trigger>
-          <Tabs.Trigger value='last-race' className={tabTrigger}>
-            Last Race
-          </Tabs.Trigger>
-        </Tabs.List>
-        <div className='h-24' />
-        <div className={clsx(container, 'max-w-5xl')}>
-          <Tabs.Content value='drivers'>
-            <StandingsTable key={1} />
-          </Tabs.Content>
-          <Tabs.Content value='teams'>
-            <StandingsTable key={2} />
-          </Tabs.Content>
-          <Tabs.Content value='last-race'>
-            <StandingsTable key={3} />
-          </Tabs.Content>
-        </div>
-      </Tabs.Root>
-    </section>
+    <Tabs.Root defaultValue='drivers' className='mx-auto'>
+      <Tabs.List
+        aria-label='tabs example'
+        className='flex justify-center border-y border-slate-300'
+      >
+        <Tabs.Trigger value='drivers' className={tabTrigger}>
+          Drivers
+        </Tabs.Trigger>
+        <Tabs.Trigger value='teams' className={clsx(tabTrigger, 'border-x border-slate-300')}>
+          Teams
+        </Tabs.Trigger>
+        <Tabs.Trigger value='last-race' className={tabTrigger}>
+          Last Race
+        </Tabs.Trigger>
+      </Tabs.List>
+      <div className='h-24' />
+      <div className={clsx(container, 'max-w-5xl')}>
+        <Tabs.Content value='drivers'>
+          <StandingsTable key={1} />
+        </Tabs.Content>
+        <Tabs.Content value='teams'>
+          <StandingsTable key={2} />
+        </Tabs.Content>
+        <Tabs.Content value='last-race'>
+          <StandingsTable key={3} />
+        </Tabs.Content>
+      </div>
+    </Tabs.Root>
   );
 };

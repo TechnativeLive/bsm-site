@@ -1,5 +1,6 @@
 import { CalendarCarousel } from '@/components/calendar/carousel/calendar-carousel';
-import { FeaturedLatest } from '@/components/latest/featured/featured-latest';
+import { FeaturedHomeLinks } from '@/components/latest/featured/home-links';
+import { LatestFeed } from '@/components/latest/feed/feed';
 import { Standings } from '@/components/standings/standings';
 import { container } from '@/components/tailwind';
 import { sampleEvents } from '@/components/upcoming-event/sample-data';
@@ -41,39 +42,21 @@ export default function Home() {
       <article>
         <UpcomingEvent allEvents={sampleEvents} eventStatus={eventStatus} />
       </article>
-      <FeaturedLatest />
-      <CalendarCarousel eventStatus={eventStatus} />
-      <Standings />
-      <section className={clsx(container, 'my-6 w-full')}>
-        <div className='grid grid-cols-3 gap-x-8'>
-          <div className='flex flex-col gap-4'>
-            <div className='aspect-video rounded-lg bg-gradient-to-br from-slate-300'></div>
-            <div className='flex flex-col gap-2 rounded-md bg-gradient-to-b from-slate-200 p-4 drop-shadow-sm'>
-              <div className='text-lg font-normal uppercase tracking-widest'>
-                Featured Article Title
-              </div>
-              <div>Description of article limitied to 3 lines maximum</div>
-            </div>
-          </div>
-          <div className='flex flex-col gap-4'>
-            <div className='aspect-video rounded-lg bg-gradient-to-br from-slate-300'></div>
-            <div className='flex flex-col gap-2 rounded-md bg-gradient-to-b from-slate-200 p-4 drop-shadow-sm'>
-              <div className='text-lg font-normal uppercase tracking-widest'>
-                Featured Article Title
-              </div>
-              <div>Description of article limitied to 3 lines maximum</div>
-            </div>
-          </div>
-          <div className='flex flex-col gap-4'>
-            <div className='aspect-video rounded-lg bg-gradient-to-br from-slate-300'></div>
-            <div className='flex flex-col gap-2 rounded-md bg-gradient-to-b from-slate-200 p-4 drop-shadow-sm'>
-              <div className='text-lg font-normal uppercase tracking-widest'>
-                Featured Article Title
-              </div>
-              <div>Description of article limitied to 3 lines maximum</div>
-            </div>
-          </div>
-        </div>
+
+      <section className='my-6 w-full'>
+        <LatestFeed />
+      </section>
+
+      <section className='flex w-full flex-col items-center bg-primary-950'>
+        <CalendarCarousel eventStatus={eventStatus} />
+      </section>
+
+      <section className='my-6 w-full bg-slate-100 pb-6'>
+        <Standings />
+      </section>
+
+      <section className={clsx(container, 'my-8 w-full')}>
+        <FeaturedHomeLinks />
       </section>
     </>
   );

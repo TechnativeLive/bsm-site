@@ -1,5 +1,6 @@
 import { StandingsData } from '@/components/standings/sample-data';
 import { sampleStandings } from '@/components/standings/sample-data';
+import { ordinalSuffix } from '@/utils/ordinal-suffix';
 import clsx from 'clsx';
 import Link from 'next/link';
 
@@ -32,7 +33,7 @@ function Podium({ entrant }: { entrant: StandingsData & { position: number } }) 
       className={clsx(
         entrant.position !== 1 && 'hidden md:flex',
         'relative after:absolute after:inset-0 after:top-full after:h-12 after:bg-slate-500',
-        'transition-transform duration-200 ease-slide hover:-translate-y-12',
+        'transform-gpu transition-transform duration-200 ease-slide hover:-translate-y-12',
         'flex grow items-start justify-between rounded-t-md bg-slate-500 px-6 py-1 text-xl font-extralight uppercase text-white md:text-sm lg:text-xl'
       )}
       style={{
@@ -43,7 +44,7 @@ function Podium({ entrant }: { entrant: StandingsData & { position: number } }) 
       <div className='tracking-wider'>{entrant.name}</div>
       <div className='flex items-start text-xl font-semibold italic'>
         <span>{entrant.position}</span>
-        <span className='pl-0.5 pt-[3px] text-sm'>{nth(entrant.position)}</span>
+        <span className='pl-0.5 pt-[3px] text-sm'>{ordinalSuffix(entrant.position)}</span>
       </div>
     </div>
   );
@@ -74,8 +75,4 @@ function Row({ entrant }: { entrant: StandingsData & { position: number } }) {
       </div>
     </div>
   );
-}
-
-function nth(n: number) {
-  return ['st', 'nd', 'rd'][((((n + 90) % 100) - 10) % 10) - 1] || 'th';
 }

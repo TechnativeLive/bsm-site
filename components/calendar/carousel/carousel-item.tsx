@@ -32,17 +32,8 @@ export const CalendarCarouselItem = ({ event, status }: { event: Event; status: 
   const el = useRef<HTMLButtonElement>(null);
   useEffect(() => {
     if (el.current && el.current.parentElement && status !== 'inactive') {
-      // const visibleItemCount = (window.innerWidth - 96) / 172;
-      // console.log({ visibleItemCount, i: eventStatus.index });
-      // if (eventStatus.index && eventStatus.index >= visibleItemCount - 1) {
-      //   const itemDistance = (eventStatus.index - visibleItemCount / 2) * 172 + 96;
-      //   console.log((eventStatus.index - visibleItemCount / 2) * 172);
-      //   el.current.scrollLeft = Math.max(itemDistance, 0);
-      // }
-      const parentWidth = el.current.parentElement.offsetWidth;
       const midpoint = el.current.offsetLeft + el.current.offsetWidth / 2;
-      const scrollLeft = midpoint - parentWidth / 2;
-      el.current.parentElement.scrollLeft = scrollLeft;
+      el.current.parentElement.scrollLeft = midpoint - el.current.parentElement.offsetWidth / 2;
     }
   }, [status]);
   return (
@@ -86,3 +77,14 @@ export const CalendarCarouselItem = ({ event, status }: { event: Event; status: 
     </button>
   );
 };
+
+// clsx(
+//   'group relative flex shrink-0 select-text overflow-hidden p-4 text-white focus:outline-none',
+//   'before:absolute before:inset-0 before:z-0 before:border before:border-slate-100 before:bg-slate-100/40 before:mix-blend-overlay',
+//   'before:rounded-md first-of-type:before:rounded-l-2xl last-of-type:before:rounded-r-2xl',
+//   status === 'upcoming'
+//     ? 'from-secondary-700'
+//     : status === 'active'
+//     ? 'from-red-700'
+//     : 'from-primary-700/40'
+// )

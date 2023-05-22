@@ -25,9 +25,12 @@
     "typescript": "5.0.4"
   },
   "devDependencies": {
+    "@iconify-json/basil": "^1.1.1",
+    "@iconify-json/ic": "^1.1.13",
     "prettier": "^2.8.8",
     "prettier-plugin-tailwindcss": "^0.2.8",
     "tailwind-scrollbar": "^3.0.1",
+    "tailwindcss-plugin-icons": "^2.1.1",
     "tailwindcss-radix": "^2.8.0"
   }
 }

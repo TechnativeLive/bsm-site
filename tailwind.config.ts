@@ -1,6 +1,23 @@
 import { Config } from 'tailwindcss';
 import scrollbar from 'tailwind-scrollbar';
 import radix from 'tailwindcss-radix';
+import { Icons, type Options } from 'tailwindcss-plugin-icons';
+
+const icons: Options = ({ theme }) => ({
+  ic: {
+    icons: {
+      'twotone-keyboard-arrow-right': {},
+      'baseline-facebook': {},
+    },
+    scale: 1.5,
+  },
+  basil: {
+    icons: {
+      'instagram-outline': {},
+    },
+    scale: 2.5,
+  },
+});
 
 export default {
   content: [
@@ -8,7 +25,7 @@ export default {
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
-  plugins: [scrollbar, radix],
+  plugins: [scrollbar, radix, Icons(icons)],
   theme: {
     extend: {
       fontFamily: {

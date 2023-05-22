@@ -1,8 +1,11 @@
 import { EventStatus } from '@/app/(home)/page';
 import { containerRow } from '@/components/tailwind';
 import { Countdown } from '@/components/upcoming-event/countdown';
+import { ordinalSuffix } from '@/utils/ordinal-suffix';
 import clsx from 'clsx';
 import Link from 'next/link';
+
+const fmtMonth = new Intl.DateTimeFormat('en-GB', { month: 'short' });
 
 type Event = {
   name: string; // round 4
@@ -31,21 +34,25 @@ const EventCountdown = ({ event }: { event: Event }) => {
   const endDate = new Date(event.endDate);
   const secondsTilStart = Math.floor((startDate.getTime() - now.getTime()) / 1000);
 
+  const startMonth = fmtMonth.format(startDate);
+  const endMonth = fmtMonth.format(endDate);
+
   return (
-    <div className='w-full bg-primary font-semibold text-white'>
+    <div className='w-full border-b border-slate-300 bg-slate-100 font-semibold'>
       <div className={clsx(containerRow, 'py-4')}>
         <div className='flex grow flex-col'>
           <div className='flex items-center gap-4'>
-            <div className='rounded bg-secondary px-2 py-1 text-primary'>
-              {startDate.toLocaleDateString()}
+            <div className='rounded bg-gradient-to-b from-slate-800 to-slate-600 px-2 py-1 font-normal text-white'>
+              <DateString
+                startDate={startDate.getDate()}
+                startMonth={startMonth}
+                endDate={endDate.getDate()}
+                endMonth={endMonth}
+                year={endDate.getFullYear()}
+              />
             </div>
-            {'-'}
-            <div className='rounded bg-secondary px-2 py-1 text-primary'>
-              {endDate.toLocaleDateString()}
-            </div>
-            {/* <div>Time til thing:</div> */}
           </div>
-          <div className='flex h-full items-center'>
+          <div className='flex h-full items-center font-display text-2xl'>
             {event.location.toLocaleUpperCase()} {'//'} {event.name.toLocaleUpperCase()}
           </div>
         </div>
@@ -63,3 +70,28 @@ const EventCountdown = ({ event }: { event: Event }) => {
     </div>
   );
 };
+
+function DateString({
+  startDate,
+  startMonth,
+  endDate,
+  endMonth,
+  year,
+}: {
+  startDate: number;
+  endDate: number;
+  startMonth: string;
+  endMonth: string;
+  year: number;
+}) {
+  return (
+    <div className='uppercase'>
+      <span>{startDate}</span>
+      <span className='relative bottom-[0.1875rem] text-xs'>{ordinalSuffix(startDate)}</span>{' '}
+      {startMonth !== endMonth && <span>{startMonth} </span>}
+      <span>-</span> <span>{endDate}</span>
+      <span className='relative bottom-[0.1875rem] text-xs'>{ordinalSuffix(endDate)}</span>{' '}
+      <span>{endMonth}</span> <span>{year}</span>
+    </div>
+  );
+}
