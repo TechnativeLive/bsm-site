@@ -1,11 +1,9 @@
 'use client';
 import { EventStatus } from '@/app/(home)/page';
-import { sampleEvents } from '@/components/upcoming-event/sample-data';
+import { CalendarItem } from '@/components/calendar/carousel/calendar-carousel';
 import clsx from 'clsx';
 import Image from 'next/image';
 import { FocusEventHandler, MouseEventHandler, useEffect, useRef } from 'react';
-
-type Event = (typeof sampleEvents)[number];
 
 const handleClick: MouseEventHandler<HTMLButtonElement> = (ev) => {
   ev.stopPropagation();
@@ -28,7 +26,13 @@ const handleFocus: FocusEventHandler<HTMLButtonElement> = (ev) => {
   }
 };
 
-export const CalendarCarouselItem = ({ event, status }: { event: Event; status: EventStatus }) => {
+export const CalendarCarouselItem = ({
+  item,
+  status,
+}: {
+  item: CalendarItem;
+  status: EventStatus;
+}) => {
   const el = useRef<HTMLButtonElement>(null);
   useEffect(() => {
     if (el.current && el.current.parentElement && status !== 'inactive') {
@@ -36,6 +40,9 @@ export const CalendarCarouselItem = ({ event, status }: { event: Event; status: 
       el.current.parentElement.scrollLeft = midpoint - el.current.parentElement.offsetWidth / 2;
     }
   }, [status]);
+
+  if (!item || !item.track?.name) return null;
+
   return (
     <button
       ref={el}
@@ -59,15 +66,15 @@ export const CalendarCarouselItem = ({ event, status }: { event: Event; status: 
     >
       <div className='z-20 flex flex-col items-center gap-2'>
         <div className={'relative h-24 w-32 text-white'}>
-          <Image src={event.trackImage} alt={event.location} fill />
+          <Image src={item.track?.layout.url} alt={item.track.name} fill />
         </div>
-        <h3 className='uppercase'>{event.location}</h3>
-        <h4>{event.name}</h4>
+        <h3 className='uppercase'>{item.track.name}</h3>
+        <h4>{item.name}</h4>
         <h4>
           {/* TODO: fix this mess */}
-          {new Date(event.startDate).getDate()}
+          {new Date(item.start).getDate()}
           {' - '}
-          {new Date(event.endDate).toLocaleDateString(undefined, { dateStyle: 'medium' })}
+          {new Date(item.end).toLocaleDateString(undefined, { dateStyle: 'medium' })}
         </h4>
       </div>
       <div className={clsx('z-20 h-full w-0 transition-all ease-slide group-focus:w-36')}>

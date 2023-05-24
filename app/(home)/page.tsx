@@ -6,11 +6,11 @@ import { container } from '@/components/tailwind';
 import { sampleEvents } from '@/components/upcoming-event/sample-data';
 import { UpcomingEvent } from '@/components/upcoming-event/upcoming-event';
 import clsx from 'clsx';
-import { useMemo } from 'react';
+import { Suspense, useMemo } from 'react';
 
 export type EventStatus = 'inactive' | 'active' | 'upcoming';
 
-// TODO: Refactor logic / props and move elsewhere
+// TODO: Refactor logic / props and move elsewhere - and only use Date.now() in client components
 // eventStatus is used in the event countdown banner
 // and in the calendar carousel to set scrollLeft on page load
 export default function Home() {
@@ -48,7 +48,10 @@ export default function Home() {
       </section>
 
       <section className='flex w-full flex-col items-center bg-primary-950'>
-        <CalendarCarousel eventStatus={eventStatus} />
+        <Suspense fallback={null}>
+          {/* @ts-expect-error Async Server Component */}
+          <CalendarCarousel eventStatus={eventStatus} />
+        </Suspense>
       </section>
 
       <section className='my-6 w-full bg-slate-100 pb-6'>

@@ -2,6 +2,7 @@ import { Config } from 'tailwindcss';
 import scrollbar from 'tailwind-scrollbar';
 import radix from 'tailwindcss-radix';
 import { Icons, type Options } from 'tailwindcss-plugin-icons';
+import typography from '@tailwindcss/typography';
 
 const icons: Options = ({ theme }) => ({
   ic: {
@@ -25,7 +26,7 @@ export default {
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
-  plugins: [scrollbar, radix, Icons(icons)],
+  plugins: [scrollbar, radix, typography, Icons(icons)],
   theme: {
     extend: {
       animation: {
