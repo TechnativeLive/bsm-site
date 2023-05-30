@@ -21,9 +21,9 @@ import {
   DynamicZoneAttribute,
   ComponentAttribute,
   UIDAttribute,
+  MediaAttribute,
   SingleTypeSchema,
   DateAttribute,
-  MediaAttribute,
   ComponentSchema,
   RichTextAttribute,
 } from '@strapi/strapi';
@@ -752,7 +752,13 @@ export interface ApiArticleArticle extends CollectionTypeSchema {
       'manyToMany',
       'plugin::users-permissions.user'
     >;
-    slug: UIDAttribute<'api::article.article', 'title'>;
+    slug: UIDAttribute<'api::article.article', 'title'> & RequiredAttribute;
+    tags: RelationAttribute<
+      'api::article.article',
+      'oneToMany',
+      'api::tag.tag'
+    >;
+    cover: MediaAttribute & RequiredAttribute;
     createdAt: DateTimeAttribute;
     updatedAt: DateTimeAttribute;
     publishedAt: DateTimeAttribute;
@@ -830,6 +836,8 @@ export interface ApiCalendarItemCalendarItem extends CollectionTypeSchema {
     end: DateAttribute & RequiredAttribute;
     name: StringAttribute & RequiredAttribute;
     schedule: JSONAttribute;
+    slug: UIDAttribute<'api::calendar-item.calendar-item', 'name'> &
+      RequiredAttribute;
     createdAt: DateTimeAttribute;
     updatedAt: DateTimeAttribute;
     publishedAt: DateTimeAttribute;
@@ -951,6 +959,31 @@ export interface ApiSponsorSponsor extends CollectionTypeSchema {
       'oneToOne',
       'admin::user'
     > &
+      PrivateAttribute;
+  };
+}
+
+export interface ApiTagTag extends CollectionTypeSchema {
+  info: {
+    singularName: 'tag';
+    pluralName: 'tags';
+    displayName: 'tag';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    label: StringAttribute & RequiredAttribute;
+    priority: EnumerationAttribute<['high', 'medium', 'low']> &
+      RequiredAttribute &
+      DefaultTo<'low'>;
+    slug: UIDAttribute<'api::tag.tag', 'label'> & RequiredAttribute;
+    createdAt: DateTimeAttribute;
+    updatedAt: DateTimeAttribute;
+    createdBy: RelationAttribute<'api::tag.tag', 'oneToOne', 'admin::user'> &
+      PrivateAttribute;
+    updatedBy: RelationAttribute<'api::tag.tag', 'oneToOne', 'admin::user'> &
       PrivateAttribute;
   };
 }
@@ -1127,6 +1160,7 @@ declare global {
       'api::homepage.homepage': ApiHomepageHomepage;
       'api::season.season': ApiSeasonSeason;
       'api::sponsor.sponsor': ApiSponsorSponsor;
+      'api::tag.tag': ApiTagTag;
       'api::track.track': ApiTrackTrack;
       'blocks.cta': BlocksCta;
       'blocks.hero': BlocksHero;

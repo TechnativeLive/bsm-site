@@ -1,5 +1,6 @@
 import './globals.css';
-import { Figtree, Audiowide, Saira } from 'next/font/google';
+
+import { Audiowide, Figtree, Saira } from 'next/font/google';
 import { Metadata } from 'next';
 
 // TODO: Optimise loaded font subsets etc.
@@ -15,7 +16,7 @@ const audiowide = Audiowide({
 const saira = Saira({ variable: '--font-numeric', subsets: ['latin'], display: 'swap' });
 
 export const metadata: Metadata = {
-  title: 'British Supermoto',
+  title: { default: 'British Supermoto', template: '%s | British Supermoto' },
   // TODO: Better description
   description: 'All things Supermoto - Event details, recaps, live scores and more',
 };
