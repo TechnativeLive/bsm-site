@@ -23,11 +23,8 @@ export const Standings = () => {
         <Tabs.Trigger value='drivers' className={tabTrigger}>
           Drivers
         </Tabs.Trigger>
-        <Tabs.Trigger value='teams' className={clsx(tabTrigger, 'border-x border-slate-300')}>
+        <Tabs.Trigger value='teams' className={clsx(tabTrigger, 'border-l border-slate-300')}>
           Teams
-        </Tabs.Trigger>
-        <Tabs.Trigger value='last-race' className={tabTrigger}>
-          Last Race
         </Tabs.Trigger>
       </Tabs.List>
       <div className='h-24' />

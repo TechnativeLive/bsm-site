@@ -2,12 +2,14 @@ import Image from 'next/image';
 import Link from 'next/link';
 import clsx from 'clsx';
 import { GetAttributesValues } from '@strapi/strapi';
+import { StrapiMedia } from '@/types/strapi';
 
 export const FeedSecondaryArticle = ({
   article,
 }: {
   article: GetAttributesValues<'api::article.article'>;
 }) => {
+  const cover = article.cover as StrapiMedia | undefined;
   return (
     article && (
       <Link href={`/latest/${article.slug ?? ''}`} className='group relative'>
@@ -20,12 +22,12 @@ export const FeedSecondaryArticle = ({
           >
             <Image
               src={
-                article.cover?.url ??
+                cover?.url ??
                 'https://res.cloudinary.com/prod-f2f3/ar_16:9,c_fill,dpr_1.0,f_auto,g_auto,h_450,w_800/v1/f2/global/articles/2023/05_May/GettyImages-1398074999'
               }
               alt='stolen'
-              width={800}
-              height={450}
+              width={cover?.width ?? 800}
+              height={cover?.height ?? 450}
             />
 
             <div className='flex flex-col space-y-1'>
@@ -45,3 +47,13 @@ export const FeedSecondaryArticle = ({
     )
   );
 };
+
+export const FeedSecondaryArticleSkeleton = () => (
+  <div className='relative grid grid-cols-[3fr,2fr] gap-4 overflow-hidden pr-2'>
+    <div className='aspect-[800/450] rounded-md bg-gradient-to-r from-slate-100 to-slate-300' />
+    <div className='flex flex-col space-y-1'>
+      <p className='inline-block h-[1em] w-12 rounded-full bg-gradient-to-r from-slate-100 to-slate-300 text-sm' />
+      <h2 className='h-[2em] rounded  bg-gradient-to-r from-slate-100 to-slate-300 text-xl md:text-base lg:text-xl' />
+    </div>
+  </div>
+);

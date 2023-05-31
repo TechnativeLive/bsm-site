@@ -2,6 +2,7 @@ import { CalendarCarousel } from '@/components/calendar/carousel/calendar-carous
 import { FeaturedHomeLinks } from '@/components/latest/featured/home-links';
 import { LatestFeed } from '@/components/latest/feed/feed';
 import { Standings } from '@/components/standings/standings';
+import { CallToAction } from '@/components/strapi/cta';
 import { container } from '@/components/tailwind';
 import { sampleEvents } from '@/components/upcoming-event/sample-data';
 import { UpcomingEvent } from '@/components/upcoming-event/upcoming-event';

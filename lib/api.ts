@@ -1,52 +1,91 @@
 import 'server-only';
 
-import fs from 'fs';
-import matter from 'gray-matter';
-import rehypeAutolinkHeadings from 'rehype-autolink-headings';
-import rehypeSlug from 'rehype-slug';
 import rehypeStringify from 'rehype-stringify';
 import remarkGfm from 'remark-gfm';
 import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
 import { GetAttributesValues } from '@strapi/strapi';
 import { cms } from '@/utils/cms';
-import { join } from 'path';
 import { unified } from 'unified';
+import QueryString from 'qs';
 
-// memoize/cache the creation of the markdown parser, this sped up the
-// building of the blog from ~60s->~10s
-let p: ReturnType<typeof getParserPre> | undefined;
+// memoize/cache the creation of the markdown parser
+let parser: ReturnType<typeof getParser> | undefined;
 
-async function getParserPre() {
+async function getParser() {
   return unified().use(remarkParse).use(remarkRehype).use(remarkGfm).use(rehypeStringify);
 }
 
-function getParser() {
-  if (!p) {
-    p = getParserPre().catch((e) => {
-      p = undefined;
+function getCachedParser() {
+  if (!parser) {
+    parser = getParser().catch((e) => {
+      parser = undefined;
       throw e;
     });
   }
-  return p;
+  return parser;
 }
 
 export async function getArticleBySlug(slug: string) {
-  const query = cms(`articles`, {
-    filter: { slug: { $eq: slug } },
-    populate: ['blocks', 'seo'],
+  const articlesQuery = cms(`articles`, {
+    filters: { slug: { $eq: slug } },
+    populate: { blocks: { populate: '*' }, seo: { populate: '*' } },
   });
+  console.log({ articlesQuery });
 
-  const article: Strapi.Response<GetAttributesValues<'api::article.article'>[]> = await fetch(
-    query
+  // Strapi allows findOne, but not by slug. This filter will only return 1 article as slugs are UIDs
+  // So take the first item and ignore any others.
+  const articles: Strapi.Response<GetAttributesValues<'api::article.article'>[]> = await fetch(
+    articlesQuery,
+    { next: { revalidate: Infinity } }
   ).then((res) => res.json());
 
-  return article.data[0];
+  const article = articles.data[0];
+  const transformedArticle = await transformArticleContent(article);
+
+  return transformedArticle;
 }
 
-export async function mdToHtml(raw: string) {
-  const parser = await getParser();
-  const html = await parser.process(raw);
+async function transformArticleContent(article: GetAttributesValues<'api::article.article'>) {
+  if (!article) return undefined;
+
+  // We use a reserved key 'content' to refer to rich text content across all content-types in Strapi
+
+  const blocksToParse =
+    article.blocks?.map((block) =>
+      'content' in block && !!block.content ? mdToHtml(block.content) : undefined
+    ) ?? [];
+
+  // Parse the markdown on article retrieval
+  const parsedBlocks = await Promise.all(blocksToParse).catch((e) => {
+    throw new Error("Couldn't parse all content blocks", e);
+  });
+
+  console.log(JSON.stringify(parsedBlocks));
+
+  // replace the raw content found in all blocks with the resulting html string
+  article.blocks = article.blocks?.map((block, index) =>
+    'content' in block ? { ...block, content: (parsedBlocks[index]?.value as string) ?? '' } : block
+  );
+
+  return article;
+}
+
+async function mdToHtml(raw: string) {
+  const cachedParser = await getCachedParser();
+  const html = await cachedParser.process(raw);
 
   return html;
+}
+
+export async function getArticlesPreview(query?: Record<string, unknown>) {
+  const articlesQuery = cms(`articles`, query);
+  console.log({ articlesQuery });
+
+  const articles: Strapi.Response<GetAttributesValues<'api::article.article'>[]> = await fetch(
+    articlesQuery,
+    { next: { revalidate: Infinity } }
+  ).then((res) => res.json());
+
+  return articles;
 }

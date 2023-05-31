@@ -16,7 +16,7 @@ async function getCalendar() {
   console.log({ query });
 
   try {
-    const res = await fetch(query, { next: { revalidate: 0 } });
+    const res = await fetch(query, { next: { revalidate: Infinity } });
 
     if (!res.ok) {
       // This will activate the closest `error.js` Error Boundary
@@ -26,13 +26,7 @@ async function getCalendar() {
     const json = (await res.json()) as Strapi.Response<
       GetAttributesValues<'api::calendar.calendar'>
     >;
-    console.log({ json });
     const currentCalendar = json.data.current;
-    console.log({ currentCalendar });
-
-    // const rounds = currentCalendar?.map((item) => ({
-    //   ...item,
-    // }));
 
     return currentCalendar;
   } catch (e) {

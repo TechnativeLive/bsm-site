@@ -7,13 +7,14 @@ import { container, tag as tagNeutral, tagPrimary } from '@/components/tailwind'
 
 export default async function Page() {
   const tagsQuery = cms('tags');
-  const tags: Strapi.Response<GetAttributesValues<'api::tag.tag'>[]> = await fetch(tagsQuery).then(
-    (res) => res.json()
-  );
+  const tags: Strapi.Response<GetAttributesValues<'api::tag.tag'>[]> = await fetch(tagsQuery, {
+    next: { revalidate: Infinity },
+  }).then((res) => res.json());
 
   const articlesQuery = cms('articles', { populate: '*' });
   const articles: Strapi.Response<GetAttributesValues<'api::article.article'>[]> = await fetch(
-    articlesQuery
+    articlesQuery,
+    { next: { revalidate: Infinity } }
   ).then((res) => res.json());
 
   return (
@@ -41,7 +42,7 @@ export default async function Page() {
       </div>
       <div className='my-6 grid grid-cols-3 gap-4'>
         {articles.data.map((article) => (
-          <FeedSecondaryArticle article={article} />
+          <FeedSecondaryArticle key={article.slug} article={article} />
         ))}
       </div>
     </section>
