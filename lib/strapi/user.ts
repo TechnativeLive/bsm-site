@@ -8,10 +8,9 @@ export async function getUser(username: string) {
   });
   console.log({ userQuery });
 
-  const user: Strapi.Response<GetAttributesValues<'plugin::users-permissions.user'>[]>['data'] =
-    await fetch(userQuery, {
-      next: { revalidate: Infinity },
-    }).then((res) => res.json());
+  const user: GetAttributesValues<'plugin::users-permissions.user'>[] = await fetch(userQuery, {
+    next: { revalidate: Infinity },
+  }).then((res) => res.json());
 
   return user?.[0];
 }

@@ -26,10 +26,11 @@ async function getArticlesByAuthor(username: string) {
 }
 
 export async function generateStaticParams() {
-  const users: Strapi.Response<GetAttributesValues<'plugin::users-permissions.user'>[]> =
-    await fetch(cms('users', { fields: ['username'] })).then((res) => res.json());
+  const users: GetAttributesValues<'plugin::users-permissions.user'>[] = await fetch(
+    cms('users', { fields: ['username'] })
+  ).then((res) => res.json());
 
-  return users.data.map((user) => ({
+  return users.map((user) => ({
     username: user.username,
   }));
 }
