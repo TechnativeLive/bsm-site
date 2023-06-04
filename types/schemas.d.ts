@@ -17,11 +17,11 @@ import {
   IntegerAttribute,
   DecimalAttribute,
   SetMinMax,
+  MediaAttribute,
   TextAttribute,
   DynamicZoneAttribute,
   ComponentAttribute,
   UIDAttribute,
-  MediaAttribute,
   SingleTypeSchema,
   DateAttribute,
   ComponentSchema,
@@ -642,7 +642,6 @@ export interface PluginUsersPermissionsUser extends CollectionTypeSchema {
   };
   options: {
     draftAndPublish: false;
-    timestamps: true;
   };
   attributes: {
     username: StringAttribute &
@@ -676,6 +675,10 @@ export interface PluginUsersPermissionsUser extends CollectionTypeSchema {
       'manyToMany',
       'api::article.article'
     >;
+    avatar: MediaAttribute;
+    jobTitle: StringAttribute;
+    firstname: StringAttribute & RequiredAttribute;
+    lastname: StringAttribute & RequiredAttribute;
     createdAt: DateTimeAttribute;
     updatedAt: DateTimeAttribute;
     createdBy: RelationAttribute<
@@ -755,10 +758,12 @@ export interface ApiArticleArticle extends CollectionTypeSchema {
     slug: UIDAttribute<'api::article.article', 'title'> & RequiredAttribute;
     tags: RelationAttribute<
       'api::article.article',
-      'oneToMany',
+      'manyToMany',
       'api::tag.tag'
     >;
     cover: MediaAttribute & RequiredAttribute;
+    hero: ComponentAttribute<'blocks.hero'> & RequiredAttribute;
+    description: TextAttribute;
     createdAt: DateTimeAttribute;
     updatedAt: DateTimeAttribute;
     publishedAt: DateTimeAttribute;
@@ -898,6 +903,7 @@ export interface ApiSeasonSeason extends SingleTypeSchema {
     singularName: 'season';
     pluralName: 'seasons';
     displayName: 'season';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -905,7 +911,11 @@ export interface ApiSeasonSeason extends SingleTypeSchema {
   attributes: {
     name: StringAttribute & RequiredAttribute;
     slug: UIDAttribute<'api::season.season', 'name'>;
-    standings: JSONAttribute;
+    category: ComponentAttribute<'scores.standings-table', true> &
+      RequiredAttribute &
+      SetMinMax<{
+        min: 1;
+      }>;
     createdAt: DateTimeAttribute;
     updatedAt: DateTimeAttribute;
     publishedAt: DateTimeAttribute;
@@ -979,11 +989,41 @@ export interface ApiTagTag extends CollectionTypeSchema {
       RequiredAttribute &
       DefaultTo<'low'>;
     slug: UIDAttribute<'api::tag.tag', 'label'> & RequiredAttribute;
+    articles: RelationAttribute<
+      'api::tag.tag',
+      'manyToMany',
+      'api::article.article'
+    >;
     createdAt: DateTimeAttribute;
     updatedAt: DateTimeAttribute;
     createdBy: RelationAttribute<'api::tag.tag', 'oneToOne', 'admin::user'> &
       PrivateAttribute;
     updatedBy: RelationAttribute<'api::tag.tag', 'oneToOne', 'admin::user'> &
+      PrivateAttribute;
+  };
+}
+
+export interface ApiTestTest extends CollectionTypeSchema {
+  info: {
+    singularName: 'test';
+    pluralName: 'tests';
+    displayName: 'TEST';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    multipleMediaImage: MediaAttribute;
+    mediaImage: MediaAttribute;
+    mm: MediaAttribute;
+    m: MediaAttribute;
+    createdAt: DateTimeAttribute;
+    updatedAt: DateTimeAttribute;
+    publishedAt: DateTimeAttribute;
+    createdBy: RelationAttribute<'api::test.test', 'oneToOne', 'admin::user'> &
+      PrivateAttribute;
+    updatedBy: RelationAttribute<'api::test.test', 'oneToOne', 'admin::user'> &
       PrivateAttribute;
   };
 }
@@ -1023,24 +1063,24 @@ export interface ApiTrackTrack extends CollectionTypeSchema {
 export interface BlocksCta extends ComponentSchema {
   info: {
     displayName: 'cta';
+    description: 'Call to Action';
   };
   attributes: {
     heading: StringAttribute;
-    label: StringAttribute;
     link: ComponentAttribute<'shared.link'>;
-    theme: EnumerationAttribute<['primary', 'secondary', 'neutral']>;
   };
 }
 
 export interface BlocksHero extends ComponentSchema {
   info: {
     displayName: 'hero';
-    description: '';
+    description: 'Banner section';
   };
   attributes: {
     images: MediaAttribute;
     header: ComponentAttribute<'shared.header'>;
     buttons: ComponentAttribute<'shared.button', true>;
+    fullWidth: BooleanAttribute & DefaultTo<false>;
   };
 }
 
@@ -1063,6 +1103,31 @@ export interface ImageLogo extends ComponentSchema {
       RequiredAttribute &
       DefaultTo<'base'>;
     image: MediaAttribute & RequiredAttribute;
+  };
+}
+
+export interface ScoresPodium extends ComponentSchema {
+  info: {
+    displayName: 'podium';
+  };
+  attributes: {
+    image: MediaAttribute;
+  };
+}
+
+export interface ScoresStandingsTable extends ComponentSchema {
+  info: {
+    displayName: 'standingsTable';
+    description: '';
+  };
+  attributes: {
+    name: StringAttribute & RequiredAttribute;
+    description: TextAttribute;
+    standings: JSONAttribute;
+    slug: StringAttribute & RequiredAttribute;
+    podiumFirst: ComponentAttribute<'scores.podium'>;
+    podiumSecond: ComponentAttribute<'scores.podium', true>;
+    podiumThird: ComponentAttribute<'scores.podium'>;
   };
 }
 
@@ -1103,9 +1168,10 @@ export interface SharedButton extends ComponentSchema {
 export interface SharedHeader extends ComponentSchema {
   info: {
     displayName: 'header';
+    description: '';
   };
   attributes: {
-    title: StringAttribute & RequiredAttribute;
+    title: StringAttribute;
     description: StringAttribute;
   };
 }
@@ -1161,11 +1227,14 @@ declare global {
       'api::season.season': ApiSeasonSeason;
       'api::sponsor.sponsor': ApiSponsorSponsor;
       'api::tag.tag': ApiTagTag;
+      'api::test.test': ApiTestTest;
       'api::track.track': ApiTrackTrack;
       'blocks.cta': BlocksCta;
       'blocks.hero': BlocksHero;
       'blocks.rich-text': BlocksRichText;
       'image.logo': ImageLogo;
+      'scores.podium': ScoresPodium;
+      'scores.standings-table': ScoresStandingsTable;
       'seo.meta': SeoMeta;
       'seo.seo': SeoSeo;
       'shared.button': SharedButton;

@@ -20,15 +20,18 @@ export const FeedSecondaryArticle = ({
               'after:absolute after:right-0 after:top-0 after:h-full after:w-1 after:translate-y-[calc(-100%-1px)] after:bg-primary-500 after:transition-transform after:duration-300 after:ease-slide after:group-hover:translate-y-0'
             )}
           >
-            <Image
-              src={
-                cover?.url ??
-                'https://res.cloudinary.com/prod-f2f3/ar_16:9,c_fill,dpr_1.0,f_auto,g_auto,h_450,w_800/v1/f2/global/articles/2023/05_May/GettyImages-1398074999'
-              }
-              alt='stolen'
-              width={cover?.width ?? 800}
-              height={cover?.height ?? 450}
-            />
+            <div className='relative overflow-hidden'>
+              <Image
+                src={
+                  cover?.url ??
+                  'https://res.cloudinary.com/prod-f2f3/ar_16:9,c_fill,dpr_1.0,f_auto,g_auto,h_450,w_800/v1/f2/global/articles/2023/05_May/GettyImages-1398074999'
+                }
+                alt={cover?.alternativeText ?? 'Preview image'}
+                width={cover?.width ?? 800}
+                height={cover?.height ?? 450}
+                className='transition-transform duration-300 ease-in-out group-hover:scale-105'
+              />
+            </div>
 
             <div className='flex flex-col space-y-1'>
               {article.tags?.map((tag, i) => (

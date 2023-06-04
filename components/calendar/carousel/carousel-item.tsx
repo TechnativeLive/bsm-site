@@ -1,9 +1,9 @@
 'use client';
 import { EventStatus } from '@/app/(home)/page';
-import { CalendarItem } from '@/components/calendar/carousel/calendar-carousel';
+import { GetAttributesValues } from '@strapi/strapi';
 import clsx from 'clsx';
 import Image from 'next/image';
-import { FocusEventHandler, MouseEventHandler, useEffect, useRef } from 'react';
+import { FocusEventHandler, Fragment, MouseEventHandler, useEffect, useRef } from 'react';
 
 const handleClick: MouseEventHandler<HTMLButtonElement> = (ev) => {
   ev.stopPropagation();
@@ -30,7 +30,7 @@ export const CalendarCarouselItem = ({
   item,
   status,
 }: {
-  item: CalendarItem;
+  item: GetAttributesValues<'api::calendar-item.calendar-item'>;
   status: EventStatus;
 }) => {
   const el = useRef<HTMLButtonElement>(null);
@@ -42,6 +42,23 @@ export const CalendarCarouselItem = ({
   }, [status]);
 
   if (!item || !item.track?.name) return null;
+
+  // const schedule: { day: string, label: string; time: string }[] = Array.isArray(item.schedule)
+  //   ? item.schedule
+  //   : [];
+
+  const schedule = [
+    { day: 'Sat', label: 'Gates open', time: '07:30' },
+    { day: 'Sat', label: 'Free Practice 1', time: '09:00' },
+    { day: 'Sat', label: 'Qualifying 1', time: '10:00' },
+    { day: 'Sat', label: 'Free Practice 2', time: '10:30' },
+    { day: 'Sat', label: 'Qualifying 2', time: '11:30' },
+    {},
+    { day: 'Sun', label: 'Gates open', time: '07:30' },
+    { day: 'Sun', label: 'Warm up', time: '09:00' },
+    { day: 'Sun', label: 'Race 1', time: '10:30' },
+    { day: 'Sun', label: 'Race 2', time: '12:30' },
+  ];
 
   return (
     <button
@@ -66,7 +83,12 @@ export const CalendarCarouselItem = ({
     >
       <div className='z-20 flex flex-col items-center gap-2'>
         <div className={'relative h-24 w-32 text-white'}>
-          <Image src={item.track?.layout.url} alt={item.track.name} fill />
+          <Image
+            src={item.track?.layout.url}
+            alt={item.track.name}
+            fill
+            className='select-none object-contain'
+          />
         </div>
         <h3 className='uppercase'>{item.track.name}</h3>
         <h4>{item.name}</h4>
@@ -77,9 +99,33 @@ export const CalendarCarouselItem = ({
           {new Date(item.end).toLocaleDateString(undefined, { dateStyle: 'medium' })}
         </h4>
       </div>
-      <div className={clsx('z-20 h-full w-0 transition-all ease-slide group-focus:w-36')}>
-        {status !== 'inactive' && <p className='min-w-[9rem] pl-6 uppercase underline'>{status}</p>}
-        <p className='min-w-[9rem] pl-6'>Schedule info</p>
+      <div
+        className={clsx(
+          'z-20 h-full w-0 text-xs uppercase transition-all ease-slide group-focus:w-60'
+        )}
+      >
+        <div className='h-full translate-x-24 transition-transform duration-300 ease-slide group-focus:translate-x-0'>
+          {/* {status !== 'inactive' && (
+            <p className='min-w-[9rem] pl-6 text-sm font-normal uppercase tracking-widest'>
+              {status}
+            </p>
+          )} */}
+          <p className='grid h-full min-w-[9rem] grid-cols-[auto,1fr,auto] content-center justify-items-start gap-x-2 pl-6'>
+            {schedule.map((scheduleItem, i) =>
+              scheduleItem.day ? (
+                <Fragment key={i}>
+                  <div className='font-mono'>{scheduleItem.day}</div>
+                  <div className='whitespace-nowrap font-semibold'>{scheduleItem.label}</div>
+                  <div className='font-mono font-semibold'>{scheduleItem.time}</div>
+                </Fragment>
+              ) : (
+                <div className='col-span-3' key={i}>
+                  &emsp;
+                </div>
+              )
+            )}
+          </p>
+        </div>
       </div>
     </button>
   );

@@ -1,6 +1,17 @@
 import { IStringifyOptions, stringify } from 'qs';
 
-export function cms(path: string, query?: Record<string, unknown>, queryOpts?: IStringifyOptions) {
+type QueryKeys =
+  | 'sort'
+  | 'filters'
+  | 'populate'
+  | 'fields'
+  | 'pagination'
+  | 'publicationState'
+  | 'locale';
+
+export type StrapiQuery = Partial<Record<QueryKeys, unknown>>; // & Record<string, unknown>;
+
+export function cms(path: string, query?: StrapiQuery, queryOpts?: IStringifyOptions) {
   const base = process.env.STRAPI_URL;
 
   if (!query) {

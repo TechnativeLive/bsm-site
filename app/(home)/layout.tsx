@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { BannerSeparator, HomeLogo } from '@/components/logos/main';
-import { Footer } from '@/components/footer';
+import { Footer } from '@/components/footer/footer';
 import { MainNavLink } from '@/components/main-nav-link';
 import { containerRow } from '@/components/tailwind';
 
@@ -23,7 +23,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <MainNavLink href='/latest'>Latest</MainNavLink> {/* Article feed */}
             {/* <MainNavLink href="/teams">Teams & Drivers</MainNavLink> */}
             <MainNavLink href='/results'>Results</MainNavLink>
-            <MainNavLink href='/calendar'>Calendar</MainNavLink>
+            {/* <MainNavLink href='/calendar'>Calendar</MainNavLink> */}
             <MainNavLink href='https://speedhive.mylaps.com/Organizations/19155' target='_blank'>
               Live Timing
             </MainNavLink>

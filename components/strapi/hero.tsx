@@ -5,14 +5,21 @@ import Image from 'next/image';
 type HeroProps = GetAttributesValues<'blocks.hero'>;
 
 export function Hero(props: HeroProps) {
-  const cover = props.images[0] as StrapiMedia | undefined;
-  const sizeProps =
-    cover?.height && cover.width ? { height: cover.height, width: cover.width } : { fill: true };
+  const cover = props.images?.[0] as StrapiMedia | undefined;
 
   return (
     <div className='mb-8 last:mb-0'>
-      {cover && <Image src={cover.url} alt={props.images[0]} {...sizeProps} />}
-      <pre className='not-prose'>{JSON.stringify(props)}</pre>
+      {cover && (
+        <div className='relative aspect-video max-h-[550px] w-full'>
+          <Image
+            className='mx-auto'
+            src={cover.url}
+            alt={cover.alternativeText ?? cover.caption ?? 'Banner image'}
+            fill
+          />
+        </div>
+      )}
+      {cover?.caption && <caption>{cover.caption}</caption>}
     </div>
   );
 }

@@ -5,7 +5,7 @@ import remarkGfm from 'remark-gfm';
 import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
 import { GetAttributesValues } from '@strapi/strapi';
-import { cms } from '@/utils/cms';
+import { StrapiQuery, cms } from '@/utils/cms';
 import { unified } from 'unified';
 import QueryString from 'qs';
 
@@ -29,7 +29,14 @@ function getCachedParser() {
 export async function getArticleBySlug(slug: string) {
   const articlesQuery = cms(`articles`, {
     filters: { slug: { $eq: slug } },
-    populate: { blocks: { populate: '*' }, seo: { populate: '*' } },
+    populate: {
+      hero: { populate: '*' },
+      blocks: { populate: '*' },
+      seo: { populate: '*' },
+      cover: { populate: '*' },
+      tags: { populate: '*' },
+      authors: { populate: ['username', 'jobTitle', 'avatar'] },
+    },
   });
   console.log({ articlesQuery });
 
@@ -61,8 +68,6 @@ async function transformArticleContent(article: GetAttributesValues<'api::articl
     throw new Error("Couldn't parse all content blocks", e);
   });
 
-  console.log(JSON.stringify(parsedBlocks));
-
   // replace the raw content found in all blocks with the resulting html string
   article.blocks = article.blocks?.map((block, index) =>
     'content' in block ? { ...block, content: (parsedBlocks[index]?.value as string) ?? '' } : block
@@ -78,7 +83,7 @@ async function mdToHtml(raw: string) {
   return html;
 }
 
-export async function getArticlesPreview(query?: Record<string, unknown>) {
+export async function getArticlesPreview(query?: StrapiQuery) {
   const articlesQuery = cms(`articles`, query);
   console.log({ articlesQuery });
 

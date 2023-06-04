@@ -21,11 +21,15 @@ const EventClock = ({ startTimeInMs }: { startTimeInMs: number }) => {
   );
 
   return (
-    <div className='animate-appear '>
+    <div className='flex w-full shrink-0 animate-appear items-center md:w-auto'>
       {secondsRemaining <= 0 ? (
         <div className='flex items-center gap-4'>
           <div className='h-4 w-4 rounded-full bg-red-500' />
-          <Link href='https://www.youtube.com/c/technativelive' className='font-display text-2xl'>
+          <Link
+            href='https://www.youtube.com/c/technativelive'
+            target='_blank'
+            className='font-display text-2xl'
+          >
             LIVE NOW
           </Link>
         </div>
@@ -45,7 +49,7 @@ export const Countdown = ({ secondsRemaining }: { secondsRemaining: number }) =>
   const daysRemaining = (hoursRemaining - hoursToDisplay) / 24;
 
   return (
-    <div className='grid grid-cols-4 justify-stretch gap-1 overflow-hidden rounded-md'>
+    <div className='grid w-full grid-cols-4 justify-stretch gap-1 overflow-hidden rounded-md font-light md:w-auto'>
       <CountdownGridItem>DAYS</CountdownGridItem>
       <CountdownGridItem>HOURS</CountdownGridItem>
       <CountdownGridItem>MINS</CountdownGridItem>

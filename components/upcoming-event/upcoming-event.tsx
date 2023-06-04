@@ -1,6 +1,7 @@
 import { EventStatus } from '@/app/(home)/page';
 import { containerRow } from '@/components/tailwind';
 import { ordinalSuffix } from '@/utils/ordinal-suffix';
+import { GetAttributesValues } from '@strapi/strapi';
 import clsx from 'clsx';
 import dynamic from 'next/dynamic';
 
@@ -8,40 +9,42 @@ const EventClock = dynamic(() => import('./event-clock'), { ssr: false });
 
 const fmtMonth = new Intl.DateTimeFormat('en-GB', { month: 'short' });
 
-type Event = {
-  name: string; // round 4
-  location: string; // teesside
-  startDate: string; // Date string
-  endDate: string; // Date string
-};
-
 export const UpcomingEvent = ({
-  allEvents,
+  calendar,
   eventStatus,
 }: {
-  allEvents: Event[];
+  calendar: GetAttributesValues<'api::calendar-item.calendar-item'>[];
   eventStatus: { index?: number; status: EventStatus };
 }) => {
   if (!eventStatus.index) {
     return null;
   }
 
-  return <EventCountdown event={allEvents[eventStatus.index!]} />;
+  return <EventCountdown event={calendar[eventStatus.index!]} />;
 };
 
-const EventCountdown = ({ event }: { event: Event }) => {
-  const startDate = new Date(event.startDate);
-  const endDate = new Date(event.endDate);
+const EventCountdown = ({
+  event,
+}: {
+  event: GetAttributesValues<'api::calendar-item.calendar-item'>;
+}) => {
+  const startDate = new Date(event.start);
+  const endDate = new Date(event.end);
 
   const startMonth = fmtMonth.format(startDate);
   const endMonth = fmtMonth.format(endDate);
 
   return (
     <div className='w-full border-b border-slate-300 bg-slate-100 font-semibold'>
-      <div className={clsx(containerRow, 'py-4')}>
+      <div
+        className={clsx(
+          containerRow,
+          'min-h-[10rem] flex-wrap gap-1 py-4 md:min-h-[6rem] md:flex-nowrap'
+        )}
+      >
         <div className='flex grow flex-col'>
           <div className='flex items-center gap-4'>
-            <div className='rounded bg-gradient-to-b from-slate-800 to-slate-600 px-2 py-1 font-normal text-white'>
+            <div className='rounded bg-gradient-to-b from-slate-800 to-slate-600 px-3 py-1 font-normal text-white'>
               <DateString
                 startDate={startDate.getDate()}
                 startMonth={startMonth}
@@ -51,8 +54,8 @@ const EventCountdown = ({ event }: { event: Event }) => {
               />
             </div>
           </div>
-          <div className='flex h-full items-center font-display text-2xl'>
-            {event.location.toLocaleUpperCase()} {'//'} {event.name.toLocaleUpperCase()}
+          <div className='flex h-full font-display text-2xl md:pr-6'>
+            {event.track?.name.toLocaleUpperCase()} {'//'} {event.name.toLocaleUpperCase()}
           </div>
         </div>
         <EventClock startTimeInMs={startDate.getTime()} />

@@ -17,6 +17,10 @@ declare global {
 
 export type StrapiMedia = Image | SingleImage | SharedMedia;
 
+export function hasFormats(media: StrapiMedia): media is SingleImage {
+  return !!media.formats && Object.keys(media.formats).length > 0;
+}
+
 type Image = Omit<SharedMedia, 'width' | 'height' | 'formats'> & {
   width: number;
   height: number;

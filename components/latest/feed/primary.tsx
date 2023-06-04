@@ -11,7 +11,10 @@ export const FeedPrimaryArticle = ({
 }) => {
   const cover = article.cover as StrapiMedia | undefined;
   return (
-    <Link href={`/latest/${article.slug ?? ''}`} className='group relative'>
+    <Link
+      href={`/latest/${article.slug ?? ''}`}
+      className='group relative -m-2 mb-2 inline-block p-2'
+    >
       <div
         className={clsx(
           'relative z-0',
@@ -19,7 +22,7 @@ export const FeedPrimaryArticle = ({
           'after:translate-x-2 after:translate-y-2',
           'after:group-hover:translate-x-0 after:group-hover:translate-y-1',
           'after:border-b-4  after:border-primary-500 after:will-change-transform',
-          'after:bg-[url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAABMSURBVHgB7c/LCQAwDALQ7D+dhOzTblAs5ANBz+JDMyIATnqvZJSN8O6ecOGtvTociMlHwlfg/oM7ORqpPeHLcH7UJx8JH8EhXPgTv6gINZx/6mnuAAAAAElFTkSuQmCC")]'
+          'after:bg-pattern'
         )}
       >
         {cover?.alternativeText && (
@@ -47,7 +50,7 @@ export const FeedPrimaryArticle = ({
           </p>
         ))}
       </div>
-      <h1 className='pb-4 pt-2.5 text-3xl font-bold uppercase'>{article.title}</h1>
+      <h1 className='pt-2.5 text-3xl font-bold uppercase'>{article.title}</h1>
     </Link>
   );
 };

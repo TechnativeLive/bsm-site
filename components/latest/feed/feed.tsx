@@ -3,8 +3,9 @@ import {
   FeedSecondaryArticle,
   FeedSecondaryArticleSkeleton,
 } from '@/components/latest/feed/secondary';
+import { CallToAction } from '@/components/strapi/cta';
 import { container } from '@/components/tailwind';
-import { getArticlesPreview } from '@/lib/api';
+import { getArticlesPreview } from '@/lib/strapi';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { Suspense } from 'react';
@@ -15,18 +16,7 @@ export const LatestFeed = () => (
       {/* @ts-expect-error async component */}
       <NewsFeed />
     </Suspense>
-    <Link
-      href='/latest'
-      className={clsx(
-        'group relative mt-4 flex items-center self-start bg-primary-500 py-1 pl-4 pr-3 text-sm font-extrabold uppercase text-white transition-colors duration-300 ease-slide hover:bg-primary hover:text-secondary',
-        'after:absolute after:left-full after:-z-10 after:h-full after:w-5 after:-translate-x-full after:bg-primary-500 after:transition-all after:duration-300 after:ease-slide hover:after:translate-x-0 hover:after:bg-primary'
-      )}
-    >
-      <span className='mr-4 self-end'>see latest news</span>
-      <span className='i-ic-twotone-keyboard-arrow-right -mx-1 inline-block transition-transform duration-700 ease-slide group-hover:translate-x-1' />{' '}
-      <span className='i-ic-twotone-keyboard-arrow-right -mx-1 inline-block transition-transform duration-500 ease-slide group-hover:translate-x-3' />{' '}
-      <span className='i-ic-twotone-keyboard-arrow-right -mx-1 inline-block transition-transform duration-300 ease-slide group-hover:translate-x-5' />{' '}
-    </Link>
+    <CallToAction link={{ url: '/latest', label: 'See Latest News', theme: 'primary' }} />
   </div>
 );
 

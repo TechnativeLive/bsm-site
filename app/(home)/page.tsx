@@ -1,50 +1,54 @@
 import { CalendarCarousel } from '@/components/calendar/carousel/calendar-carousel';
-import { FeaturedHomeLinks } from '@/components/latest/featured/home-links';
+import {
+  FeatureHomeLinks,
+  FeatureHomeLinksSkeleton,
+} from '@/components/latest/featured/home-links';
 import { LatestFeed } from '@/components/latest/feed/feed';
-import { Standings } from '@/components/standings/standings';
-import { CallToAction } from '@/components/strapi/cta';
+import { StandingsData } from '@/components/standings/standings-data';
 import { container } from '@/components/tailwind';
-import { sampleEvents } from '@/components/upcoming-event/sample-data';
 import { UpcomingEvent } from '@/components/upcoming-event/upcoming-event';
+import { getCalendar } from '@/lib/strapi/homepage';
 import clsx from 'clsx';
-import { Suspense, useMemo } from 'react';
+import { Suspense } from 'react';
 
 export type EventStatus = 'inactive' | 'active' | 'upcoming';
 
 // TODO: Refactor logic / props and move elsewhere - and only use Date.now() in client components
 // eventStatus is used in the event countdown banner
 // and in the calendar carousel to set scrollLeft on page load
-export default function Home() {
-  const eventStatus = useMemo(() => {
-    const now = new Date();
-    const futureEventIndex = sampleEvents.findIndex((event) => new Date(event.startDate) > now);
+export default async function Home() {
+  const calendar = await getCalendar();
 
-    let index: number | undefined = undefined;
-    let status: EventStatus = 'active';
+  const now = new Date();
+  const futureEventIndex = calendar?.findIndex((event) => new Date(event.start) > now) ?? -1;
 
-    if (futureEventIndex === 0) {
-      index = 0;
+  let index: number | undefined = undefined;
+  let status: EventStatus = 'active';
+
+  if (futureEventIndex === 0) {
+    index = 0;
+    status = 'active';
+  } else if (futureEventIndex > 0) {
+    const maybeCurrentEvent = calendar?.[futureEventIndex - 1];
+    if (maybeCurrentEvent && new Date(maybeCurrentEvent.end) > now) {
       status = 'active';
-    } else if (futureEventIndex > 0) {
-      const maybeCurrentEvent = sampleEvents[futureEventIndex - 1];
-      if (new Date(maybeCurrentEvent.endDate) > now) {
-        status = 'active';
-        index = futureEventIndex - 1;
-      } else {
-        status = 'upcoming';
-        index = futureEventIndex;
-      }
+      index = futureEventIndex - 1;
+    } else {
+      status = 'upcoming';
+      index = futureEventIndex;
     }
-    return { index, status };
-  }, []);
+  }
+  const eventStatus = { index, status };
 
   return (
     <>
-      <article>
-        <UpcomingEvent allEvents={sampleEvents} eventStatus={eventStatus} />
-      </article>
+      {calendar && (
+        <article>
+          <UpcomingEvent calendar={calendar} eventStatus={eventStatus} />
+        </article>
+      )}
 
-      <section className='my-6 w-full'>
+      <section className='w-full md:my-6'>
         <LatestFeed />
       </section>
 
@@ -56,11 +60,17 @@ export default function Home() {
       </section>
 
       <section className='my-6 w-full bg-slate-100 pb-6'>
-        <Standings />
+        <Suspense>
+          {/* @ts-expect-error Async Server Component */}
+          <StandingsData />
+        </Suspense>
       </section>
 
-      <section className={clsx(container, 'my-8 w-full')}>
-        <FeaturedHomeLinks />
+      <section className={clsx(container, 'mb-6 w-full')}>
+        <Suspense fallback={<FeatureHomeLinksSkeleton />}>
+          {/* @ts-expect-error Async Server Component */}
+          <FeatureHomeLinks />
+        </Suspense>
       </section>
     </>
   );
