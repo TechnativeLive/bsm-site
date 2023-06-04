@@ -1,20 +1,47 @@
 import { Config } from 'tailwindcss';
+import plugin from 'tailwindcss/plugin';
 import scrollbar from 'tailwind-scrollbar';
 import radix from 'tailwindcss-radix';
-import { Icons, type Options } from 'tailwindcss-plugin-icons';
+import { Icons, SCALE, type Options } from 'tailwindcss-plugin-icons';
 import typography from '@tailwindcss/typography';
+import path from 'path';
+
+const flattenColorPalette: any = (colors: any) =>
+  Object.assign(
+    {},
+    ...Object.entries(colors ?? {}).flatMap(([color, values]) =>
+      typeof values == 'object'
+        ? Object.entries(flattenColorPalette(values)).map(([number, hex]) => ({
+            [color + (number === 'DEFAULT' ? '' : `-${number}`)]: hex,
+          }))
+        : [{ [`${color}`]: values }]
+    )
+  );
 
 const icons: Options = ({ theme }) => ({
+  local: {
+    icons: {
+      meta: {},
+    },
+    location: path.resolve(__dirname, './components/icons.json'),
+    scale: 2.5,
+  },
   ic: {
     icons: {
+      'baseline-keyboard-arrow-down': {},
       'twotone-keyboard-arrow-right': {},
       'baseline-facebook': {},
+      'baseline-tiktok': {
+        [SCALE]: 2.5,
+      },
     },
     scale: 1.5,
   },
   basil: {
     icons: {
       'instagram-outline': {},
+      'facebook-outline': {},
+      'twitter-outline': {},
     },
     scale: 2.5,
   },
@@ -26,7 +53,102 @@ export default {
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
-  plugins: [scrollbar, radix, typography, Icons(icons)],
+  plugins: [
+    scrollbar,
+    radix,
+    typography,
+    Icons(icons),
+    plugin(function ({ addUtilities, matchUtilities, addBase, theme }) {
+      addBase({
+        ':root': {
+          '--tw-corner-size': '8px',
+          '--tw-corner-color': 'white',
+        },
+      });
+
+      addUtilities({
+        '.corner-none': {
+          '--tw-corner-size': '0',
+          '--tw-corner-color': 'transparent',
+        },
+      });
+
+      matchUtilities(
+        {
+          corner: (value) => ({
+            '--tw-corner-size': value,
+            position: 'absolute',
+            width: '0',
+            height: '0',
+            bottom: '0',
+            right: '0',
+            'border-bottom': 'var(--tw-corner-size) solid var(--tw-corner-color)',
+            'border-left': 'var(--tw-corner-size) solid transparent',
+          }),
+
+          'corner-tl': (value) => ({
+            '--tw-corner-size': value,
+            position: 'absolute',
+            width: '0',
+            height: '0',
+            top: '0',
+            left: '0',
+            'border-top': 'var(--tw-corner-size) solid var(--tw-corner-color)',
+            'border-right': 'var(--tw-corner-size) solid transparent',
+          }),
+
+          'corner-tr': (value) => ({
+            '--tw-corner-size': value,
+            position: 'absolute',
+            width: '0',
+            height: '0',
+            top: '0',
+            right: '0',
+            'border-top': 'var(--tw-corner-size) solid var(--tw-corner-color)',
+            'border-left': 'var(--tw-corner-size) solid transparent',
+          }),
+
+          'corner-br': (value) => ({
+            '--tw-corner-size': value,
+            position: 'absolute',
+            width: '0',
+            height: '0',
+            bottom: '0',
+            right: '0',
+            'border-bottom': 'var(--tw-corner-size) solid var(--tw-corner-color)',
+            'border-left': 'var(--tw-corner-size) solid transparent',
+          }),
+
+          'corner-bl': (value) => ({
+            '--tw-corner-size': value,
+            position: 'absolute',
+            width: '0',
+            height: '0',
+            bottom: '0',
+            left: '0',
+            'border-bottom': 'var(--tw-corner-size) solid var(--tw-corner-color)',
+            'border-right': 'var(--tw-corner-size) solid transparent',
+          }),
+        },
+        {
+          values: { ...theme('spacing') },
+          type: ['length'],
+        }
+      );
+
+      matchUtilities(
+        {
+          corner: (value) => ({
+            '--tw-corner-color': value,
+          }),
+        },
+        {
+          values: flattenColorPalette(theme('colors')),
+          type: ['color'],
+        }
+      );
+    }),
+  ],
   theme: {
     extend: {
       animation: {
