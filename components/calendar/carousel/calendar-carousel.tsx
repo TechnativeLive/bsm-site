@@ -41,7 +41,7 @@ export const CalendarCarousel = async ({
         <ul className='relative mx-auto grid max-w-max list-none grid-cols-1 items-center gap-3 p-6 px-12 text-white'>
           {rounds?.map((event, i) => (
             <li key={i}>
-              <details className='group flex cursor-pointer flex-col px-8'>
+              <details className='group flex cursor-pointer list-none flex-col px-8'>
                 <summary className='flex items-center gap-2'>
                   <div className='flex flex-col items-center justify-center pr-4'>
                     {event.name.toLowerCase().startsWith('round') && (

@@ -82,7 +82,7 @@ function Row({ entrant }: { entrant: Standings[number] }) {
           <span>{firstname}</span> <span className='font-bold'>{lastname}</span>
         </div>
         <div className='grow text-xs font-medium'>{entrant.team}</div>
-        <div className='-my-4 -mr-8 w-32 bg-gradient-to-l from-slate-300 p-4 text-right'>
+        <div className='-my-4 -mr-8 h-full w-32 bg-gradient-to-l from-slate-300 p-4 text-right'>
           <div className='text-emboss bg-clip-text font-extrabold text-slate-600'>
             {entrant.total} PTS
           </div>
