@@ -11,7 +11,7 @@ import Link from 'next/link';
 import { Suspense } from 'react';
 
 export const Footer = () => (
-  <footer className='relative mt-auto w-full bg-primary py-6 text-white after:absolute after:top-full after:h-full after:w-full after:bg-primary'>
+  <footer className='relative mt-auto w-full bg-primary py-6 text-white'>
     <div className={clsx(container, 'gap-6')}>
       <div className='flex items-center gap-12 border-b border-primary-500 pb-2 text-sm font-medium uppercase'>
         <Suspense>

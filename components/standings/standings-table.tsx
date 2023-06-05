@@ -30,9 +30,9 @@ export const StandingsTable = ({
       {!fullView && (
         <Link
           href='/results'
-          className='text-emboss/50 rounded-md bg-slate-300 p-1 text-center text-sm font-bold uppercase drop-shadow-sm transition-all hover:bg-slate-200 hover:text-primary-700 hover:drop-shadow'
+          className='text-emboss/50 flex items-center justify-center gap-2 rounded-md bg-slate-300 p-1 text-center text-sm font-bold uppercase drop-shadow-sm transition-all hover:bg-slate-200 hover:text-primary-700 hover:drop-shadow'
         >
-          See full standings {'>>>'}
+          See full standings
         </Link>
       )}
     </div>
@@ -83,9 +83,7 @@ function Row({ entrant }: { entrant: Standings[number] }) {
         </div>
         <div className='grow text-xs font-medium'>{entrant.team}</div>
         <div className='-my-4 -mr-8 h-full w-32 bg-gradient-to-l from-slate-300 p-4 text-right'>
-          <div className='text-emboss bg-clip-text font-extrabold text-slate-600'>
-            {entrant.total} PTS
-          </div>
+          <div className='text-emboss font-extrabold text-slate-600'>{entrant.total} PTS</div>
         </div>
       </div>
     </div>

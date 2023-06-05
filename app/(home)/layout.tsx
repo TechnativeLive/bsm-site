@@ -8,8 +8,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className='flex min-h-screen flex-col'>
       <header className='sticky top-0 z-40 w-full overflow-hidden border-b border-slate-300'>
-        <div className={clsx(containerRow, 'items-center justify-between')}>
-          <HomeLogo priority />
+        <div className={clsx(containerRow, 'items-center')}>
+          <HomeLogo priority className='z-10 min-w-[8rem] grow basis-[40%] py-4 pr-1' />
           <div
             className={clsx(
               'relative h-full',
@@ -19,7 +19,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           >
             <BannerSeparator />
           </div>
-          <nav className='-mr-2 flex items-center gap-2 font-bold uppercase lg:gap-6'>
+          <nav className='z-10 -mr-2 hidden shrink-0 grow basis-[60%] items-center justify-end gap-2 font-bold uppercase md:flex lg:gap-6'>
             <MainNavLink href='/latest'>Latest</MainNavLink> {/* Article feed */}
             {/* <MainNavLink href="/teams">Teams & Drivers</MainNavLink> */}
             <MainNavLink href='/results'>Results</MainNavLink>
@@ -30,6 +30,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <MainNavLink href='/about'>About BSM</MainNavLink>{' '}
             {/* Includes rules and regs, rider entry */}
           </nav>
+          <div className='z-10 -mr-2 flex grow basis-full items-center justify-end gap-2 font-bold uppercase text-black md:hidden lg:gap-6'>
+            <button className='rounded hover:bg-slate-200'>
+              <div className='i-basil-menu-solid text-black' />
+            </button>
+          </div>
         </div>
       </header>
       <main className='flex flex-col'>{children}</main>

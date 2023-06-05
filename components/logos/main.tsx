@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-export const HomeLogo = ({ priority }: { priority?: boolean }) => (
-  <Link href={'/'} className='z-10 shrink-0 py-4 pr-4'>
+export const HomeLogo = ({ priority, className }: { className?: string; priority?: boolean }) => (
+  <Link href={'/'} className={className}>
     <Image priority={priority} src='/logo.svg' width={182} height={48} alt='BSM Logo' />
   </Link>
 );

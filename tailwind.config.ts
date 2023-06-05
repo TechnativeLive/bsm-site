@@ -29,7 +29,7 @@ const icons: Options = ({ theme }) => ({
   ic: {
     icons: {
       'baseline-keyboard-arrow-down': {},
-      'twotone-keyboard-arrow-right': {},
+      'baseline-keyboard-arrow-right': {},
       'baseline-facebook': {},
       'baseline-tiktok': {
         [SCALE]: 2.5,
@@ -42,6 +42,7 @@ const icons: Options = ({ theme }) => ({
       'instagram-outline': {},
       'facebook-outline': {},
       'twitter-outline': {},
+      'menu-solid': {},
     },
     scale: 2.5,
   },

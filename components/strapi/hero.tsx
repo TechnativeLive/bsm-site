@@ -12,7 +12,7 @@ export function Hero(props: HeroProps) {
       {cover && (
         <div className='relative aspect-video max-h-[550px] w-full'>
           <Image
-            className='mx-auto'
+            className='object-contain object-left-top'
             src={cover.url}
             alt={cover.alternativeText ?? cover.caption ?? 'Banner image'}
             fill

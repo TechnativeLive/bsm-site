@@ -90,14 +90,14 @@ export const CalendarCarouselItem = ({
             className='select-none object-contain'
           />
         </div>
-        <h3 className='uppercase'>{item.track.name}</h3>
-        <h4>{item.name}</h4>
-        <h4>
+        <p className='uppercase'>{item.track.name}</p>
+        <p>{item.name}</p>
+        <p>
           {/* TODO: fix this mess */}
           {new Date(item.start).getDate()}
           {' - '}
           {new Date(item.end).toLocaleDateString(undefined, { dateStyle: 'medium' })}
-        </h4>
+        </p>
       </div>
       <div
         className={clsx(
@@ -110,21 +110,21 @@ export const CalendarCarouselItem = ({
               {status}
             </p>
           )} */}
-          <p className='grid h-full min-w-[9rem] grid-cols-[auto,1fr,auto] content-center justify-items-start gap-x-2 pl-6'>
+          <div className='grid h-full min-w-[9rem] grid-cols-[auto,1fr,auto] content-center justify-items-start gap-x-2 pl-6'>
             {schedule.map((scheduleItem, i) =>
               scheduleItem.day ? (
                 <Fragment key={i}>
-                  <div className='font-mono'>{scheduleItem.day}</div>
-                  <div className='whitespace-nowrap font-semibold'>{scheduleItem.label}</div>
-                  <div className='font-mono font-semibold'>{scheduleItem.time}</div>
+                  <p className='font-mono'>{scheduleItem.day}</p>
+                  <p className='whitespace-nowrap font-semibold'>{scheduleItem.label}</p>
+                  <p className='font-mono font-semibold'>{scheduleItem.time}</p>
                 </Fragment>
               ) : (
-                <div className='col-span-3' key={i}>
+                <p className='col-span-3' key={i}>
                   &emsp;
-                </div>
+                </p>
               )
             )}
-          </p>
+          </div>
         </div>
       </div>
     </button>

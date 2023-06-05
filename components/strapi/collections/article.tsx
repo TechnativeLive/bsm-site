@@ -12,26 +12,28 @@ export function Article(article: ArticleProps) {
   const publishDate = new Date(article.publishedAt!);
 
   return (
-    <article
-      className={clsx(
-        container,
-        'prose prose-slate w-full bg-slate-50 lg:prose-lg prose-img:mx-auto prose-img:max-h-[550px]'
-      )}
-    >
+    <article className='w-full bg-slate-50'>
       <div
         className={clsx(
-          'not-prose relative border-l border-primary-500 pl-8 pt-12 after:absolute after:bottom-0 after:right-full after:top-0 after:-z-10 after:w-3',
-          'after:bg-pattern'
+          container,
+          'prose prose-slate w-full bg-slate-50 lg:prose-lg prose-img:mx-auto prose-img:max-h-[550px]'
         )}
       >
-        <div className='mb-4 grid grid-cols-12 items-start'>
-          <div className='col-span-9 mr-8'>
-            <h1 className='font-display text-5xl capitalize'>{article.title}</h1>
-            {article.description && (
-              <h2 className='font-semibold text-slate-600'>{article.description}</h2>
-            )}
+        <div
+          className={clsx(
+            'not-prose relative border-l border-primary-500 pl-8 pt-12 after:absolute after:bottom-0 after:right-full after:top-0 after:-z-10 after:w-3',
+            'after:bg-pattern'
+          )}
+        >
+          <div className='mb-4 grid grid-flow-dense grid-cols-12 items-start'>
+            <div className='col-span-12 mr-8 md:col-span-9'>
+              <h1 className='font-display text-5xl capitalize'>{article.title}</h1>
+              {article.description && (
+                <h2 className='font-semibold text-slate-600'>{article.description}</h2>
+              )}
+            </div>
 
-            <div className='mt-4 flex flex-wrap gap-2'>
+            <div className='col-span-6 mt-4 flex flex-wrap gap-2 md:col-span-12'>
               {article.tags?.map((tag) => (
                 <Link
                   key={tag.slug}
@@ -42,53 +44,53 @@ export function Article(article: ArticleProps) {
                 </Link>
               ))}
             </div>
-          </div>
 
-          <div className='col-span-3 mb-2 flex flex-col items-end'>
-            <address className='mb-2 flex flex-col gap-4 not-italic'>
-              {article.authors?.map((author) => (
-                <Link
-                  href={`/latest/author/${author.username}`}
-                  key={author.username}
-                  className='group flex flex-row-reverse gap-4 rounded bg-gradient-to-l from-slate-300'
-                >
-                  {/* @ts-ignore */}
-                  {author.avatar ? (
-                    // @ts-ignore
-                    <Image src={author.avatar} alt='Avatar' />
-                  ) : (
-                    <Avatar
-                      initials={`${author.firstname.charAt(0)}${author.lastname.charAt(0)}`}
-                    />
-                  )}
-                  <div className='flex flex-col justify-center'>
-                    <div className='text-emboss bg-clip-text text-lg font-semibold text-slate-600 group-hover:text-primary-600'>
-                      {author.firstname} {author.lastname}
-                    </div>
+            <div className='col-span-6 mb-2 flex flex-col items-end md:col-span-3'>
+              <address className='mb-2 flex flex-col gap-4 not-italic'>
+                {article.authors?.map((author) => (
+                  <Link
+                    href={`/latest/author/${author.username}`}
+                    key={author.username}
+                    className='group flex flex-row-reverse gap-4 rounded bg-gradient-to-l from-slate-300'
+                  >
                     {/* @ts-ignore */}
-                    <div className='text-base'>{author.jobTitle}</div>
-                  </div>
-                </Link>
-              ))}
-            </address>
-            <time className='slate-700 inline-block text-sm' dateTime={article.publishedAt}>
-              {publishDate.toLocaleDateString(undefined, { dateStyle: 'long' })}
-            </time>
+                    {author.avatar ? (
+                      // @ts-ignore
+                      <Image src={author.avatar} alt='Avatar' />
+                    ) : (
+                      <Avatar
+                        initials={`${author.firstname.charAt(0)}${author.lastname.charAt(0)}`}
+                      />
+                    )}
+                    <div className='flex flex-col justify-center'>
+                      <div className='text-emboss bg-clip-text text-lg font-semibold text-slate-600 group-hover:text-primary-600'>
+                        {author.firstname} {author.lastname}
+                      </div>
+                      {/* @ts-ignore */}
+                      <div className='text-base'>{author.jobTitle}</div>
+                    </div>
+                  </Link>
+                ))}
+              </address>
+              <time className='slate-700 inline-block text-sm' dateTime={article.publishedAt}>
+                {publishDate.toLocaleDateString(undefined, { dateStyle: 'long' })}
+              </time>
+            </div>
           </div>
-        </div>
 
-        <Hero {...article.hero} />
+          <Hero {...article.hero} />
+        </div>
+        {article.blocks?.map((block, i) => (
+          <Block key={i} type={block.__component} block={block} />
+        ))}
       </div>
-      {article.blocks?.map((block, i) => (
-        <Block key={i} type={block.__component} block={block} />
-      ))}
     </article>
   );
 }
 
 function Avatar({ initials }: { initials: string }) {
   return (
-    <div className='text-emboss flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-clip-text text-2xl font-extrabold uppercase text-slate-600 group-hover:text-primary-600'>
+    <div className='text-emboss m-auto flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-clip-text text-2xl font-extrabold uppercase text-slate-600 group-hover:text-primary-600'>
       {initials}
     </div>
   );

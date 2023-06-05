@@ -33,9 +33,9 @@ function CallToActionContents({ heading, link }: CallToActionProps) {
         <div>{heading}</div>
         {link && <div className={heading ? 'font-normal' : undefined}>{link?.label}</div>}
       </div>
-      <span className='i-ic-twotone-keyboard-arrow-right z-20 -mx-1 inline-block shrink-0 transition-transform duration-700 ease-slide group-hover:translate-x-1' />{' '}
-      <span className='i-ic-twotone-keyboard-arrow-right z-20 -mx-1 inline-block shrink-0 transition-transform duration-500 ease-slide group-hover:translate-x-3' />{' '}
-      <span className='i-ic-twotone-keyboard-arrow-right z-20 -mx-1 inline-block shrink-0 transition-transform duration-300 ease-slide group-hover:translate-x-5' />{' '}
+      <span className='i-ic-baseline-keyboard-arrow-right z-20 -mx-1 inline-block shrink-0 transition-transform duration-700 ease-slide group-hover:translate-x-1' />{' '}
+      <span className='i-ic-baseline-keyboard-arrow-right z-20 -mx-1 inline-block shrink-0 transition-transform duration-500 ease-slide group-hover:translate-x-3' />{' '}
+      <span className='i-ic-baseline-keyboard-arrow-right z-20 -mx-1 inline-block shrink-0 transition-transform duration-300 ease-slide group-hover:translate-x-5' />{' '}
     </>
   );
 }
