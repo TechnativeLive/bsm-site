@@ -19,7 +19,13 @@ export async function generateStaticParams() {
     cms('articles')
   ).then((res) => res.json());
 
-  console.log('\n\nArticles:', posts.data.map((post) => post.slug).join('\n'));
+  console.log(
+    '\n\nArticles:\n',
+    'Query:',
+    cms('articles'),
+    '\n',
+    posts.data.map((post) => post.slug).join('\n')
+  );
 
   return posts.data.map((post) => ({
     slug: post.slug,
