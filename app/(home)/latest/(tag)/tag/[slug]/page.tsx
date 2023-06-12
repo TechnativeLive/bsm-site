@@ -32,6 +32,8 @@ export async function generateStaticParams() {
     cms('tags')
   ).then((res) => res.json());
 
+  console.log({ tags: JSON.stringify(tags) });
+
   return tags.data.map((tag) => ({
     tag: tag.slug,
   }));

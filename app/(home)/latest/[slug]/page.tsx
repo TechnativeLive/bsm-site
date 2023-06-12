@@ -20,14 +20,6 @@ export async function generateStaticParams() {
     { next: { revalidate: 1 } }
   ).then((res) => res.json());
 
-  console.log(
-    `\n\nArticles: ${JSON.stringify(posts.meta)}\n`,
-    'Query:',
-    cms('articles'),
-    '\n',
-    posts.data.map((post) => post.slug).join('\n')
-  );
-
   return posts.data.map((post) => ({
     slug: post.slug,
   }));
