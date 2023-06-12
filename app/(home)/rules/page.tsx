@@ -1,3 +1,4 @@
+import { CallToAction } from '@/components/strapi/cta';
 import { container } from '@/components/tailwind';
 import clsx from 'clsx';
 
@@ -31,7 +32,15 @@ export default async function Page() {
   return (
     <section className={clsx(container, 'mb-16 w-full justify-center')}>
       <h1 className='my-24 flex justify-center text-4xl font-bold'>Rules & Regulations</h1>
-      <div className='mx-auto grid w-full max-w-4xl grid-cols-1 gap-x-12 gap-y-8 md:grid-cols-2'>
+      <CallToAction
+        link={{
+          label: 'Sign up to ride in the next event',
+          isExternal: true,
+          url: 'https://nora92.com/event/norasport-bssc-championship-234/',
+          theme: 'primary',
+        }}
+      />
+      <div className='mx-auto mt-12 grid w-full max-w-4xl grid-cols-1 gap-x-12 gap-y-8 md:grid-cols-2'>
         {cards.map((card, i) => (
           <Card key={i} {...card} />
         ))}

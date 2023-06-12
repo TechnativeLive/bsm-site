@@ -25,7 +25,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang='en'>
       <body
-        className={`font-sans ${figtree.variable} ${audiowide.variable} ${saira.variable} scrollbar-thin scrollbar-track-zinc-100 scrollbar-thumb-zinc-400`}
+        className={`font-sans ${figtree.variable} ${audiowide.variable} ${saira.variable} overflow-y-scroll scrollbar-thin scrollbar-track-zinc-100 scrollbar-thumb-zinc-400`}
       >
         {children}
       </body>

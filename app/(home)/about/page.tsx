@@ -1,3 +1,4 @@
+import { CallToAction } from '@/components/strapi/cta';
 import { container } from '@/components/tailwind';
 import clsx from 'clsx';
 
@@ -33,6 +34,13 @@ export default async function Page() {
           So what are you waiting for? Get ready to witness the speed, skill, and excitement of the
           2023 British Supermoto Championship. This is one event you won&apos;t want to miss!
         </p>
+        <CallToAction
+          link={{
+            label: 'Sign up to ride in the next event',
+            isExternal: true,
+            url: 'https://nora92.com/event/norasport-bssc-championship-234/',
+          }}
+        />
       </article>
     </section>
   );
