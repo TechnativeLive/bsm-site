@@ -35,7 +35,7 @@ export async function generateStaticParams() {
   console.log({ tags: JSON.stringify(tags) });
 
   return tags.data.map((tag) => ({
-    tag: tag.slug,
+    slug: tag.slug,
   }));
 }
 
