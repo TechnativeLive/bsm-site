@@ -23,9 +23,13 @@ export const CalendarCarousel = async ({
         ))}
       </div>
       <div className='max-h-[450px] w-full overflow-x-auto scrollbar-thin scrollbar-track-slate-500/0 scrollbar-thumb-primary-700 md:hidden'>
-        <ul className='relative mx-auto grid max-w-max list-none grid-cols-1 items-center gap-3 p-6 px-12 text-white'>
-          {rounds?.map((event, i) => (
-            <CalendarCarouselItemMobile key={i} event={event} />
+        <ul className='relative mx-auto grid max-w-max list-none grid-cols-1 items-center divide-y divide-primary-500/20 px-6 py-3 text-white sm:px-12'>
+          {rounds?.map((item, i) => (
+            <CalendarCarouselItemMobile
+              key={i}
+              item={item}
+              status={i === eventStatus.index ? eventStatus.status : 'inactive'}
+            />
           ))}
         </ul>
       </div>

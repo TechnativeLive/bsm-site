@@ -3,7 +3,7 @@ import { GetAttributesValues } from '@strapi/strapi';
 
 export async function getFeatureLinks() {
   const homepageQuery = cms('homepage', { populate: { featureLinks: { populate: '*' } } });
-  console.log({ homepageQuery });
+  // console.log({ homepageQuery });
 
   const homepage: Strapi.Response<GetAttributesValues<'api::homepage.homepage'>> = await fetch(
     homepageQuery,
@@ -16,7 +16,7 @@ export async function getFeatureLinks() {
 
 export async function getFooterLinks() {
   const homepageQuery = cms('homepage', { populate: 'footerLinks' });
-  console.log({ homepageQuery });
+  // console.log({ homepageQuery });
 
   const homepage: Strapi.Response<GetAttributesValues<'api::homepage.homepage'>> = await fetch(
     homepageQuery,
@@ -29,7 +29,7 @@ export async function getFooterLinks() {
 
 export async function getSocials() {
   const homepageQuery = cms('homepage', { populate: 'socials' });
-  console.log({ homepageQuery });
+  // console.log({ homepageQuery });
 
   const homepage: Strapi.Response<GetAttributesValues<'api::homepage.homepage'>> = await fetch(
     homepageQuery,
@@ -44,7 +44,7 @@ export async function getSponsors() {
   const homepageQuery = cms('homepage', {
     populate: { sponsors: { populate: { logos: { populate: '*' } } } },
   });
-  console.log({ homepageQuery });
+  // console.log({ homepageQuery });
 
   const homepage: Strapi.Response<GetAttributesValues<'api::homepage.homepage'>> = await fetch(
     homepageQuery,
@@ -63,7 +63,7 @@ export async function getCalendar() {
       },
     },
   });
-  console.log({ calendarQuery });
+  // console.log({ calendarQuery });
 
   try {
     const res = await fetch(calendarQuery, { next: { revalidate: Infinity } });

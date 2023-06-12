@@ -4,24 +4,26 @@ import { Article } from '@/components/strapi/collections/article';
 import { getArticleBySlug } from '@/lib/strapi';
 import { getMetadata } from '@/lib/meta';
 
+type PageParams = { params: { slug: string } };
+
+export default async function Page({ params: { slug } }: PageParams) {
+  const article = await getArticleBySlug(slug);
+  return article && <Article {...article} />;
+}
+
 const dynamicParams = false;
 export { dynamicParams };
-
-type PageParams = { params: { slug: string } };
 
 export async function generateStaticParams() {
   const posts: Strapi.Response<GetAttributesValues<'api::article.article'>[]> = await fetch(
     cms('articles')
   ).then((res) => res.json());
 
+  console.log('\n\nArticles:', posts.data.map((post) => post.slug).join('\n'));
+
   return posts.data.map((post) => ({
     slug: post.slug,
   }));
-}
-
-export default async function Page({ params: { slug } }: PageParams) {
-  const article = await getArticleBySlug(slug);
-  return article && <Article {...article} />;
 }
 
 export async function generateMetadata({ params: { slug } }: PageParams) {

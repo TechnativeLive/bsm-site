@@ -71,19 +71,24 @@ function Row({ entrant }: { entrant: Standings[number] }) {
     <div className='group py-1 drop-shadow-sm first:pt-0 last:mb-2 last:pb-0'>
       <div
         className={clsx(
-          'flex items-center gap-3 rounded-md bg-slate-50 px-8 py-3 transition-colors duration-300 group-hover:bg-slate-200 group-hover:duration-150',
+          'flex flex-wrap items-center gap-x-3 rounded-md bg-slate-50 pl-3 transition-colors duration-300 group-hover:bg-slate-200 group-hover:duration-150 sm:pl-8',
           'relative overflow-hidden',
           'after:absolute after:bottom-0 after:right-0 after:h-full after:w-1 after:-translate-y-full after:bg-primary-800 after:transition-transform after:duration-300 after:ease-slide after:group-hover:translate-y-0',
           'before:absolute before:bottom-0 before:left-0 before:h-full before:w-1 before:-translate-y-full before:bg-primary-800 before:transition-transform before:duration-300 before:ease-slide before:group-hover:translate-y-0'
         )}
       >
-        <div className='font-bold'>{entrant.rank}</div>
-        <div className='uppercase'>
+        <div className='py-1 font-bold'>{entrant.rank}</div>
+        <div className='py-1 pr-1 uppercase'>
           <span>{firstname}</span> <span className='font-bold'>{lastname}</span>
         </div>
-        <div className='grow text-xs font-medium'>{entrant.team}</div>
-        <div className='-my-4 -mr-8 h-full w-32 bg-gradient-to-l from-slate-300 p-4 text-right'>
-          <div className='text-emboss font-extrabold text-slate-600'>{entrant.total} PTS</div>
+        {entrant.team && <div className='grow py-1 pr-1 text-xs font-medium'>{entrant.team}</div>}
+        <div
+          className={clsx(
+            'relative ml-auto flex items-center justify-end self-stretch py-3 pr-3 text-right sm:pr-6',
+            'after:absolute after:right-0 after:top-0 after:z-0 after:h-full after:w-28 after:bg-gradient-to-l after:from-slate-300'
+          )}
+        >
+          <div className='text-emboss z-10 font-extrabold text-slate-600'>{entrant.total} PTS</div>
         </div>
       </div>
     </div>

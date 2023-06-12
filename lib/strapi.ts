@@ -38,7 +38,7 @@ export async function getArticleBySlug(slug: string) {
       authors: { populate: ['username', 'jobTitle', 'avatar'] },
     },
   });
-  console.log({ articlesQuery });
+  // console.log({ articlesQuery });
 
   // Strapi allows findOne, but not by slug. This filter will only return 1 article as slugs are UIDs
   // So take the first item and ignore any others.
@@ -85,7 +85,7 @@ async function mdToHtml(raw: string) {
 
 export async function getArticlesPreview(query?: StrapiQuery) {
   const articlesQuery = cms(`articles`, query);
-  console.log({ articlesQuery });
+  // console.log({ articlesQuery });
 
   const articles: Strapi.Response<GetAttributesValues<'api::article.article'>[]> = await fetch(
     articlesQuery,

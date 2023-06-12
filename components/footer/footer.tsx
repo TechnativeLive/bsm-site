@@ -49,9 +49,9 @@ const Sponsors = async () => {
         <div key={i} className='flex gap-6 py-3'>
           {tier.map((sponsor, i) =>
             sponsor.url ? (
-              <Link key={i} href={sponsor.url} target='_blank'>
+              <a key={i} href={sponsor.url} target='_blank'>
                 <SponsorImage {...sponsor} />
-              </Link>
+              </a>
             ) : (
               <SponsorImage key={i} {...sponsor} />
             )
@@ -121,7 +121,7 @@ const FooterLinks = async () => {
       </div>
       <div className='flex grow justify-end gap-1'>
         {socials?.map((social, i) => (
-          <Link
+          <a
             key={i}
             href={social.url}
             target='_blank'

@@ -3,7 +3,8 @@ import { FeedSecondaryArticle } from '@/components/latest/feed/secondary';
 import { GetAttributesValues } from '@strapi/strapi';
 import { Metadata } from 'next';
 import { cms } from '@/utils/cms';
-import { container, tag as tagNeutral, tagPrimary } from '@/components/tailwind';
+import { container } from '@/components/tailwind';
+import Link from 'next/link';
 
 export default async function Page() {
   const tagsQuery = cms('tags');
@@ -19,24 +20,17 @@ export default async function Page() {
 
   return (
     <section className={clsx(container, 'my-6 w-full items-start gap-4')}>
-      <h1 className='rounded-br-2xl border-b-4 border-r-4 border-primary px-2 py-1 font-display text-3xl uppercase'>
-        Latest News
-      </h1>
-      <div>
-        <div className='mb-2 flex gap-2'>
-          <span>Search Tags</span>
-          <button
-            disabled
-            className='cursor-pointer rounded border border-slate-300 bg-slate-200 px-2 text-slate-700 hover:border-slate-400 hover:bg-slate-300 disabled:cursor-not-allowed disabled:text-slate-400 disabled:hover:border-slate-300 disabled:hover:bg-slate-200'
-          >
-            clear tags
-          </button>
-        </div>
-        <ul className='flex gap-2'>
+      <div className='flex items-center divide-x divide-slate-400'>
+        <h1 className='px-8 py-2 text-center font-display text-3xl uppercase'>Latest News</h1>
+        <ul className='flex flex-wrap gap-2 px-8'>
           {tags.data.map((tag) => (
-            <button key={tag.slug} className={tag.priority === 'high' ? tagPrimary : tagNeutral}>
+            <Link
+              key={tag.slug}
+              href={`/latest/tag/${tag.slug}`}
+              className='relative border-l border-t border-primary bg-slate-100 px-4 py-2 text-sm font-bold uppercase text-primary after:corner-2 after:corner-primary hover:border-primary-600 hover:text-primary-600 hover:after:corner-primary-600'
+            >
               {tag.label}
-            </button>
+            </Link>
           ))}
         </ul>
       </div>

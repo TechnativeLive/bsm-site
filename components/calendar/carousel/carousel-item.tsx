@@ -3,6 +3,7 @@ import { EventStatus } from '@/app/(home)/page';
 import { GetAttributesValues } from '@strapi/strapi';
 import clsx from 'clsx';
 import Image from 'next/image';
+import Link from 'next/link';
 import { FocusEventHandler, Fragment, MouseEventHandler, useEffect, useRef } from 'react';
 
 const handleClick: MouseEventHandler<HTMLButtonElement> = (ev) => {
@@ -21,10 +22,12 @@ const scrollIntoView = (currentTarget: EventTarget & HTMLButtonElement) =>
 
 const handleFocus: FocusEventHandler<HTMLButtonElement> = (ev) => {
   ev.stopPropagation();
-  if (ev.currentTarget) {
+  if (ev.currentTarget && ev.target.tagName.toLowerCase() !== 'a') {
     scrollIntoView(ev.currentTarget);
   }
 };
+
+type Schedule = ({ day: string; label: string; time: string } | Record<never, never>)[];
 
 export const CalendarCarouselItem = ({
   item,
@@ -43,22 +46,9 @@ export const CalendarCarouselItem = ({
 
   if (!item || !item.track?.name) return null;
 
-  // const schedule: { day: string, label: string; time: string }[] = Array.isArray(item.schedule)
-  //   ? item.schedule
-  //   : [];
-
-  const schedule = [
-    { day: 'Sat', label: 'Gates open', time: '07:30' },
-    { day: 'Sat', label: 'Free Practice 1', time: '09:00' },
-    { day: 'Sat', label: 'Qualifying 1', time: '10:00' },
-    { day: 'Sat', label: 'Free Practice 2', time: '10:30' },
-    { day: 'Sat', label: 'Qualifying 2', time: '11:30' },
-    {},
-    { day: 'Sun', label: 'Gates open', time: '07:30' },
-    { day: 'Sun', label: 'Warm up', time: '09:00' },
-    { day: 'Sun', label: 'Race 1', time: '10:30' },
-    { day: 'Sun', label: 'Race 2', time: '12:30' },
-  ];
+  const schedule = item.schedule as Schedule | undefined;
+  // @ts-ignore
+  item.ticketUrl = 'http://google.com';
 
   return (
     <button
@@ -90,9 +80,9 @@ export const CalendarCarouselItem = ({
             className='select-none object-contain'
           />
         </div>
-        <p className='uppercase'>{item.track.name}</p>
+        <p className='font-semibold uppercase'>{item.track.name}</p>
         <p>{item.name}</p>
-        <p>
+        <p className='font-light'>
           {/* TODO: fix this mess */}
           {new Date(item.start).getDate()}
           {' - '}
@@ -101,30 +91,52 @@ export const CalendarCarouselItem = ({
       </div>
       <div
         className={clsx(
-          'z-20 h-full w-0 text-xs uppercase transition-all ease-slide group-focus:w-60'
+          'z-20 h-full w-0 text-xs uppercase transition-all ease-slide group-focus-within:w-60'
         )}
       >
-        <div className='h-full translate-x-24 transition-transform duration-300 ease-slide group-focus:translate-x-0'>
+        <div className='flex h-full w-60 translate-x-24 flex-col items-center justify-center pl-6 transition-transform duration-300 ease-slide group-focus-within:translate-x-0'>
           {/* {status !== 'inactive' && (
             <p className='min-w-[9rem] pl-6 text-sm font-normal uppercase tracking-widest'>
               {status}
             </p>
           )} */}
-          <div className='grid h-full min-w-[9rem] grid-cols-[auto,1fr,auto] content-center justify-items-start gap-x-2 pl-6'>
-            {schedule.map((scheduleItem, i) =>
-              scheduleItem.day ? (
-                <Fragment key={i}>
-                  <p className='font-mono'>{scheduleItem.day}</p>
-                  <p className='whitespace-nowrap font-semibold'>{scheduleItem.label}</p>
-                  <p className='font-mono font-semibold'>{scheduleItem.time}</p>
-                </Fragment>
-              ) : (
-                <p className='col-span-3' key={i}>
-                  &emsp;
-                </p>
+
+          <div className='grid h-full min-w-[9rem] grid-cols-[auto,1fr,auto] content-center justify-items-start gap-x-2 pb-3'>
+            {schedule ? (
+              schedule.map((scheduleItem, i) =>
+                'day' in scheduleItem &&
+                scheduleItem.day !== '' &&
+                scheduleItem.label !== '' &&
+                scheduleItem.time !== '' ? (
+                  <Fragment key={i}>
+                    <div className='font-mono'>{scheduleItem.day}</div>
+                    <div className='whitespace-nowrap font-semibold'>{scheduleItem.label}</div>
+                    <div className='font-mono font-semibold'>{scheduleItem.time}</div>
+                  </Fragment>
+                ) : (
+                  <div className='col-span-3' key={i}>
+                    &emsp;
+                  </div>
+                )
               )
+            ) : (
+              <div className='col-span-3 justify-self-center'>
+                Schedule not
+                <br /> yet available
+              </div>
             )}
           </div>
+          {/* @ts-expect-error not updated schema */}
+          {item.ticketUrl && (
+            <a
+              // @ts-expect-error not updated schema
+              href={item.ticketUrl}
+              target='_blank'
+              className='z-40 bg-primary-500 px-3 py-1 text-sm font-semibold uppercase transition-colors hover:text-primary'
+            >
+              Book Tickets
+            </a>
+          )}
         </div>
       </div>
     </button>

@@ -10,7 +10,6 @@ type PageParams = { params: { username: string } };
 
 async function getArticlesByAuthor(username: string) {
   const articles = await getArticlesPreview({
-    // populate: '*',
     sort: ['publishedAt:desc'],
     populate: ['tags', 'cover'],
     filters: {
@@ -41,11 +40,13 @@ export default async function AuthorArticlePage({ params: { username } }: PagePa
 
   return (
     <>
-      <header className='grid w-full place-items-center border-b border-slate-300 bg-slate-100'>
-        <h1 className='text-emboss block pb-3 pt-16 text-3xl font-bold uppercase'>
-          {user.firstname} {user.lastname}
-        </h1>
-        <h2 className='text-emboss block pb-16 text-xl font-semibold uppercase'>{user.jobTitle}</h2>
+      <header className='grid h-36 w-full place-items-center border-b border-slate-300 bg-slate-100'>
+        <div className='flex flex-col items-center'>
+          <h1 className='text-emboss block text-3xl font-bold uppercase'>
+            {user.firstname} {user.lastname}
+          </h1>
+          <h2 className='text-emboss block text-xl uppercase'>{user.jobTitle}</h2>
+        </div>
       </header>
       <section className={clsx(container, 'my-6')}>
         <div className='my-6 grid grid-cols-3 gap-4'>

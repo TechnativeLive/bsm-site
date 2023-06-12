@@ -13,7 +13,7 @@ export type Standings = Entrant[];
 
 export async function getStandings(query?: StrapiQuery) {
   const seasonQuery = cms('season', { populate: '*', ...query });
-  console.log({ seasonQuery });
+  // console.log({ seasonQuery });
 
   const season: Strapi.Response<GetAttributesValues<'api::season.season'>> = await fetch(
     seasonQuery,

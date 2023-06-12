@@ -1,9 +1,7 @@
 import { container } from '@/components/tailwind';
 import clsx from 'clsx';
-import { Url } from 'next/dist/shared/lib/router/router';
-import Link from 'next/link';
 
-type CardProps = { title: string; href: Url; description?: string };
+type CardProps = { title: string; href: string; description?: string };
 
 const cards: CardProps[] = [
   {
@@ -42,11 +40,11 @@ export default async function Page() {
   );
 }
 
-function Card({ title, href, description }: { title: string; href: Url; description?: string }) {
+function Card({ title, href, description }: { title: string; href: string; description?: string }) {
   return (
     <div className='relative flex flex-col justify-end bg-slate-50 px-5 pb-4 pt-8 text-center ring-1 ring-slate-700/10 transition-colors hover:bg-slate-50/40'>
       <h2 className='grow text-2xl font-bold'>{title}</h2>
-      <Link
+      <a
         href={href}
         target='_blank'
         className={clsx(
@@ -55,7 +53,7 @@ function Card({ title, href, description }: { title: string; href: Url; descript
         )}
       >
         PDF Download
-      </Link>
+      </a>
       {description && <p className='text-sm leading-6 text-slate-500'>{description}</p>}
     </div>
   );

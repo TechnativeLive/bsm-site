@@ -6,7 +6,7 @@ export async function getUser(username: string) {
     fields: ['firstname', 'lastname', 'jobTitle'],
     filters: { username: { $eq: username } },
   });
-  console.log({ userQuery });
+  // console.log({ userQuery });
 
   const user: GetAttributesValues<'plugin::users-permissions.user'>[] = await fetch(userQuery, {
     next: { revalidate: Infinity },
