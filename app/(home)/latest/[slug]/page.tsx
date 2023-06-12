@@ -21,7 +21,7 @@ export async function generateStaticParams() {
   ).then((res) => res.json());
 
   console.log(
-    '\n\nArticles:\n',
+    `\n\nArticles: ${JSON.stringify(posts.meta)}\n`,
     'Query:',
     cms('articles'),
     '\n',
