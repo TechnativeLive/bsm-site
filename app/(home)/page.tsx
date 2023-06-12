@@ -59,19 +59,19 @@ export default async function Home() {
         </Suspense>
       </section>
 
-      <section className='my-6 w-full bg-slate-100 pb-6'>
+      <section className='w-full bg-slate-100 py-6'>
         <Suspense>
           {/* @ts-expect-error Async Server Component */}
           <StandingsData />
         </Suspense>
       </section>
 
-      <section className={clsx(container, 'mb-6 w-full')}>
+      {/* -@ts-expect-error Async Server Component */}
+      {/* <section className={clsx(container, 'mb-6 w-full')}>
         <Suspense fallback={<FeatureHomeLinksSkeleton />}>
-          {/* @ts-expect-error Async Server Component */}
           <FeatureHomeLinks />
         </Suspense>
-      </section>
+      </section> */}
     </>
   );
 }

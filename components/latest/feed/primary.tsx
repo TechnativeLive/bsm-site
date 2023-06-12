@@ -40,7 +40,7 @@ export const FeedPrimaryArticle = ({
           alt={cover?.alternativeText ?? 'Cover Image'}
           width={cover?.width ?? 800}
           height={cover?.height ?? 450}
-          className='relative z-10 -translate-x-2 -translate-y-2 transition-transform duration-500 ease-slide will-change-transform group-hover:translate-x-0 group-hover:translate-y-0'
+          className='relative z-10 aspect-video w-full -translate-x-2 -translate-y-2 object-cover transition-transform duration-500 ease-slide will-change-transform group-hover:translate-x-0 group-hover:translate-y-0'
         />
       </div>
       <div className='flex flex-wrap gap-4 pb-1.5 pt-8 font-display uppercase text-primary-500'>

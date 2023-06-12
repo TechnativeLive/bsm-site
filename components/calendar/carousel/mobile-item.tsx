@@ -55,7 +55,7 @@ export const CalendarCarouselItemMobile = ({
             </p>
           </div>
         </summary>
-        <div className='grid h-full min-w-[9rem] cursor-auto grid-cols-[auto,1fr,auto] content-center justify-items-start gap-x-2 overflow-hidden pb-4 pl-6 text-sm uppercase'>
+        <div className='grid h-full min-w-[9rem] cursor-auto grid-cols-[auto,1fr,auto] content-center justify-items-start gap-x-2 overflow-hidden pb-4 text-sm uppercase'>
           {schedule ? (
             schedule.map((scheduleItem, i) =>
               'day' in scheduleItem ? (

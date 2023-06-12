@@ -27,7 +27,7 @@ export function Article(article: ArticleProps) {
         >
           <div className='mb-4 grid grid-flow-dense grid-cols-12 items-start'>
             <div className='col-span-12 mr-8 md:col-span-9'>
-              <h1 className='font-display text-5xl capitalize'>{article.title}</h1>
+              <h1 className='font-display text-3xl capitalize md:text-5xl'>{article.title}</h1>
               {article.description && (
                 <h2 className='font-semibold text-slate-600'>{article.description}</h2>
               )}
@@ -67,7 +67,7 @@ export function Article(article: ArticleProps) {
                         {author.firstname} {author.lastname}
                       </div>
                       {/* @ts-ignore */}
-                      <div className='text-base'>{author.jobTitle}</div>
+                      {/* <div className='text-base'>{author.jobTitle}</div> */}
                     </div>
                   </Link>
                 ))}

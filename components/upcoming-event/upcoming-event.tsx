@@ -44,7 +44,7 @@ const EventCountdown = ({
       >
         <div className='flex grow flex-col'>
           <div className='flex items-center gap-4'>
-            <div className='rounded bg-gradient-to-b from-slate-800 to-slate-600 px-3 py-1 font-normal text-white'>
+            <div className='relative bg-slate-900 py-0.5 pl-3 pr-4 font-normal text-white after:corner-3 after:corner-slate-100'>
               <DateString
                 startDate={startDate.getDate()}
                 startMonth={startMonth}
@@ -54,7 +54,7 @@ const EventCountdown = ({
               />
             </div>
           </div>
-          <div className='flex h-full font-display text-2xl md:pr-6'>
+          <div className='flex h-full items-end font-display text-2xl md:pr-6'>
             {event.track?.name.toLocaleUpperCase()} {'//'} {event.name.toLocaleUpperCase()}
           </div>
         </div>
