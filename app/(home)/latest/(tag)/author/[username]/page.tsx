@@ -1,10 +1,11 @@
 import { FeedSecondaryArticle } from '@/components/latest/feed/secondary';
-import { container } from '@/components/tailwind';
+import { container, tagTopLeft } from '@/components/tailwind';
 import { getArticlesPreview } from '@/lib/strapi';
 import { getUser } from '@/lib/strapi/user';
 import { cms } from '@/utils/cms';
 import { GetAttributesValues } from '@strapi/strapi';
 import clsx from 'clsx';
+import Link from 'next/link';
 
 type PageParams = { params: { username: string } };
 
@@ -40,8 +41,11 @@ export default async function AuthorArticlePage({ params: { username } }: PagePa
 
   return (
     <>
-      <header className='grid h-36 w-full place-items-center border-b border-slate-300 bg-slate-100'>
-        <div className='flex flex-col items-center'>
+      <header className='h-36 w-full border-b border-slate-300 bg-slate-100'>
+        <div className='mx-auto flex max-w-7xl flex-col items-center px-8 py-4'>
+          <Link className={clsx('self-start', tagTopLeft)} href='/latest'>
+            Latest
+          </Link>
           <h1 className='text-emboss block text-3xl font-bold uppercase'>
             {user.firstname} {user.lastname}
           </h1>
@@ -49,7 +53,7 @@ export default async function AuthorArticlePage({ params: { username } }: PagePa
         </div>
       </header>
       <section className={clsx(container, 'my-6')}>
-        <div className='my-6 grid grid-cols-3 gap-4'>
+        <div className='auto-cols my-6 grid gap-4'>
           {articles.data.map((article) => (
             <FeedSecondaryArticle key={article.slug} article={article} />
           ))}

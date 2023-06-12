@@ -28,6 +28,9 @@ const icons: Options = ({ theme }) => ({
   },
   ic: {
     icons: {
+      'baseline-launch': {
+        [SCALE]: 1,
+      },
       'baseline-keyboard-arrow-down': {},
       'baseline-keyboard-arrow-right': {},
       'baseline-facebook': {},
@@ -39,6 +42,7 @@ const icons: Options = ({ theme }) => ({
   },
   basil: {
     icons: {
+      'cancel-outline': {},
       'instagram-outline': {},
       'facebook-outline': {},
       'twitter-outline': {},

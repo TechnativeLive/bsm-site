@@ -14,4 +14,13 @@
   .bg-pattern {
     background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAABMSURBVHgB7c/LCQAwDALQ7D+dhOzTblAs5ANBz+JDMyIATnqvZJSN8O6ecOGtvTociMlHwlfg/oM7ORqpPeHLcH7UJx8JH8EhXPgTv6gINZx/6mnuAAAAAElFTkSuQmCC');
   }
+
+  .auto-cols {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr));
+  }
+}
+
+body:has(.modal:checked) {
+  overflow: hidden;
+  padding-right: 8px;
 }

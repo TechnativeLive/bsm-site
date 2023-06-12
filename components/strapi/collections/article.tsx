@@ -1,6 +1,7 @@
 import { Block } from '@/components/strapi/components/block';
 import { Hero } from '@/components/strapi/hero';
 import { container } from '@/components/tailwind';
+import { StrapiMedia } from '@/types/strapi';
 import { GetAttributesValues } from '@strapi/strapi';
 import clsx from 'clsx';
 import Image from 'next/image';
@@ -25,15 +26,39 @@ export function Article(article: ArticleProps) {
             'after:bg-pattern'
           )}
         >
-          <div className='mb-4 grid grid-flow-dense grid-cols-12 items-start'>
-            <div className='col-span-12 mr-8 md:col-span-9'>
-              <h1 className='font-display text-3xl capitalize md:text-5xl'>{article.title}</h1>
-              {article.description && (
-                <h2 className='font-semibold text-slate-600'>{article.description}</h2>
-              )}
+          <h1 className='mb-3 font-display text-3xl capitalize md:text-5xl'>{article.title}</h1>
+          {article.description && (
+            <h2 className='font-semibold text-slate-600'>{article.description}</h2>
+          )}
+
+          <div className='mb-4 flex flex-wrap items-center justify-between'>
+            <div className='flex flex-col items-end'>
+              <address className='flex flex-col gap-4 not-italic'>
+                {article.authors?.map((author) => (
+                  <Link
+                    href={`/latest/author/${author.username}`}
+                    key={author.username}
+                    className='group flex gap-2 rounded bg-gradient-to-r from-slate-300 pl-2'
+                  >
+                    <Avatar author={author} />
+                    <div className='flex flex-col justify-center'>
+                      <div className='text-emboss bg-clip-text text-lg font-semibold text-slate-600 group-hover:text-primary-600'>
+                        {author.firstname} {author.lastname}
+                      </div>
+                      <time
+                        className='slate-700 inline-block text-sm'
+                        dateTime={article.publishedAt}
+                      >
+                        {publishDate.toLocaleDateString(undefined, { dateStyle: 'long' })}
+                      </time>
+                      {/* <div className='text-base'>{author.jobTitle}</div> */}
+                    </div>
+                  </Link>
+                ))}
+              </address>
             </div>
 
-            <div className='col-span-6 mt-4 flex flex-wrap gap-2 md:col-span-12'>
+            <div className='flex flex-wrap gap-2'>
               {article.tags?.map((tag) => (
                 <Link
                   key={tag.slug}
@@ -43,38 +68,6 @@ export function Article(article: ArticleProps) {
                   {tag.label}
                 </Link>
               ))}
-            </div>
-
-            <div className='col-span-6 mb-2 flex flex-col items-end md:col-span-3'>
-              <address className='mb-2 flex flex-col gap-4 not-italic'>
-                {article.authors?.map((author) => (
-                  <Link
-                    href={`/latest/author/${author.username}`}
-                    key={author.username}
-                    className='group flex flex-row-reverse gap-4 rounded bg-gradient-to-l from-slate-300'
-                  >
-                    {/* @ts-ignore */}
-                    {author.avatar ? (
-                      // @ts-ignore
-                      <Image src={author.avatar} alt='Avatar' />
-                    ) : (
-                      <Avatar
-                        initials={`${author.firstname.charAt(0)}${author.lastname.charAt(0)}`}
-                      />
-                    )}
-                    <div className='flex flex-col justify-center'>
-                      <div className='text-emboss bg-clip-text text-lg font-semibold text-slate-600 group-hover:text-primary-600'>
-                        {author.firstname} {author.lastname}
-                      </div>
-                      {/* @ts-ignore */}
-                      {/* <div className='text-base'>{author.jobTitle}</div> */}
-                    </div>
-                  </Link>
-                ))}
-              </address>
-              <time className='slate-700 inline-block text-sm' dateTime={article.publishedAt}>
-                {publishDate.toLocaleDateString(undefined, { dateStyle: 'long' })}
-              </time>
             </div>
           </div>
 
@@ -88,9 +81,29 @@ export function Article(article: ArticleProps) {
   );
 }
 
-function Avatar({ initials }: { initials: string }) {
+function Avatar({ author }: { author: GetAttributesValues<'plugin::users-permissions.user'> }) {
+  if (author.avatar?.url) {
+    const avatar: StrapiMedia = author.avatar;
+    return (
+      <div className='relative m-1.5 h-9 w-9 overflow-hidden rounded-full'>
+        <Image
+          fill
+          className='object-cover transition-transform group-hover:scale-105'
+          alt='Avatar Image'
+          src={
+            avatar.formats && 'thumbnail' in avatar.formats
+              ? avatar.formats.thumbnail.url
+              : avatar.url
+          }
+        />
+      </div>
+    );
+  }
+
+  const initials = `${author.firstname.charAt(0)}${author.lastname.charAt(0)}`;
+
   return (
-    <div className='text-emboss m-auto flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-clip-text text-2xl font-extrabold uppercase text-slate-600 group-hover:text-primary-600'>
+    <div className='text-emboss m-auto flex h-12 w-12 shrink-0 items-center justify-center text-2xl font-extrabold uppercase text-slate-600 group-hover:text-primary-600'>
       {initials}
     </div>
   );
