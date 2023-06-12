@@ -8,6 +8,9 @@ import Link from 'next/link';
 
 type PageParams = { params: { slug: string } };
 
+const dynamicParams = false;
+export { dynamicParams };
+
 async function getArticlesByTag(slug: string) {
   const articles = await getArticlesPreview({
     sort: ['publishedAt:desc'],

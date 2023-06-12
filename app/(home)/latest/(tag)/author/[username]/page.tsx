@@ -25,6 +25,9 @@ async function getArticlesByAuthor(username: string) {
   return articles;
 }
 
+const dynamicParams = false;
+export { dynamicParams };
+
 export async function generateStaticParams() {
   const users: GetAttributesValues<'plugin::users-permissions.user'>[] = await fetch(
     cms('users', { fields: ['username'] })
