@@ -62,7 +62,7 @@ export function Article(article: ArticleProps) {
               {article.tags?.map((tag) => (
                 <Link
                   key={tag.slug}
-                  href={`/latest/tags/${tag.slug}`}
+                  href={`/latest/tag/${tag.slug}`}
                   className='relative border-l border-t border-primary bg-slate-100 px-4 py-2 text-sm font-bold uppercase text-primary after:corner-2 after:corner-primary hover:border-primary-600 hover:text-primary-600 hover:after:corner-primary-600'
                 >
                   {tag.label}
