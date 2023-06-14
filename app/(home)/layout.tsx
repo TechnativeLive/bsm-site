@@ -7,7 +7,7 @@ import { MainNavLink, MobileNav } from '@/components/nav/client-components';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className='flex min-h-screen flex-col overflow-x-hidden'>
+    <div className='flex min-h-screen flex-col'>
       <Header />
       <main className='flex flex-col'>{children}</main>
       <Footer />
@@ -17,14 +17,14 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
 export function Header() {
   return (
-    <header className='sticky top-0 z-40 w-full border-b border-slate-300'>
+    <header className='sticky top-0 z-40 w-full max-w-[100vw] border-b border-slate-300 bg-white'>
       <div className={clsx(containerRow, 'items-center')}>
         <HomeLogo priority className='z-10 grow basis-[40%] py-2 pr-1' />
         <div
           // style={{ height: 'clamp(53px, 8vw, 81px)' }}
           className={clsx(
             'relative h-[81px]',
-            'after:absolute after:left-full after:top-0 after:z-0 after:h-full after:w-screen after:bg-white',
+            // 'after:absolute after:left-full after:top-0 after:z-0 after:h-full after:w-screen after:bg-white',
             'before:absolute before:right-full before:top-0 before:z-0 before:h-full before:w-screen before:border-b-2 before:border-secondary before:bg-primary'
           )}
         >

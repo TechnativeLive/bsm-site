@@ -41,14 +41,13 @@ export const CalendarCarouselItem = ({
     if (el.current && el.current.parentElement && status !== 'inactive') {
       const midpoint = el.current.offsetLeft + el.current.offsetWidth / 2;
       el.current.parentElement.scrollLeft = midpoint - el.current.parentElement.offsetWidth / 2;
+      console.log({ scrollLeft: midpoint - el.current.parentElement.offsetWidth / 2 });
     }
   }, [status]);
 
   if (!item || !item.track?.name) return null;
 
   const schedule = item.schedule as Schedule | undefined;
-  // @ts-ignore
-  item.ticketUrl = 'http://google.com';
 
   return (
     <button
@@ -126,17 +125,28 @@ export const CalendarCarouselItem = ({
               </div>
             )}
           </div>
-          {/* @ts-expect-error not updated schema */}
-          {item.ticketUrl && (
-            <a
-              // @ts-expect-error not updated schema
-              href={item.ticketUrl}
-              target='_blank'
-              className='z-40 bg-primary-500 px-3 py-1 text-sm font-semibold uppercase transition-colors hover:text-primary'
-            >
-              Book Tickets
-            </a>
-          )}
+
+          <div className='flex flex-col justify-center gap-2'>
+            {item.ticketUrl && (
+              <a
+                href={item.ticketUrl}
+                target='_blank'
+                className='z-40 bg-primary-500 px-3 py-1 text-sm font-semibold uppercase transition-colors hover:text-primary'
+              >
+                Book Tickets
+              </a>
+            )}
+
+            {item.watchUrl && (
+              <a
+                href={item.watchUrl}
+                target='_blank'
+                className='z-40 bg-secondary-500 px-3 py-1 text-sm font-semibold uppercase text-primary transition-colors hover:bg-secondary-400'
+              >
+                Watch
+              </a>
+            )}
+          </div>
         </div>
       </div>
     </button>
