@@ -17,7 +17,7 @@ export function Article(article: ArticleProps) {
       <div
         className={clsx(
           container,
-          'prose prose-slate w-full bg-slate-50 lg:prose-lg prose-img:mx-auto prose-img:max-h-[550px]'
+          'prose prose-slate mb-8 w-full bg-slate-50 lg:prose-lg prose-img:mx-auto prose-img:max-h-[550px]'
         )}
       >
         <div
