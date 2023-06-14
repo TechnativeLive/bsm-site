@@ -42,6 +42,7 @@ const icons: Options = ({ theme }) => ({
   },
   basil: {
     icons: {
+      'arrow-left-solid': {},
       'cancel-outline': {},
       'instagram-outline': {},
       'facebook-outline': {},

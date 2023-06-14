@@ -1,9 +1,9 @@
 'use client';
 import { linkHighlight } from '@/components/tailwind';
 import clsx from 'clsx';
-import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-import { useCallback, useRef } from 'react';
+import { usePathname } from 'next/navigation';
+import { useRef, useCallback } from 'react';
 
 type LinkProps = React.ComponentProps<typeof Link>;
 

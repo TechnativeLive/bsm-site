@@ -28,7 +28,7 @@ export const Footer = () => (
       </div>
       <div className='flex w-full items-center justify-between'>
         <HomeLogo />
-        <div className='text-xs'>© 2023 TNL Sports</div>
+        <div className='text-xs'>{`© ${new Date().getFullYear()} TNL Sports`}</div>
       </div>
     </div>
   </footer>

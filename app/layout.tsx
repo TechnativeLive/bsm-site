@@ -18,7 +18,7 @@ const saira = Saira({ variable: '--font-numeric', subsets: ['latin'], display: '
 export const metadata: Metadata = {
   title: { default: 'British Supermoto', template: '%s | British Supermoto' },
   // TODO: Better description
-  description: 'All things Supermoto - Event details, recaps, live scores and more',
+  description: 'All things Supermoto - Event details, news, live scores and more',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
