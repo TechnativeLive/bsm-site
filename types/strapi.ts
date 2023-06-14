@@ -24,7 +24,7 @@ export function hasFormats(media: StrapiMedia): media is SingleImage {
 type Image = Omit<SharedMedia, 'width' | 'height' | 'formats'> & {
   width: number;
   height: number;
-  formats: Record<never, never>;
+  formats: {};
 };
 
 type SingleImage = Omit<SharedMedia, 'width' | 'height' | 'formats'> & {
