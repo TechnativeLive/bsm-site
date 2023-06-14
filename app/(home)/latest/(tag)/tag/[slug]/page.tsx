@@ -1,11 +1,15 @@
 import { FeedSecondaryArticle } from '@/components/latest/feed/secondary';
-import { container } from '@/components/tailwind';
+import { container, tagTopLeft } from '@/components/tailwind';
 import { getArticlesPreview } from '@/lib/strapi';
 import { cms } from '@/utils/cms';
 import { GetAttributesValues } from '@strapi/strapi';
 import clsx from 'clsx';
+import Link from 'next/link';
 
 type PageParams = { params: { slug: string } };
+
+const dynamicParams = false;
+export { dynamicParams };
 
 async function getArticlesByTag(slug: string) {
   const articles = await getArticlesPreview({
@@ -29,7 +33,7 @@ export async function generateStaticParams() {
   ).then((res) => res.json());
 
   return tags.data.map((tag) => ({
-    tag: tag.slug,
+    slug: tag.slug,
   }));
 }
 
@@ -38,9 +42,9 @@ async function getTag(slug: string) {
     filters: { slug: { $eq: slug } },
   });
 
-  const tags: Strapi.Response<GetAttributesValues<'api::tag.tag'>[]> = await fetch(tagQuery, {
-    next: { revalidate: Infinity },
-  }).then((res) => res.json());
+  const tags: Strapi.Response<GetAttributesValues<'api::tag.tag'>[]> = await fetch(tagQuery).then(
+    (res) => res.json()
+  );
 
   return tags.data?.[0];
 }
@@ -51,16 +55,16 @@ export default async function AuthorArticlePage({ params: { slug } }: PageParams
 
   return (
     <>
-      <header className='grid h-36 w-full place-items-center border-b border-slate-300 bg-slate-100'>
-        <h1 className='text-emboss text-3xl font-bold uppercase'>{tag.label}</h1>
+      <header className='relative w-full border-b border-slate-300 bg-slate-100'>
+        <div className='mx-auto flex max-w-7xl flex-col items-center px-8 py-4'>
+          <Link className={clsx('mb-2 self-start md:mb-0', tagTopLeft)} href='/latest'>
+            Latest
+          </Link>
+          <h1 className='text-emboss mb-10 text-3xl font-bold uppercase'>{tag.label}</h1>
+        </div>
       </header>
       <section className={clsx(container, 'my-6')}>
-        <div
-          className='my-6 grid w-full gap-4'
-          style={{
-            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%/3, max(64px, 100%/5)), 1fr))',
-          }}
-        >
+        <div className='auto-cols my-6 grid w-full gap-4'>
           {articles.data.map((article) => (
             <FeedSecondaryArticle key={article.slug} article={article} />
           ))}

@@ -10,10 +10,11 @@ export const HomeLogo = ({ priority, className }: { className?: string; priority
 export const BannerSeparator = () => (
   <svg
     className='relative z-10'
-    width='110'
-    height='82'
+    height='100%'
+    viewBox='0 0 110 82'
     fill='none'
     xmlns='http://www.w3.org/2000/svg'
+    preserveAspectRatio='xMinYMin'
   >
     <path d='M0 0h110v82H0V0Z' fill='#fff' />
     <path

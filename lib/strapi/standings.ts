@@ -16,8 +16,7 @@ export async function getStandings(query?: StrapiQuery) {
   // console.log({ seasonQuery });
 
   const season: Strapi.Response<GetAttributesValues<'api::season.season'>> = await fetch(
-    seasonQuery,
-    { next: { revalidate: Infinity } }
+    seasonQuery
   ).then((res) => res.json());
 
   const standings = season.data.category;

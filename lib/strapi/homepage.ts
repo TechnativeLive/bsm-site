@@ -6,8 +6,7 @@ export async function getFeatureLinks() {
   // console.log({ homepageQuery });
 
   const homepage: Strapi.Response<GetAttributesValues<'api::homepage.homepage'>> = await fetch(
-    homepageQuery,
-    { next: { revalidate: Infinity } }
+    homepageQuery
   ).then((res) => res.json());
 
   const featureLinks = homepage.data.featureLinks;
@@ -19,8 +18,7 @@ export async function getFooterLinks() {
   // console.log({ homepageQuery });
 
   const homepage: Strapi.Response<GetAttributesValues<'api::homepage.homepage'>> = await fetch(
-    homepageQuery,
-    { next: { revalidate: Infinity } }
+    homepageQuery
   ).then((res) => res.json());
 
   const footerLinks = homepage.data.footerLinks;
@@ -32,8 +30,7 @@ export async function getSocials() {
   // console.log({ homepageQuery });
 
   const homepage: Strapi.Response<GetAttributesValues<'api::homepage.homepage'>> = await fetch(
-    homepageQuery,
-    { next: { revalidate: Infinity } }
+    homepageQuery
   ).then((res) => res.json());
 
   const socials = homepage.data.socials;
@@ -47,8 +44,7 @@ export async function getSponsors() {
   // console.log({ homepageQuery });
 
   const homepage: Strapi.Response<GetAttributesValues<'api::homepage.homepage'>> = await fetch(
-    homepageQuery,
-    { next: { revalidate: Infinity } }
+    homepageQuery
   ).then((res) => res.json());
 
   const sponsors = homepage.data.sponsors;
@@ -65,22 +61,10 @@ export async function getCalendar() {
   });
   // console.log({ calendarQuery });
 
-  try {
-    const res = await fetch(calendarQuery, { next: { revalidate: Infinity } });
+  const calendar: Strapi.Response<GetAttributesValues<'api::calendar.calendar'>> = await fetch(
+    calendarQuery
+  ).then((res) => res.json());
 
-    if (!res.ok) {
-      // This will activate the closest `error.js` Error Boundary
-      throw new Error('Failed to fetch calendar data');
-    }
-
-    const json = (await res.json()) as Strapi.Response<
-      GetAttributesValues<'api::calendar.calendar'>
-    >;
-    const currentCalendar = json.data.current;
-
-    return currentCalendar;
-  } catch (e) {
-    console.log(e);
-    throw new Error('Failed to fetch calendar data');
-  }
+  const currentCalendar = calendar.data.current;
+  return currentCalendar;
 }

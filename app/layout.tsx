@@ -18,14 +18,14 @@ const saira = Saira({ variable: '--font-numeric', subsets: ['latin'], display: '
 export const metadata: Metadata = {
   title: { default: 'British Supermoto', template: '%s | British Supermoto' },
   // TODO: Better description
-  description: 'All things Supermoto - Event details, recaps, live scores and more',
+  description: 'All things Supermoto - Event details, news, live scores and more',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang='en'>
       <body
-        className={`font-sans ${figtree.variable} ${audiowide.variable} ${saira.variable} scrollbar-thin scrollbar-track-zinc-100 scrollbar-thumb-zinc-400`}
+        className={`font-sans ${figtree.variable} ${audiowide.variable} ${saira.variable} overflow-y-scroll scrollbar-thin scrollbar-track-zinc-100 scrollbar-thumb-zinc-400`}
       >
         {children}
       </body>

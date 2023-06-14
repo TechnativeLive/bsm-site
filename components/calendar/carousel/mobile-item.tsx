@@ -77,17 +77,28 @@ export const CalendarCarouselItemMobile = ({
             </div>
           )}
         </div>
-        {/* d@ts-expect-error not updated schema */}
-        {'item.ticketUrl' && (
-          <a
-            // d@ts-expect-error not updated schema
-            href={'item.ticketUrl'}
-            target='_blank'
-            className='z-40 mx-auto mb-4 w-fit bg-primary-500 px-3 py-1 text-sm font-semibold uppercase transition-colors hover:text-primary'
-          >
-            Book Tickets
-          </a>
-        )}
+
+        <div className='flex items-center gap-2'>
+          {item.ticketUrl && (
+            <a
+              href={item.ticketUrl}
+              target='_blank'
+              className='z-40 mx-auto mb-4 w-fit bg-primary-500 px-3 py-1 text-sm font-semibold uppercase transition-colors hover:text-primary'
+            >
+              Book Tickets
+            </a>
+          )}
+
+          {item.watchUrl && (
+            <a
+              href={item.watchUrl}
+              target='_blank'
+              className='z-40 bg-secondary-500 px-3 py-1 text-sm font-semibold uppercase text-primary transition-colors hover:bg-secondary-400'
+            >
+              Watch Live
+            </a>
+          )}
+        </div>
       </details>
     </li>
   );

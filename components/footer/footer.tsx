@@ -7,7 +7,6 @@ import { groupSponsors } from '@/utils/array';
 import { GetAttributesValues } from '@strapi/strapi';
 import clsx from 'clsx';
 import Image from 'next/image';
-import Link from 'next/link';
 import { Suspense } from 'react';
 
 export const Footer = () => (
@@ -28,7 +27,7 @@ export const Footer = () => (
       </div>
       <div className='flex w-full items-center justify-between'>
         <HomeLogo />
-        <div className='text-xs'>© 2023 TNL Sports</div>
+        <div className='text-xs'>{`© ${new Date().getFullYear()} TNL Sports`}</div>
       </div>
     </div>
   </footer>
@@ -46,7 +45,7 @@ const Sponsors = async () => {
   return (
     <div className='grid grid-cols-1 divide-y divide-primary-300/40'>
       {sponsorTiers.map((tier, i) => (
-        <div key={i} className='flex gap-6 py-3'>
+        <div key={i} className='flex flex-wrap items-center justify-center gap-6 py-3'>
           {tier.map((sponsor, i) =>
             sponsor.url ? (
               <a key={i} href={sponsor.url} target='_blank'>
@@ -64,7 +63,8 @@ const Sponsors = async () => {
 
 const SponsorImage = (sponsor: GetAttributesValues<'api::sponsor.sponsor'>) => {
   const logo =
-    sponsor.logos?.find((l) => l.kind === 'light') ?? sponsor.logos?.find((l) => l.kind === 'base');
+    sponsor.logos?.find((l) => l.kind === (sponsor.name === 'Tripz' ? 'base' : 'light')) ??
+    sponsor.logos?.find((l) => l.kind === 'base');
   if (!logo) {
     return null;
   }
@@ -72,18 +72,34 @@ const SponsorImage = (sponsor: GetAttributesValues<'api::sponsor.sponsor'>) => {
   const image = logo.image as StrapiMedia;
 
   if (hasFormats(image)) {
+    const img = image.formats.thumbnail ?? image;
+
     return (
-      <Image
-        src={image.formats?.thumbnail?.url ?? image.url}
-        alt={image.alternativeText ?? sponsor.name}
-        width={144}
-        height={64}
-        className='object-contain'
-      />
+      <div
+        style={{ aspectRatio: img.width / img.height }}
+        className='flex h-24 max-w-[10rem] items-center justify-center'
+      >
+        <Image
+          src={img.url}
+          alt={image.alternativeText ?? `${sponsor.name} Logo`}
+          width={image.formats.thumbnail.width}
+          height={image.formats.thumbnail.height}
+          className='object-contain'
+        />
+      </div>
     );
   }
 
-  return <Image src={image.url} alt={image.alternativeText ?? sponsor.name} fill />;
+  return (
+    <div className='relative flex h-24 w-40 items-center justify-center'>
+      <Image
+        src={image.url}
+        alt={image.alternativeText ?? `${sponsor.name} Logo`}
+        fill
+        className='max-h-[24rem] object-contain'
+      />
+    </div>
+  );
 };
 
 const PLATFORM_ICONS: Record<GetAttributesValues<'shared.social'>['platform'], string> = {

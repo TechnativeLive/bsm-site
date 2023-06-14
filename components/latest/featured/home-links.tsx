@@ -9,7 +9,6 @@ export const FeatureHomeLinks = async () => {
   return (
     <div className='grid grid-cols-1 gap-x-8 gap-y-4 md:grid-cols-3'>
       {featuredLinks?.map((link, i) => (
-        // @ts-ignore
         <FeatureHomeLink key={i} {...link.link} />
       ))}
     </div>

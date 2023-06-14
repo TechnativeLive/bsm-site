@@ -25,10 +25,10 @@ export const FeedPrimaryArticle = ({
           'after:bg-pattern'
         )}
       >
-        {cover?.alternativeText && (
+        {article.description && (
           <div className='absolute bottom-0 left-0 right-0 z-20 overflow-hidden'>
             <div className='max-h-full translate-y-full bg-primary-900/50 px-8 py-4 text-white shadow-sm transition-transform ease-slide group-hover:translate-y-0 group-hover:delay-300'>
-              <div className='line-clamp-3'>{cover.alternativeText}</div>
+              <div className='line-clamp-3'>{article.description}</div>
             </div>
           </div>
         )}

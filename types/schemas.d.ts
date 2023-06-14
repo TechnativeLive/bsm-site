@@ -843,6 +843,8 @@ export interface ApiCalendarItemCalendarItem extends CollectionTypeSchema {
     schedule: JSONAttribute;
     slug: UIDAttribute<'api::calendar-item.calendar-item', 'name'> &
       RequiredAttribute;
+    ticketUrl: StringAttribute;
+    watchUrl: StringAttribute;
     createdAt: DateTimeAttribute;
     updatedAt: DateTimeAttribute;
     publishedAt: DateTimeAttribute;
@@ -872,7 +874,6 @@ export interface ApiHomepageHomepage extends SingleTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    featureLinks: ComponentAttribute<'shared.link', true>;
     footerLinks: ComponentAttribute<'shared.link', true>;
     sponsors: RelationAttribute<
       'api::homepage.homepage',
@@ -880,6 +881,11 @@ export interface ApiHomepageHomepage extends SingleTypeSchema {
       'api::sponsor.sponsor'
     >;
     socials: ComponentAttribute<'shared.social', true>;
+    featureLinks: ComponentAttribute<'image.image-link', true> &
+      SetMinMax<{
+        min: 3;
+        max: 3;
+      }>;
     createdAt: DateTimeAttribute;
     updatedAt: DateTimeAttribute;
     publishedAt: DateTimeAttribute;
@@ -1093,6 +1099,16 @@ export interface BlocksRichText extends ComponentSchema {
   };
 }
 
+export interface ImageImageLink extends ComponentSchema {
+  info: {
+    displayName: 'imageLink';
+  };
+  attributes: {
+    link: ComponentAttribute<'shared.link'> & RequiredAttribute;
+    image: MediaAttribute & RequiredAttribute;
+  };
+}
+
 export interface ImageLogo extends ComponentSchema {
   info: {
     displayName: 'Logo';
@@ -1232,6 +1248,7 @@ declare global {
       'blocks.cta': BlocksCta;
       'blocks.hero': BlocksHero;
       'blocks.rich-text': BlocksRichText;
+      'image.image-link': ImageImageLink;
       'image.logo': ImageLogo;
       'scores.podium': ScoresPodium;
       'scores.standings-table': ScoresStandingsTable;
