@@ -61,22 +61,10 @@ export async function getCalendar() {
   });
   // console.log({ calendarQuery });
 
-  try {
-    const res = await fetch(calendarQuery);
+  const calendar: Strapi.Response<GetAttributesValues<'api::calendar.calendar'>> = await fetch(
+    calendarQuery
+  ).then((res) => res.json());
 
-    if (!res.ok) {
-      // This will activate the closest `error.js` Error Boundary
-      throw new Error('Failed to fetch calendar data');
-    }
-
-    const json = (await res.json()) as Strapi.Response<
-      GetAttributesValues<'api::calendar.calendar'>
-    >;
-    const currentCalendar = json.data.current;
-
-    return currentCalendar;
-  } catch (e) {
-    console.log(e);
-    throw new Error('Failed to fetch calendar data');
-  }
+  const currentCalendar = calendar.data.current;
+  return currentCalendar;
 }

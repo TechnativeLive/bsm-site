@@ -41,7 +41,6 @@ export const CalendarCarouselItem = ({
     if (el.current && el.current.parentElement && status !== 'inactive') {
       const midpoint = el.current.offsetLeft + el.current.offsetWidth / 2;
       el.current.parentElement.scrollLeft = midpoint - el.current.parentElement.offsetWidth / 2;
-      console.log({ scrollLeft: midpoint - el.current.parentElement.offsetWidth / 2 });
     }
   }, [status]);
 
