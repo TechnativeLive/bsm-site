@@ -44,9 +44,9 @@ async function getTag(slug: string) {
     filters: { slug: { $eq: slug } },
   });
 
-  const tags: Strapi.Response<GetAttributesValues<'api::tag.tag'>[]> = await fetch(tagQuery, {
-    next: { revalidate: Infinity },
-  }).then((res) => res.json());
+  const tags: Strapi.Response<GetAttributesValues<'api::tag.tag'>[]> = await fetch(tagQuery).then(
+    (res) => res.json()
+  );
 
   return tags.data?.[0];
 }

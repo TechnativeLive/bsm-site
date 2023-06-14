@@ -8,15 +8,14 @@ import Link from 'next/link';
 
 export default async function Page() {
   const tagsQuery = cms('tags', { populate: ['articles'] });
-  const allTags: Strapi.Response<GetAttributesValues<'api::tag.tag'>[]> = await fetch(tagsQuery, {
-    next: { revalidate: Infinity },
-  }).then((res) => res.json());
+  const allTags: Strapi.Response<GetAttributesValues<'api::tag.tag'>[]> = await fetch(
+    tagsQuery
+  ).then((res) => res.json());
   const tags = allTags.data.filter((tag) => tag.articles && tag.articles.length > 0);
 
   const articlesQuery = cms('articles', { populate: '*' });
   const articles: Strapi.Response<GetAttributesValues<'api::article.article'>[]> = await fetch(
-    articlesQuery,
-    { next: { revalidate: Infinity } }
+    articlesQuery
   ).then((res) => res.json());
 
   return (
@@ -45,5 +44,5 @@ export default async function Page() {
 export const metadata: Metadata = {
   title: 'Latest News',
   // TODO: Better description
-  description: 'Lastest News from British Supermoto',
+  description: 'All the lastest news from British Supermoto',
 };
