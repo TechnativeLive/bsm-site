@@ -3,7 +3,22 @@ import Link from 'next/link';
 
 export const HomeLogo = ({ priority, className }: { className?: string; priority?: boolean }) => (
   <Link href={'/'} className={className}>
-    <Image priority={priority} src='/logo.svg' width={182} height={48} alt='BSM Logo' />
+    <Image
+      priority={priority}
+      className='hidden sm:block'
+      src='/logo-tripz-wide.svg'
+      width={296}
+      height={48}
+      alt='BSM Logo'
+    />
+    <Image
+      priority={priority}
+      className='block max-h-[60px] sm:hidden'
+      src='/logo-tripz-stacked.svg'
+      width={134}
+      height={72}
+      alt='BSM Logo'
+    />
   </Link>
 );
 

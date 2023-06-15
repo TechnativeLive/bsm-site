@@ -47,7 +47,7 @@ export const MobileNav = () => {
   const close = useCallback(() => ref.current && (ref.current.checked = false), [ref]);
 
   return (
-    <div className='z-10 -mr-2 flex grow basis-full items-center justify-end gap-2 font-bold uppercase text-black md:hidden lg:gap-6'>
+    <div className='z-10 -mr-2 ml-7 flex grow items-center justify-end gap-2 font-bold uppercase text-black md:hidden lg:gap-6'>
       <input ref={ref} type='checkbox' id='nav-menu' className='modal peer absolute h-0 w-0' />
       <label
         htmlFor='nav-menu'

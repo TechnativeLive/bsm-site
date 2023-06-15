@@ -157,6 +157,9 @@ export default {
   ],
   theme: {
     extend: {
+      screens: {
+        xs: '360px',
+      },
       animation: {
         appear: 'appear 300ms ease-in-out both',
       },
