@@ -1,5 +1,6 @@
 'use client';
 import { EventStatus } from '@/app/(home)/page';
+import { StrapiMedia } from '@/types/strapi';
 import { GetAttributesValues } from '@strapi/strapi';
 import clsx from 'clsx';
 import Image from 'next/image';
@@ -124,6 +125,21 @@ export const CalendarCarouselItem = ({
               </div>
             )}
           </div>
+
+          {item.schedulePDF && (
+            <div className='mb-1 flex flex-col justify-center gap-2'>
+              {(item.schedulePDF as StrapiMedia[]).map((pdf) => (
+                <a
+                  key={pdf.id}
+                  href={pdf.url}
+                  target='_blank'
+                  className='z-40 rounded-sm border border-primary-500 px-2.5 py-0.5 text-sm font-semibold uppercase transition-colors hover:border-secondary'
+                >
+                  {pdf.caption ?? 'Schedule'}
+                </a>
+              ))}
+            </div>
+          )}
 
           <div className='flex flex-col justify-center gap-2'>
             {item.ticketUrl && (

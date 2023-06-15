@@ -845,6 +845,7 @@ export interface ApiCalendarItemCalendarItem extends CollectionTypeSchema {
       RequiredAttribute;
     ticketUrl: StringAttribute;
     watchUrl: StringAttribute;
+    schedulePDF: MediaAttribute;
     createdAt: DateTimeAttribute;
     updatedAt: DateTimeAttribute;
     publishedAt: DateTimeAttribute;

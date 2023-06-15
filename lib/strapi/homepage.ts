@@ -55,7 +55,10 @@ export async function getCalendar() {
   const calendarQuery = cms('calendar', {
     populate: {
       current: {
-        populate: { track: { populate: ['name', 'layout'] } },
+        populate: {
+          track: { populate: ['name', 'layout'] },
+          schedulePDF: { populate: ['alternativeText', 'url', 'caption'] },
+        },
       },
     },
   });
