@@ -127,7 +127,7 @@ export const CalendarCarouselItem = ({
           </div>
 
           {item.schedulePDF && (
-            <div className='mb-1 flex flex-col justify-center gap-2'>
+            <div className='mb-1 flex items-center justify-center gap-2'>
               {(item.schedulePDF as StrapiMedia[]).map((pdf) => (
                 <a
                   key={pdf.id}
@@ -141,7 +141,7 @@ export const CalendarCarouselItem = ({
             </div>
           )}
 
-          <div className='flex flex-col justify-center gap-2'>
+          <div className='flex items-center justify-center gap-2'>
             {item.ticketUrl && (
               <a
                 href={item.ticketUrl}

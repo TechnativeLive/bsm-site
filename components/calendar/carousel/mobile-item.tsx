@@ -1,4 +1,5 @@
 import { EventStatus } from '@/app/(home)/page';
+import { StrapiMedia } from '@/types/strapi';
 import { GetAttributesValues } from '@strapi/strapi';
 import clsx from 'clsx';
 import Image from 'next/image';
@@ -58,16 +59,19 @@ export const CalendarCarouselItemMobile = ({
         <div className='grid h-full min-w-[9rem] cursor-auto grid-cols-[auto,1fr,auto] content-center justify-items-start gap-x-2 overflow-hidden pb-4 text-sm uppercase'>
           {schedule ? (
             schedule.map((scheduleItem, i) =>
-              'day' in scheduleItem ? (
+              'day' in scheduleItem &&
+              scheduleItem.day !== '' &&
+              scheduleItem.label !== '' &&
+              scheduleItem.time !== '' ? (
                 <Fragment key={i}>
                   <p className='font-mono'>{scheduleItem.day}</p>
                   <p className='whitespace-nowrap font-semibold'>{scheduleItem.label}</p>
                   <p className='font-mono font-semibold'>{scheduleItem.time}</p>
                 </Fragment>
               ) : (
-                <p className='col-span-3' key={i}>
+                <div className='col-span-3' key={i}>
                   &emsp;
-                </p>
+                </div>
               )
             )
           ) : (
@@ -78,7 +82,22 @@ export const CalendarCarouselItemMobile = ({
           )}
         </div>
 
-        <div className='flex items-center gap-2'>
+        {item.schedulePDF && (
+          <div className='mb-2 flex items-center justify-center gap-2'>
+            {(item.schedulePDF as StrapiMedia[]).map((pdf) => (
+              <a
+                key={pdf.id}
+                href={pdf.url}
+                target='_blank'
+                className='z-40 rounded-sm border border-primary-500 px-2.5 py-0.5 text-sm font-semibold uppercase transition-colors hover:border-secondary'
+              >
+                {pdf.caption ?? 'Schedule'}
+              </a>
+            ))}
+          </div>
+        )}
+
+        <div className='mb-2 flex items-center justify-center gap-2'>
           {item.ticketUrl && (
             <a
               href={item.ticketUrl}
