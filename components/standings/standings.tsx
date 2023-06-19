@@ -8,7 +8,7 @@ import { GetAttributesValues } from '@strapi/strapi';
 import clsx from 'clsx';
 
 const tabTrigger = clsx(
-  'px-6 py-3 font-display text-2xl relative overflow-hidden hover:bg-slate-50 uppercase border-slate-300 border-l first:border-l-0',
+  'px-6 py-3 font-display text-2xl relative overflow-hidden hover:bg-slate-50 uppercase border border-slate-300 -mt-px -ml-px',
   'after:absolute after:left-2 after:right-2 after:top-full after:h-1 after:scale-0 after:bg-primary-500 after:rounded-t-full',
   'after:transition-transform after:ease-slide',
   'hover:after:-translate-y-full hover:after:scale-100',
@@ -29,7 +29,7 @@ export const Standings = ({ standings, fullView }: StandingsProps) => {
     <Tabs.Root defaultValue={standings[0].slug} className='mx-auto'>
       <Tabs.List
         aria-label='tabs example'
-        className='flex justify-center border-y border-slate-300'
+        className='relative flex flex-wrap justify-center border-t border-slate-300 before:absolute before:inset-0 before:border-b before:border-slate-300'
       >
         {standings.map((table) => (
           <Tabs.Trigger key={table.slug} value={table.slug} className={tabTrigger}>
