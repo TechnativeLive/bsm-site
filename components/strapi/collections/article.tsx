@@ -71,7 +71,7 @@ export function Article(article: ArticleProps) {
             </div>
           </div>
 
-          <Hero {...article.hero} />
+          <Hero {...article.hero} priority />
         </div>
         {article.blocks?.map((block, i) => (
           <Block key={i} type={block.__component} block={block} />

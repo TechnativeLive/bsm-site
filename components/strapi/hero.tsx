@@ -2,7 +2,7 @@ import { StrapiMedia } from '@/types/strapi';
 import { GetAttributesValues } from '@strapi/strapi';
 import Image from 'next/image';
 
-type HeroProps = GetAttributesValues<'blocks.hero'>;
+type HeroProps = GetAttributesValues<'blocks.hero'> & { priority?: boolean };
 
 export function Hero(props: HeroProps) {
   const cover = props.images?.[0] as StrapiMedia | undefined;
@@ -16,6 +16,7 @@ export function Hero(props: HeroProps) {
             src={cover.url}
             alt={cover.alternativeText ?? cover.caption ?? 'Banner image'}
             fill
+            priority={props.priority}
           />
         </div>
       )}
