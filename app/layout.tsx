@@ -2,6 +2,7 @@ import './globals.css';
 
 import { Audiowide, Figtree, Saira } from 'next/font/google';
 import { Metadata } from 'next';
+import { Analytics } from '@vercel/analytics/react';
 
 // TODO: Optimise loaded font subsets etc.
 // https://nextjs.org/docs/app/building-your-application/optimizing/fonts
@@ -28,6 +29,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         className={`font-sans ${figtree.variable} ${audiowide.variable} ${saira.variable} overflow-y-scroll scrollbar-thin scrollbar-track-zinc-100 scrollbar-thumb-zinc-400`}
       >
         {children}
+        <Analytics />
       </body>
     </html>
   );
