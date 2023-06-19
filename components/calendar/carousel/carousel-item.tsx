@@ -1,5 +1,5 @@
 'use client';
-import { EventStatus } from '@/app/(home)/page';
+import { EventStatus } from '@/hooks/use-current-event';
 import { StrapiMedia } from '@/types/strapi';
 import { GetAttributesValues } from '@strapi/strapi';
 import clsx from 'clsx';
@@ -39,9 +39,10 @@ export const CalendarCarouselItem = ({
 }) => {
   const el = useRef<HTMLButtonElement>(null);
   useEffect(() => {
-    if (el.current && el.current.parentElement && status !== 'inactive') {
+    const parent = el.current?.parentElement;
+    if (el.current && parent && status !== 'inactive') {
       const midpoint = el.current.offsetLeft + el.current.offsetWidth / 2;
-      el.current.parentElement.scrollLeft = midpoint - el.current.parentElement.offsetWidth / 2;
+      parent.scrollTo({ left: midpoint - parent.offsetWidth / 2, behavior: 'smooth' });
     }
   }, [status]);
 

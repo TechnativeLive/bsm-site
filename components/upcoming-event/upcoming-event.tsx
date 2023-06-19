@@ -1,5 +1,6 @@
-import { EventStatus } from '@/app/(home)/page';
+'use client';
 import { containerRow } from '@/components/tailwind';
+import { useCurrentEvent } from '@/hooks/use-current-event';
 import { ordinalSuffix } from '@/utils/ordinal-suffix';
 import { GetAttributesValues } from '@strapi/strapi';
 import clsx from 'clsx';
@@ -11,16 +12,16 @@ const fmtMonth = new Intl.DateTimeFormat('en-GB', { month: 'short' });
 
 export const UpcomingEvent = ({
   calendar,
-  eventStatus,
 }: {
   calendar: GetAttributesValues<'api::calendar-item.calendar-item'>[];
-  eventStatus: { index?: number; status: EventStatus };
 }) => {
-  if (!eventStatus.index) {
+  const eventStatus = useCurrentEvent(calendar);
+
+  if (!eventStatus.event) {
     return null;
   }
 
-  return <EventCountdown event={calendar[eventStatus.index!]} />;
+  return <EventCountdown event={eventStatus.event} />;
 };
 
 const EventCountdown = ({
