@@ -2,10 +2,9 @@
 
 import { useInterval } from '@/hooks/use-interval';
 import clsx from 'clsx';
-import Link from 'next/link';
 import { useState } from 'react';
 
-const EventClock = ({ startTimeInMs }: { startTimeInMs: number }) => {
+const EventClock = ({ startTimeInMs, watchUrl }: { startTimeInMs: number; watchUrl?: string }) => {
   const [secondsRemaining, setSecondsRemaining] = useState(() =>
     Math.floor((startTimeInMs - Date.now()) / 1000)
   );
@@ -26,7 +25,7 @@ const EventClock = ({ startTimeInMs }: { startTimeInMs: number }) => {
         <div className='flex items-center gap-4'>
           <div className='h-4 w-4 rounded-full bg-red-500' />
           <a
-            href='https://www.youtube.com/c/technativelive'
+            href={watchUrl ?? 'https://www.youtube.com/c/technativelive'}
             target='_blank'
             className='font-display text-2xl'
           >

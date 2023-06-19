@@ -58,7 +58,7 @@ const EventCountdown = ({
             {event.track?.name.toLocaleUpperCase()} {'//'} {event.name.toLocaleUpperCase()}
           </div>
         </div>
-        <EventClock startTimeInMs={startDate.getTime()} />
+        <EventClock startTimeInMs={startDate.getTime()} watchUrl={event.watchUrl} />
       </div>
     </div>
   );
