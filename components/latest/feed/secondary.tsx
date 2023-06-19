@@ -22,11 +22,9 @@ export const FeedSecondaryArticle = ({
           >
             <div className='relative aspect-video overflow-hidden'>
               <Image
-                src={
-                  cover?.url ??
-                  'https://res.cloudinary.com/prod-f2f3/ar_16:9,c_fill,dpr_1.0,f_auto,g_auto,h_450,w_800/v1/f2/global/articles/2023/05_May/GettyImages-1398074999'
-                }
+                src={cover?.url ?? article.hero.images?.[0]?.url}
                 alt={cover?.alternativeText ?? 'Preview image'}
+                priority
                 fill
                 className='object-cover transition-transform duration-300 ease-in-out group-hover:scale-105'
               />

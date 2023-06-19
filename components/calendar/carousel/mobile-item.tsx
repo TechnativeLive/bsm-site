@@ -1,4 +1,4 @@
-import { EventStatus } from '@/app/(home)/page';
+import { EventStatus } from '@/hooks/use-current-event';
 import { StrapiMedia } from '@/types/strapi';
 import { GetAttributesValues } from '@strapi/strapi';
 import clsx from 'clsx';
@@ -9,10 +9,8 @@ type Schedule = ({ day: string; label: string; time: string } | Record<never, ne
 
 export const CalendarCarouselItemMobile = ({
   item,
-  status,
 }: {
   item: GetAttributesValues<'api::calendar-item.calendar-item'>;
-  status: EventStatus;
 }) => {
   const schedule = item.schedule as Schedule | undefined;
 

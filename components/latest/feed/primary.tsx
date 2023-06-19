@@ -33,10 +33,8 @@ export const FeedPrimaryArticle = ({
           </div>
         )}
         <Image
-          src={
-            cover?.url ??
-            'https://res.cloudinary.com/prod-f2f3/ar_16:9,c_fill,dpr_1.0,f_auto,g_auto,h_450,w_800/v1/f2/global/articles/2023/05_May/GettyImages-1398074999'
-          }
+          src={cover?.url ?? article.hero.images?.[0]?.url}
+          priority
           alt={cover?.alternativeText ?? 'Cover Image'}
           width={cover?.width ?? 800}
           height={cover?.height ?? 450}
