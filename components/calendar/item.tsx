@@ -89,7 +89,7 @@ export const CalendarItem = ({
             className={clsx('select-none object-contain', status === 'complete' && 'opacity-80')}
           />
         </div>
-        <div className='flex flex-col items-center'>
+        <div className='flex flex-col items-center md:grow'>
           <p className='mb-auto w-min font-semibold uppercase tracking-widest'>{item.track.name}</p>
           {!isRound && <p className='italic'>{item.name}</p>}
           <div className='mb-1 mt-2 max-w-fit text-sm font-semibold tracking-wider'>
