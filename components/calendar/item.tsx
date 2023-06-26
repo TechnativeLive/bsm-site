@@ -1,11 +1,10 @@
 'use client';
 import { DateString } from '@/components/date';
 import { EventStatus } from '@/hooks/use-current-event';
-import { StrapiMedia } from '@/types/strapi';
 import { GetAttributesValues } from '@strapi/strapi';
 import clsx from 'clsx';
 import Image from 'next/image';
-import { FocusEventHandler, Fragment, MouseEventHandler, useEffect, useRef } from 'react';
+import { FocusEventHandler, MouseEventHandler, useCallback, useEffect, useRef } from 'react';
 
 const handleClick: MouseEventHandler<HTMLButtonElement> = (ev) => {
   ev.stopPropagation();
@@ -14,18 +13,63 @@ const handleClick: MouseEventHandler<HTMLButtonElement> = (ev) => {
   }
 };
 
-const scrollIntoView = (currentTarget: EventTarget & HTMLButtonElement) =>
-  currentTarget.scrollIntoView({
-    behavior: 'smooth',
-    block: 'nearest',
-    inline: 'center',
-  });
+const scrollIntoView = (
+  currentTarget: EventTarget & HTMLButtonElement,
+  index: number,
+  withFocus = true
+) => {
+  const parent = currentTarget?.parentElement;
+  const active = Number(parent?.querySelector('[data-active]')?.getAttribute('data-active'));
 
-const handleFocus: FocusEventHandler<HTMLButtonElement> = (ev) => {
-  ev.stopPropagation();
-  if (ev.currentTarget && ev.target.tagName.toLowerCase() !== 'a') {
-    scrollIntoView(ev.currentTarget);
+  if (currentTarget && parent) {
+    setTimeout(() => {
+      // Measure the hidden parts of the panel
+      const hiddenContents = currentTarget.lastChild?.firstChild?.firstChild;
+      const hiddenOffset = (
+        hiddenContents as HTMLDivElement | undefined
+      )?.getBoundingClientRect() ?? { width: 0, height: 0 };
+
+      // We compensate for the hidden panel part based on if a panel is already open (via active)
+      // and if the open panel is left or right (or above / below)
+      // of the target (since we are using offsetLeft / Top)
+      // withFocus is false in the page lad useEffect and doesn't open the panel
+      // so adjustdir is 0
+      const isLeftOfPrev = index < active;
+      const adjustDir = withFocus ? (Number.isNaN(active) || isLeftOfPrev ? 1 : -1) : 0;
+
+      // Calc the effective element size. Only the width matters when md or above, and height below
+      const currentWidth = currentTarget.offsetWidth + hiddenOffset.width * adjustDir;
+      const currentHeight = currentTarget.offsetHeight + hiddenOffset.height * adjustDir;
+
+      // Adjust to the center point of both the parent and target
+      const midpointX = currentTarget.offsetLeft + currentWidth / 2 - parent.offsetWidth / 2;
+      const midpointY = currentTarget.offsetTop + currentHeight / 2 - parent.offsetHeight / 2;
+
+      parent.scrollTo({
+        left: midpointX,
+        top: midpointY,
+        behavior: 'smooth',
+      });
+
+      // Update the active index
+      currentTarget.setAttribute('data-active', index.toString());
+    });
   }
+};
+
+const createHandleFocus = (index: number) => {
+  const handleFocus: FocusEventHandler<HTMLButtonElement> = (ev) => {
+    ev.stopPropagation();
+    if (ev.currentTarget && ev.target.tagName.toLowerCase() !== 'a') {
+      scrollIntoView(ev.currentTarget, index);
+    }
+  };
+  return handleFocus;
+};
+
+const handleBlur: FocusEventHandler<HTMLButtonElement> = (ev) => {
+  const target = ev.currentTarget;
+  setTimeout(() => target.removeAttribute('data-active'));
 };
 
 const colors = {
@@ -38,18 +82,24 @@ const colors = {
 export const CalendarItem = ({
   item,
   status,
+  index,
 }: {
   item: GetAttributesValues<'api::calendar-item.calendar-item'>;
   status: EventStatus;
+  index: number;
 }) => {
+  const handleIndexedFocus = useCallback<FocusEventHandler<HTMLButtonElement>>(
+    (ev) => createHandleFocus(index)(ev),
+    [index]
+  );
   const el = useRef<HTMLButtonElement>(null);
+
+  // On page load, scroll to show the 'active'/ 'next' event panel
   useEffect(() => {
-    const parent = el.current?.parentElement;
-    if (el.current && parent && (status === 'active' || status === 'next')) {
-      const midpoint = el.current.offsetLeft + el.current.offsetWidth / 2;
-      parent.scrollTo({ left: midpoint - parent.offsetWidth / 2, behavior: 'smooth' });
+    if (el.current && (status === 'active' || status === 'next')) {
+      scrollIntoView(el.current, index, false);
     }
-  }, [status]);
+  }, [index, status]);
 
   if (!item || !item.track?.name) return null;
 
@@ -60,7 +110,8 @@ export const CalendarItem = ({
     <button
       ref={el}
       onClick={handleClick}
-      onFocus={handleFocus}
+      onFocus={handleIndexedFocus}
+      onBlur={handleBlur}
       className={clsx(
         'group relative flex shrink-0 select-text flex-col overflow-hidden p-3 focus:outline-none md:flex-row',
         'before:corner-3 before:corner-primary',
@@ -107,7 +158,7 @@ export const CalendarItem = ({
         )}
       >
         <div className={clsx('inner', 'overflow-hidden')}>
-          <div className='flex h-max flex-col items-center justify-center transition-transform duration-300 ease-slide group-focus-within:translate-x-0 group-focus-within:translate-y-0 max-md:translate-y-24 md:mx-auto md:inline-flex md:w-max md:translate-x-24 md:pl-6'>
+          <div className='flex h-max flex-col items-center justify-center opacity-0 transition-all duration-300 ease-slide group-focus-within:translate-x-0 group-focus-within:translate-y-0 group-focus-within:opacity-100 max-md:translate-y-24 md:mx-auto md:inline-flex md:w-max md:translate-x-24 md:pl-6'>
             <Schedule files={item.files} schedule={item.schedule} />
 
             <div className='flex items-center justify-center gap-2'>
