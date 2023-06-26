@@ -40,7 +40,7 @@ export const CalendarCarouselItem = ({
   const el = useRef<HTMLButtonElement>(null);
   useEffect(() => {
     const parent = el.current?.parentElement;
-    if (el.current && parent && status !== 'inactive') {
+    if (el.current && parent && status !== 'complete') {
       const midpoint = el.current.offsetLeft + el.current.offsetWidth / 2;
       parent.scrollTo({ left: midpoint - parent.offsetWidth / 2, behavior: 'smooth' });
     }
@@ -64,7 +64,7 @@ export const CalendarCarouselItem = ({
         'after:z-10 after:rounded-sm first:after:rounded-l-xl last:after:rounded-r-xl',
         'after:absolute after:inset-1 after:bg-gradient-to-b after:from-primary-300/30 after:to-75%',
         'after:opacity-0 after:transition-opacity hover:after:opacity-100 focus:after:opacity-100',
-        status === 'upcoming'
+        status === 'next'
           ? 'from-secondary'
           : status === 'active'
           ? 'from-red-500'

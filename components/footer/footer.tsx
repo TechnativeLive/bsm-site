@@ -143,7 +143,9 @@ const FooterLinks = async () => {
             target='_blank'
             aria-label={social.platform}
             className={clsx(PLATFORM_ICONS[social.platform], 'inline-block hover:text-secondary')}
-          />
+          >
+            <span className='hidden'>{social.platform}</span>
+          </a>
         ))}
       </div>
     </>

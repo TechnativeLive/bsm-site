@@ -1,25 +1,14 @@
 import './globals.css';
 
-import { Audiowide, Figtree, Saira } from 'next/font/google';
 import { Metadata } from 'next';
 import { Analytics } from '@vercel/analytics/react';
-
-// TODO: Optimise loaded font subsets etc.
-// https://nextjs.org/docs/app/building-your-application/optimizing/fonts
-// https://tailwindcss.com/blog/tailwindcss-v3-3#configure-font-variation-settings-for-custom-font-families
-const figtree = Figtree({ variable: '--font-sans', subsets: ['latin'], display: 'swap' });
-const audiowide = Audiowide({
-  variable: '--font-display',
-  weight: '400',
-  subsets: ['latin'],
-  display: 'block',
-});
-const saira = Saira({ variable: '--font-numeric', subsets: ['latin'], display: 'swap' });
+import { figtree, audiowide, saira } from '@/fonts';
 
 export const metadata: Metadata = {
   title: { default: 'British Supermoto', template: '%s | British Supermoto' },
   // TODO: Better description
-  description: 'All things Supermoto - Event details, news, live scores and more',
+  description:
+    'All things British Supermoto - Event details, news, live championship scores and more',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

@@ -19,7 +19,7 @@ export const CalendarCarousel = async ({
           <CalendarCarouselItem
             key={i}
             item={event}
-            status={i === eventStatus.index ? eventStatus.status : 'inactive'}
+            status={i === eventStatus.index ? eventStatus.status : 'complete'}
           />
         ))}
       </div>

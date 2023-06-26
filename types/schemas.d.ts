@@ -59,18 +59,8 @@ export interface AdminPermission extends CollectionTypeSchema {
     role: RelationAttribute<'admin::permission', 'manyToOne', 'admin::role'>;
     createdAt: DateTimeAttribute;
     updatedAt: DateTimeAttribute;
-    createdBy: RelationAttribute<
-      'admin::permission',
-      'oneToOne',
-      'admin::user'
-    > &
-      PrivateAttribute;
-    updatedBy: RelationAttribute<
-      'admin::permission',
-      'oneToOne',
-      'admin::user'
-    > &
-      PrivateAttribute;
+    createdBy: RelationAttribute<'admin::permission', 'oneToOne', 'admin::user'> & PrivateAttribute;
+    updatedBy: RelationAttribute<'admin::permission', 'oneToOne', 'admin::user'> & PrivateAttribute;
   };
 }
 
@@ -115,16 +105,13 @@ export interface AdminUser extends CollectionTypeSchema {
     resetPasswordToken: StringAttribute & PrivateAttribute;
     registrationToken: StringAttribute & PrivateAttribute;
     isActive: BooleanAttribute & PrivateAttribute & DefaultTo<false>;
-    roles: RelationAttribute<'admin::user', 'manyToMany', 'admin::role'> &
-      PrivateAttribute;
+    roles: RelationAttribute<'admin::user', 'manyToMany', 'admin::role'> & PrivateAttribute;
     blocked: BooleanAttribute & PrivateAttribute & DefaultTo<false>;
     preferedLanguage: StringAttribute;
     createdAt: DateTimeAttribute;
     updatedAt: DateTimeAttribute;
-    createdBy: RelationAttribute<'admin::user', 'oneToOne', 'admin::user'> &
-      PrivateAttribute;
-    updatedBy: RelationAttribute<'admin::user', 'oneToOne', 'admin::user'> &
-      PrivateAttribute;
+    createdBy: RelationAttribute<'admin::user', 'oneToOne', 'admin::user'> & PrivateAttribute;
+    updatedBy: RelationAttribute<'admin::user', 'oneToOne', 'admin::user'> & PrivateAttribute;
   };
 }
 
@@ -159,17 +146,11 @@ export interface AdminRole extends CollectionTypeSchema {
       }>;
     description: StringAttribute;
     users: RelationAttribute<'admin::role', 'manyToMany', 'admin::user'>;
-    permissions: RelationAttribute<
-      'admin::role',
-      'oneToMany',
-      'admin::permission'
-    >;
+    permissions: RelationAttribute<'admin::role', 'oneToMany', 'admin::permission'>;
     createdAt: DateTimeAttribute;
     updatedAt: DateTimeAttribute;
-    createdBy: RelationAttribute<'admin::role', 'oneToOne', 'admin::user'> &
-      PrivateAttribute;
-    updatedBy: RelationAttribute<'admin::role', 'oneToOne', 'admin::user'> &
-      PrivateAttribute;
+    createdBy: RelationAttribute<'admin::role', 'oneToOne', 'admin::user'> & PrivateAttribute;
+    updatedBy: RelationAttribute<'admin::role', 'oneToOne', 'admin::user'> & PrivateAttribute;
   };
 }
 
@@ -210,27 +191,13 @@ export interface AdminApiToken extends CollectionTypeSchema {
         minLength: 1;
       }>;
     lastUsedAt: DateTimeAttribute;
-    permissions: RelationAttribute<
-      'admin::api-token',
-      'oneToMany',
-      'admin::api-token-permission'
-    >;
+    permissions: RelationAttribute<'admin::api-token', 'oneToMany', 'admin::api-token-permission'>;
     expiresAt: DateTimeAttribute;
     lifespan: BigIntegerAttribute;
     createdAt: DateTimeAttribute;
     updatedAt: DateTimeAttribute;
-    createdBy: RelationAttribute<
-      'admin::api-token',
-      'oneToOne',
-      'admin::user'
-    > &
-      PrivateAttribute;
-    updatedBy: RelationAttribute<
-      'admin::api-token',
-      'oneToOne',
-      'admin::user'
-    > &
-      PrivateAttribute;
+    createdBy: RelationAttribute<'admin::api-token', 'oneToOne', 'admin::user'> & PrivateAttribute;
+    updatedBy: RelationAttribute<'admin::api-token', 'oneToOne', 'admin::user'> & PrivateAttribute;
   };
 }
 
@@ -256,24 +223,12 @@ export interface AdminApiTokenPermission extends CollectionTypeSchema {
       SetMinMaxLength<{
         minLength: 1;
       }>;
-    token: RelationAttribute<
-      'admin::api-token-permission',
-      'manyToOne',
-      'admin::api-token'
-    >;
+    token: RelationAttribute<'admin::api-token-permission', 'manyToOne', 'admin::api-token'>;
     createdAt: DateTimeAttribute;
     updatedAt: DateTimeAttribute;
-    createdBy: RelationAttribute<
-      'admin::api-token-permission',
-      'oneToOne',
-      'admin::user'
-    > &
+    createdBy: RelationAttribute<'admin::api-token-permission', 'oneToOne', 'admin::user'> &
       PrivateAttribute;
-    updatedBy: RelationAttribute<
-      'admin::api-token-permission',
-      'oneToOne',
-      'admin::user'
-    > &
+    updatedBy: RelationAttribute<'admin::api-token-permission', 'oneToOne', 'admin::user'> &
       PrivateAttribute;
   };
 }
@@ -321,17 +276,9 @@ export interface AdminTransferToken extends CollectionTypeSchema {
     lifespan: BigIntegerAttribute;
     createdAt: DateTimeAttribute;
     updatedAt: DateTimeAttribute;
-    createdBy: RelationAttribute<
-      'admin::transfer-token',
-      'oneToOne',
-      'admin::user'
-    > &
+    createdBy: RelationAttribute<'admin::transfer-token', 'oneToOne', 'admin::user'> &
       PrivateAttribute;
-    updatedBy: RelationAttribute<
-      'admin::transfer-token',
-      'oneToOne',
-      'admin::user'
-    > &
+    updatedBy: RelationAttribute<'admin::transfer-token', 'oneToOne', 'admin::user'> &
       PrivateAttribute;
   };
 }
@@ -365,17 +312,9 @@ export interface AdminTransferTokenPermission extends CollectionTypeSchema {
     >;
     createdAt: DateTimeAttribute;
     updatedAt: DateTimeAttribute;
-    createdBy: RelationAttribute<
-      'admin::transfer-token-permission',
-      'oneToOne',
-      'admin::user'
-    > &
+    createdBy: RelationAttribute<'admin::transfer-token-permission', 'oneToOne', 'admin::user'> &
       PrivateAttribute;
-    updatedBy: RelationAttribute<
-      'admin::transfer-token-permission',
-      'oneToOne',
-      'admin::user'
-    > &
+    updatedBy: RelationAttribute<'admin::transfer-token-permission', 'oneToOne', 'admin::user'> &
       PrivateAttribute;
   };
 }
@@ -411,11 +350,7 @@ export interface PluginUploadFile extends CollectionTypeSchema {
     provider: StringAttribute & RequiredAttribute;
     provider_metadata: JSONAttribute;
     related: RelationAttribute<'plugin::upload.file', 'morphToMany'>;
-    folder: RelationAttribute<
-      'plugin::upload.file',
-      'manyToOne',
-      'plugin::upload.folder'
-    > &
+    folder: RelationAttribute<'plugin::upload.file', 'manyToOne', 'plugin::upload.folder'> &
       PrivateAttribute;
     folderPath: StringAttribute &
       RequiredAttribute &
@@ -425,17 +360,9 @@ export interface PluginUploadFile extends CollectionTypeSchema {
       }>;
     createdAt: DateTimeAttribute;
     updatedAt: DateTimeAttribute;
-    createdBy: RelationAttribute<
-      'plugin::upload.file',
-      'oneToOne',
-      'admin::user'
-    > &
+    createdBy: RelationAttribute<'plugin::upload.file', 'oneToOne', 'admin::user'> &
       PrivateAttribute;
-    updatedBy: RelationAttribute<
-      'plugin::upload.file',
-      'oneToOne',
-      'admin::user'
-    > &
+    updatedBy: RelationAttribute<'plugin::upload.file', 'oneToOne', 'admin::user'> &
       PrivateAttribute;
   };
 }
@@ -461,21 +388,9 @@ export interface PluginUploadFolder extends CollectionTypeSchema {
         min: 1;
       }>;
     pathId: IntegerAttribute & RequiredAttribute & UniqueAttribute;
-    parent: RelationAttribute<
-      'plugin::upload.folder',
-      'manyToOne',
-      'plugin::upload.folder'
-    >;
-    children: RelationAttribute<
-      'plugin::upload.folder',
-      'oneToMany',
-      'plugin::upload.folder'
-    >;
-    files: RelationAttribute<
-      'plugin::upload.folder',
-      'oneToMany',
-      'plugin::upload.file'
-    >;
+    parent: RelationAttribute<'plugin::upload.folder', 'manyToOne', 'plugin::upload.folder'>;
+    children: RelationAttribute<'plugin::upload.folder', 'oneToMany', 'plugin::upload.folder'>;
+    files: RelationAttribute<'plugin::upload.folder', 'oneToMany', 'plugin::upload.file'>;
     path: StringAttribute &
       RequiredAttribute &
       SetMinMax<{
@@ -483,17 +398,9 @@ export interface PluginUploadFolder extends CollectionTypeSchema {
       }>;
     createdAt: DateTimeAttribute;
     updatedAt: DateTimeAttribute;
-    createdBy: RelationAttribute<
-      'plugin::upload.folder',
-      'oneToOne',
-      'admin::user'
-    > &
+    createdBy: RelationAttribute<'plugin::upload.folder', 'oneToOne', 'admin::user'> &
       PrivateAttribute;
-    updatedBy: RelationAttribute<
-      'plugin::upload.folder',
-      'oneToOne',
-      'admin::user'
-    > &
+    updatedBy: RelationAttribute<'plugin::upload.folder', 'oneToOne', 'admin::user'> &
       PrivateAttribute;
   };
 }
@@ -526,17 +433,9 @@ export interface PluginI18NLocale extends CollectionTypeSchema {
     code: StringAttribute & UniqueAttribute;
     createdAt: DateTimeAttribute;
     updatedAt: DateTimeAttribute;
-    createdBy: RelationAttribute<
-      'plugin::i18n.locale',
-      'oneToOne',
-      'admin::user'
-    > &
+    createdBy: RelationAttribute<'plugin::i18n.locale', 'oneToOne', 'admin::user'> &
       PrivateAttribute;
-    updatedBy: RelationAttribute<
-      'plugin::i18n.locale',
-      'oneToOne',
-      'admin::user'
-    > &
+    updatedBy: RelationAttribute<'plugin::i18n.locale', 'oneToOne', 'admin::user'> &
       PrivateAttribute;
   };
 }
@@ -617,17 +516,9 @@ export interface PluginUsersPermissionsRole extends CollectionTypeSchema {
     >;
     createdAt: DateTimeAttribute;
     updatedAt: DateTimeAttribute;
-    createdBy: RelationAttribute<
-      'plugin::users-permissions.role',
-      'oneToOne',
-      'admin::user'
-    > &
+    createdBy: RelationAttribute<'plugin::users-permissions.role', 'oneToOne', 'admin::user'> &
       PrivateAttribute;
-    updatedBy: RelationAttribute<
-      'plugin::users-permissions.role',
-      'oneToOne',
-      'admin::user'
-    > &
+    updatedBy: RelationAttribute<'plugin::users-permissions.role', 'oneToOne', 'admin::user'> &
       PrivateAttribute;
   };
 }
@@ -681,17 +572,9 @@ export interface PluginUsersPermissionsUser extends CollectionTypeSchema {
     lastname: StringAttribute & RequiredAttribute;
     createdAt: DateTimeAttribute;
     updatedAt: DateTimeAttribute;
-    createdBy: RelationAttribute<
-      'plugin::users-permissions.user',
-      'oneToOne',
-      'admin::user'
-    > &
+    createdBy: RelationAttribute<'plugin::users-permissions.user', 'oneToOne', 'admin::user'> &
       PrivateAttribute;
-    updatedBy: RelationAttribute<
-      'plugin::users-permissions.user',
-      'oneToOne',
-      'admin::user'
-    > &
+    updatedBy: RelationAttribute<'plugin::users-permissions.user', 'oneToOne', 'admin::user'> &
       PrivateAttribute;
   };
 }
@@ -719,17 +602,9 @@ export interface PluginSlugifySlug extends CollectionTypeSchema {
     count: IntegerAttribute;
     createdAt: DateTimeAttribute;
     updatedAt: DateTimeAttribute;
-    createdBy: RelationAttribute<
-      'plugin::slugify.slug',
-      'oneToOne',
-      'admin::user'
-    > &
+    createdBy: RelationAttribute<'plugin::slugify.slug', 'oneToOne', 'admin::user'> &
       PrivateAttribute;
-    updatedBy: RelationAttribute<
-      'plugin::slugify.slug',
-      'oneToOne',
-      'admin::user'
-    > &
+    updatedBy: RelationAttribute<'plugin::slugify.slug', 'oneToOne', 'admin::user'> &
       PrivateAttribute;
   };
 }
@@ -746,9 +621,7 @@ export interface ApiArticleArticle extends CollectionTypeSchema {
   };
   attributes: {
     title: StringAttribute & RequiredAttribute;
-    blocks: DynamicZoneAttribute<
-      ['blocks.hero', 'blocks.cta', 'blocks.rich-text']
-    >;
+    blocks: DynamicZoneAttribute<['blocks.hero', 'blocks.cta', 'blocks.rich-text']>;
     seo: ComponentAttribute<'seo.seo'>;
     authors: RelationAttribute<
       'api::article.article',
@@ -756,28 +629,16 @@ export interface ApiArticleArticle extends CollectionTypeSchema {
       'plugin::users-permissions.user'
     >;
     slug: UIDAttribute<'api::article.article', 'title'> & RequiredAttribute;
-    tags: RelationAttribute<
-      'api::article.article',
-      'manyToMany',
-      'api::tag.tag'
-    >;
+    tags: RelationAttribute<'api::article.article', 'manyToMany', 'api::tag.tag'>;
     cover: MediaAttribute & RequiredAttribute;
     hero: ComponentAttribute<'blocks.hero'> & RequiredAttribute;
     description: TextAttribute;
     createdAt: DateTimeAttribute;
     updatedAt: DateTimeAttribute;
     publishedAt: DateTimeAttribute;
-    createdBy: RelationAttribute<
-      'api::article.article',
-      'oneToOne',
-      'admin::user'
-    > &
+    createdBy: RelationAttribute<'api::article.article', 'oneToOne', 'admin::user'> &
       PrivateAttribute;
-    updatedBy: RelationAttribute<
-      'api::article.article',
-      'oneToOne',
-      'admin::user'
-    > &
+    updatedBy: RelationAttribute<'api::article.article', 'oneToOne', 'admin::user'> &
       PrivateAttribute;
   };
 }
@@ -806,17 +667,9 @@ export interface ApiCalendarCalendar extends SingleTypeSchema {
     createdAt: DateTimeAttribute;
     updatedAt: DateTimeAttribute;
     publishedAt: DateTimeAttribute;
-    createdBy: RelationAttribute<
-      'api::calendar.calendar',
-      'oneToOne',
-      'admin::user'
-    > &
+    createdBy: RelationAttribute<'api::calendar.calendar', 'oneToOne', 'admin::user'> &
       PrivateAttribute;
-    updatedBy: RelationAttribute<
-      'api::calendar.calendar',
-      'oneToOne',
-      'admin::user'
-    > &
+    updatedBy: RelationAttribute<'api::calendar.calendar', 'oneToOne', 'admin::user'> &
       PrivateAttribute;
   };
 }
@@ -832,34 +685,21 @@ export interface ApiCalendarItemCalendarItem extends CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    track: RelationAttribute<
-      'api::calendar-item.calendar-item',
-      'oneToOne',
-      'api::track.track'
-    >;
+    track: RelationAttribute<'api::calendar-item.calendar-item', 'oneToOne', 'api::track.track'>;
     start: DateAttribute & RequiredAttribute;
     end: DateAttribute & RequiredAttribute;
     name: StringAttribute & RequiredAttribute;
-    schedule: JSONAttribute;
-    slug: UIDAttribute<'api::calendar-item.calendar-item', 'name'> &
-      RequiredAttribute;
+    slug: UIDAttribute<'api::calendar-item.calendar-item', 'name'> & RequiredAttribute;
     ticketUrl: StringAttribute;
     watchUrl: StringAttribute;
-    schedulePDF: MediaAttribute;
+    files: MediaAttribute;
+    schedule: ComponentAttribute<'utils.schedule', true>;
     createdAt: DateTimeAttribute;
     updatedAt: DateTimeAttribute;
     publishedAt: DateTimeAttribute;
-    createdBy: RelationAttribute<
-      'api::calendar-item.calendar-item',
-      'oneToOne',
-      'admin::user'
-    > &
+    createdBy: RelationAttribute<'api::calendar-item.calendar-item', 'oneToOne', 'admin::user'> &
       PrivateAttribute;
-    updatedBy: RelationAttribute<
-      'api::calendar-item.calendar-item',
-      'oneToOne',
-      'admin::user'
-    > &
+    updatedBy: RelationAttribute<'api::calendar-item.calendar-item', 'oneToOne', 'admin::user'> &
       PrivateAttribute;
   };
 }
@@ -876,11 +716,7 @@ export interface ApiHomepageHomepage extends SingleTypeSchema {
   };
   attributes: {
     footerLinks: ComponentAttribute<'shared.link', true>;
-    sponsors: RelationAttribute<
-      'api::homepage.homepage',
-      'oneToMany',
-      'api::sponsor.sponsor'
-    >;
+    sponsors: RelationAttribute<'api::homepage.homepage', 'oneToMany', 'api::sponsor.sponsor'>;
     socials: ComponentAttribute<'shared.social', true>;
     featureLinks: ComponentAttribute<'image.image-link', true> &
       SetMinMax<{
@@ -890,22 +726,14 @@ export interface ApiHomepageHomepage extends SingleTypeSchema {
     createdAt: DateTimeAttribute;
     updatedAt: DateTimeAttribute;
     publishedAt: DateTimeAttribute;
-    createdBy: RelationAttribute<
-      'api::homepage.homepage',
-      'oneToOne',
-      'admin::user'
-    > &
+    createdBy: RelationAttribute<'api::homepage.homepage', 'oneToOne', 'admin::user'> &
       PrivateAttribute;
-    updatedBy: RelationAttribute<
-      'api::homepage.homepage',
-      'oneToOne',
-      'admin::user'
-    > &
+    updatedBy: RelationAttribute<'api::homepage.homepage', 'oneToOne', 'admin::user'> &
       PrivateAttribute;
   };
 }
 
-export interface ApiSeasonSeason extends SingleTypeSchema {
+export interface ApiSeasonSeason extends CollectionTypeSchema {
   info: {
     singularName: 'season';
     pluralName: 'seasons';
@@ -923,20 +751,13 @@ export interface ApiSeasonSeason extends SingleTypeSchema {
       SetMinMax<{
         min: 1;
       }>;
+    active: BooleanAttribute & RequiredAttribute & DefaultTo<true>;
     createdAt: DateTimeAttribute;
     updatedAt: DateTimeAttribute;
     publishedAt: DateTimeAttribute;
-    createdBy: RelationAttribute<
-      'api::season.season',
-      'oneToOne',
-      'admin::user'
-    > &
+    createdBy: RelationAttribute<'api::season.season', 'oneToOne', 'admin::user'> &
       PrivateAttribute;
-    updatedBy: RelationAttribute<
-      'api::season.season',
-      'oneToOne',
-      'admin::user'
-    > &
+    updatedBy: RelationAttribute<'api::season.season', 'oneToOne', 'admin::user'> &
       PrivateAttribute;
   };
 }
@@ -965,17 +786,9 @@ export interface ApiSponsorSponsor extends CollectionTypeSchema {
     createdAt: DateTimeAttribute;
     updatedAt: DateTimeAttribute;
     publishedAt: DateTimeAttribute;
-    createdBy: RelationAttribute<
-      'api::sponsor.sponsor',
-      'oneToOne',
-      'admin::user'
-    > &
+    createdBy: RelationAttribute<'api::sponsor.sponsor', 'oneToOne', 'admin::user'> &
       PrivateAttribute;
-    updatedBy: RelationAttribute<
-      'api::sponsor.sponsor',
-      'oneToOne',
-      'admin::user'
-    > &
+    updatedBy: RelationAttribute<'api::sponsor.sponsor', 'oneToOne', 'admin::user'> &
       PrivateAttribute;
   };
 }
@@ -996,17 +809,11 @@ export interface ApiTagTag extends CollectionTypeSchema {
       RequiredAttribute &
       DefaultTo<'low'>;
     slug: UIDAttribute<'api::tag.tag', 'label'> & RequiredAttribute;
-    articles: RelationAttribute<
-      'api::tag.tag',
-      'manyToMany',
-      'api::article.article'
-    >;
+    articles: RelationAttribute<'api::tag.tag', 'manyToMany', 'api::article.article'>;
     createdAt: DateTimeAttribute;
     updatedAt: DateTimeAttribute;
-    createdBy: RelationAttribute<'api::tag.tag', 'oneToOne', 'admin::user'> &
-      PrivateAttribute;
-    updatedBy: RelationAttribute<'api::tag.tag', 'oneToOne', 'admin::user'> &
-      PrivateAttribute;
+    createdBy: RelationAttribute<'api::tag.tag', 'oneToOne', 'admin::user'> & PrivateAttribute;
+    updatedBy: RelationAttribute<'api::tag.tag', 'oneToOne', 'admin::user'> & PrivateAttribute;
   };
 }
 
@@ -1028,10 +835,8 @@ export interface ApiTestTest extends CollectionTypeSchema {
     createdAt: DateTimeAttribute;
     updatedAt: DateTimeAttribute;
     publishedAt: DateTimeAttribute;
-    createdBy: RelationAttribute<'api::test.test', 'oneToOne', 'admin::user'> &
-      PrivateAttribute;
-    updatedBy: RelationAttribute<'api::test.test', 'oneToOne', 'admin::user'> &
-      PrivateAttribute;
+    createdBy: RelationAttribute<'api::test.test', 'oneToOne', 'admin::user'> & PrivateAttribute;
+    updatedBy: RelationAttribute<'api::test.test', 'oneToOne', 'admin::user'> & PrivateAttribute;
   };
 }
 
@@ -1052,18 +857,8 @@ export interface ApiTrackTrack extends CollectionTypeSchema {
     createdAt: DateTimeAttribute;
     updatedAt: DateTimeAttribute;
     publishedAt: DateTimeAttribute;
-    createdBy: RelationAttribute<
-      'api::track.track',
-      'oneToOne',
-      'admin::user'
-    > &
-      PrivateAttribute;
-    updatedBy: RelationAttribute<
-      'api::track.track',
-      'oneToOne',
-      'admin::user'
-    > &
-      PrivateAttribute;
+    createdBy: RelationAttribute<'api::track.track', 'oneToOne', 'admin::user'> & PrivateAttribute;
+    updatedBy: RelationAttribute<'api::track.track', 'oneToOne', 'admin::user'> & PrivateAttribute;
   };
 }
 
@@ -1116,9 +911,7 @@ export interface ImageLogo extends ComponentSchema {
     description: '';
   };
   attributes: {
-    kind: EnumerationAttribute<['base', 'light', 'dark']> &
-      RequiredAttribute &
-      DefaultTo<'base'>;
+    kind: EnumerationAttribute<['base', 'light', 'dark']> & RequiredAttribute & DefaultTo<'base'>;
     image: MediaAttribute & RequiredAttribute;
   };
 }
@@ -1201,8 +994,7 @@ export interface SharedLink extends ComponentSchema {
     url: StringAttribute;
     label: StringAttribute & RequiredAttribute;
     isExternal: BooleanAttribute & DefaultTo<true>;
-    theme: EnumerationAttribute<['primary', 'secondary', 'neutral']> &
-      DefaultTo<'neutral'>;
+    theme: EnumerationAttribute<['primary', 'secondary', 'neutral']> & DefaultTo<'neutral'>;
   };
 }
 
@@ -1211,12 +1003,33 @@ export interface SharedSocial extends ComponentSchema {
     displayName: 'social';
   };
   attributes: {
-    platform: EnumerationAttribute<
-      ['twitter', 'instagram', 'facebook', 'meta', 'tiktok']
-    > &
+    platform: EnumerationAttribute<['twitter', 'instagram', 'facebook', 'meta', 'tiktok']> &
       RequiredAttribute &
       DefaultTo<'instagram'>;
     url: StringAttribute & RequiredAttribute;
+  };
+}
+
+export interface UtilsScheduleItem extends ComponentSchema {
+  info: {
+    displayName: 'scheduleItem';
+  };
+  attributes: {
+    label: StringAttribute & RequiredAttribute;
+    start: StringAttribute;
+    end: StringAttribute;
+  };
+}
+
+export interface UtilsSchedule extends ComponentSchema {
+  info: {
+    displayName: 'schedule';
+    description: '';
+  };
+  attributes: {
+    items: ComponentAttribute<'utils.schedule-item', true>;
+    title: StringAttribute & RequiredAttribute;
+    file: MediaAttribute;
   };
 }
 
@@ -1259,6 +1072,8 @@ declare global {
       'shared.header': SharedHeader;
       'shared.link': SharedLink;
       'shared.social': SharedSocial;
+      'utils.schedule-item': UtilsScheduleItem;
+      'utils.schedule': UtilsSchedule;
     }
   }
 }

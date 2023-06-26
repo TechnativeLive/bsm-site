@@ -1,7 +1,7 @@
 'use client';
 import { GetAttributesValues } from '@strapi/strapi';
 
-export type EventStatus = 'inactive' | 'active' | 'upcoming';
+export type EventStatus = 'complete' | 'active' | 'next' | 'incomplete';
 
 export function useCurrentEvent(
   calendar: GetAttributesValues<'api::calendar-item.calendar-item'>[] | undefined
@@ -24,7 +24,7 @@ export function useCurrentEvent(
       status = 'active';
       index = futureEventIndex - 1;
     } else {
-      status = 'upcoming';
+      status = 'next';
       index = futureEventIndex;
     }
   }

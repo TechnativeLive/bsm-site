@@ -12,13 +12,13 @@ type Entrant = {
 export type Standings = Entrant[];
 
 export async function getStandings(query?: StrapiQuery) {
-  const seasonQuery = cms('season', { populate: '*', ...query });
+  const seasonQuery = cms('seasons', { populate: '*', ...query });
   // console.log({ seasonQuery });
 
-  const season: Strapi.Response<GetAttributesValues<'api::season.season'>> = await fetch(
+  const season: Strapi.Response<GetAttributesValues<'api::season.season'>[]> = await fetch(
     seasonQuery
   ).then((res) => res.json());
 
-  const standings = season.data.category;
+  const standings = season.data.find((ssn) => ssn.active)!.category;
   return standings;
 }

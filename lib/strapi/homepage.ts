@@ -57,7 +57,8 @@ export async function getCalendar() {
       current: {
         populate: {
           track: { populate: ['name', 'layout'] },
-          schedulePDF: { populate: ['alternativeText', 'url', 'caption'] },
+          files: { populate: ['alternativeText', 'url', 'caption'] },
+          schedule: { populate: '*' },
         },
       },
     },

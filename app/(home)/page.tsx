@@ -1,3 +1,4 @@
+import { Calendar } from '@/components/calendar/calendar';
 import { CalendarCarousel } from '@/components/calendar/carousel/calendar-carousel';
 import { LatestFeed } from '@/components/latest/feed/feed';
 import { StandingsData } from '@/components/standings/standings-data';
@@ -21,10 +22,10 @@ export default async function Home() {
       </section>
 
       {calendar && (
-        <section className='flex w-full flex-col items-center bg-primary-950'>
-          <Suspense fallback={null}>
+        <section className='flex w-full flex-col items-center bg-primary'>
+          <Suspense fallback={<div className='h-[302px] w-full bg-primary'></div>}>
             {/* @ts-expect-error Async Server Component */}
-            <CalendarCarousel calendar={calendar} />
+            <Calendar calendar={calendar} />
           </Suspense>
         </section>
       )}
