@@ -158,7 +158,7 @@ export const CalendarItem = ({
         )}
       >
         <div className={clsx('inner', 'overflow-hidden')}>
-          <div className='flex h-max flex-col items-center justify-center opacity-0 transition-all duration-300 ease-slide group-focus-within:translate-x-0 group-focus-within:translate-y-0 group-focus-within:opacity-100 max-md:translate-y-24 md:mx-auto md:inline-flex md:w-max md:translate-x-24 md:pl-6'>
+          <div className='flex h-max flex-col items-center justify-center opacity-0 transition-all duration-300 ease-slide group-focus-within:translate-x-0 group-focus-within:translate-y-0 group-focus-within:opacity-100 max-md:translate-y-24 md:mx-auto md:inline-flex md:h-full md:w-max md:translate-x-24 md:pl-6'>
             <Schedule files={item.files} schedule={item.schedule} />
 
             <div className='flex items-center justify-center gap-2'>
@@ -226,7 +226,7 @@ const Schedule = ({
           ))}
         </div>
       )}
-      <div className='flex justify-center divide-primary-500/50 max-md:divide-x md:flex-col md:divide-y'>
+      <div className='flex grow justify-center divide-primary-500/50 max-md:divide-x md:flex-col md:divide-y'>
         {schedule.length > 0 ? (
           schedule.map((day, i) => {
             return (
