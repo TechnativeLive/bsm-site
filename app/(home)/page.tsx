@@ -1,5 +1,4 @@
 import { Calendar } from '@/components/calendar/calendar';
-import { CalendarCarousel } from '@/components/calendar/carousel/calendar-carousel';
 import { LatestFeed } from '@/components/latest/feed/feed';
 import { StandingsData } from '@/components/standings/standings-data';
 import { UpcomingEvent } from '@/components/upcoming-event/upcoming-event';
