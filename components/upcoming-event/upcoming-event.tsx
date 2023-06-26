@@ -47,7 +47,7 @@ const EventCountdown = ({
                 endMonth={endMonth}
                 year={endDate.getFullYear()}
               /> */}
-              <DateString event={event} />
+              <DateString event={event} year />
             </div>
           </div>
           <div className='flex h-full items-end font-display text-2xl md:pr-6'>
