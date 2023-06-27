@@ -13,6 +13,7 @@ export const StandingsTable = ({
   if (!standings) {
     return null;
   }
+
   return (
     <div className='-m-1 flex flex-col p-1'>
       <div className='overflow-hidden pt-16'>
@@ -24,7 +25,7 @@ export const StandingsTable = ({
       </div>
       <div className='flex flex-col'>
         {standings.map((entrant, i) => (
-          <Row key={entrant.name} entrant={entrant} />
+          <Row key={`${entrant.name}-${i}`} entrant={entrant} />
         ))}
       </div>
       {!fullView && (

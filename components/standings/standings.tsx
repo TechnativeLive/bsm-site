@@ -28,7 +28,7 @@ export const Standings = ({ standings, fullView }: StandingsProps) => {
   return (
     <Tabs.Root defaultValue={standings[0].slug} className='mx-auto'>
       <Tabs.List
-        aria-label='tabs example'
+        aria-label='Championship Categories'
         className='relative flex flex-wrap justify-center border-t border-slate-300 before:absolute before:inset-0 before:border-b before:border-slate-300'
       >
         {standings.map((table) => (
@@ -37,7 +37,7 @@ export const Standings = ({ standings, fullView }: StandingsProps) => {
           </Tabs.Trigger>
         ))}
       </Tabs.List>
-      <div className={clsx(container, 'max-w-5xl')}>
+      <div className={clsx('mx-auto flex flex-col px-8', 'max-w-5xl')}>
         {standings.map((table) => {
           const tableStandings = table.standings as TStandings | undefined;
           const standingsSlice = fullView ? tableStandings : tableStandings?.slice(0, 10);

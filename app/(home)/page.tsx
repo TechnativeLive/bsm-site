@@ -1,6 +1,6 @@
 import { Calendar } from '@/components/calendar/calendar';
 import { LatestFeed } from '@/components/latest/feed/feed';
-import { StandingsData } from '@/components/standings/standings-data';
+import { HomepageStandings } from '@/components/standings/homepage';
 import { UpcomingEvent } from '@/components/upcoming-event/upcoming-event';
 import { getCalendar } from '@/lib/strapi/homepage';
 import { Suspense } from 'react';
@@ -29,10 +29,10 @@ export default async function Home() {
         </section>
       )}
 
-      <section className='w-full bg-slate-100 py-6'>
+      <section className='w-full bg-slate-100 pb-12'>
         <Suspense>
           {/* @ts-expect-error Async Server Component */}
-          <StandingsData />
+          <HomepageStandings />
         </Suspense>
       </section>
 

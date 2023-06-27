@@ -1,10 +1,10 @@
-import { StandingsData } from '@/components/standings/standings-data';
+import { FullPageStandings } from '@/components/standings/full-page/full-page';
 
 export default async function Page() {
   return (
-    <section className='-mt-px w-full bg-slate-100 pb-8'>
+    <section className='relative -mt-px w-full bg-slate-100 pb-8 after:absolute after:bottom-0 after:-z-40 after:h-24 after:w-full after:translate-y-24 after:bg-gradient-to-b after:from-slate-100'>
       {/* @ts-expect-error Async Server Component */}
-      <StandingsData fullView />
+      <FullPageStandings />
     </section>
   );
 }
