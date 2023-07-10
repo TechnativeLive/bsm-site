@@ -47,6 +47,7 @@ const icons: Options = ({ theme }) => ({
       'instagram-outline': {},
       'facebook-outline': {},
       'twitter-outline': {},
+      'youtube-outline': {},
       'menu-solid': {},
     },
     scale: 2.5,

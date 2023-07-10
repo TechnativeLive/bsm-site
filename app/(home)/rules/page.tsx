@@ -36,7 +36,7 @@ export default async function Page() {
         link={{
           label: 'Sign up to ride in the next event',
           isExternal: true,
-          url: 'https://nora92.com/event/norasport-bssc-championship-234/',
+          url: 'https://nora92.com/events/',
           theme: 'primary',
         }}
       />

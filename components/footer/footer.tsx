@@ -108,6 +108,8 @@ const PLATFORM_ICONS: Record<GetAttributesValues<'shared.social'>['platform'], s
   meta: 'i-local-meta',
   tiktok: 'i-ic-baseline-tiktok',
   twitter: 'i-basil-twitter-outline',
+  // @ts-ignore
+  youtube: 'i-basil-youtube-outline',
 };
 
 const FooterLinks = async () => {

@@ -22,7 +22,7 @@ export const FeedSecondaryArticle = ({
           >
             <div className='relative aspect-video overflow-hidden'>
               <Image
-                src={cover?.url ?? article.hero.images?.[0]?.url}
+                src={cover?.url ?? article.hero?.images?.[0]?.url}
                 alt={cover?.alternativeText ?? 'Preview image'}
                 priority
                 fill

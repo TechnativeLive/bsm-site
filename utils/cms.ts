@@ -16,12 +16,20 @@ export type StrapiQuery = Partial<Record<QueryKeys, unknown>>; // & Record<strin
 export function cms(path: string, query?: StrapiQuery, queryOpts?: IStringifyOptions) {
   const base = process.env.STRAPI_URL;
 
-  if (!query) {
+  if (!query && process.env.NODE_ENV === 'production') {
     return `${base}/api/${path}`;
   }
 
-  const q = stringify(query, queryOpts ?? { encodeValuesOnly: true });
-  return `${base}/api/${path}?${q}`;
+  const q =
+    process.env.NODE_ENV === 'development'
+      ? {
+          publicationState: 'preview',
+          ...query,
+        }
+      : query;
+
+  const qs = stringify(q, queryOpts ?? { encodeValuesOnly: true });
+  return `${base}/api/${path}?${qs}`;
 }
 
 // type ArrayExtract<T> = T extends (unknown[] | readonly unknown[]) ? T[number] : T

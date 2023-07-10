@@ -71,7 +71,7 @@ export function Article(article: ArticleProps) {
             </div>
           </div>
 
-          <Hero {...article.hero} priority />
+          <Hero {...article.hero} embed={article.youtubeEmbed} priority />
         </div>
         {article.blocks?.map((block, i) => (
           <Block key={i} type={block.__component} block={block} />

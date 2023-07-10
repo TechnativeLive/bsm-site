@@ -762,8 +762,9 @@ export interface ApiArticleArticle extends CollectionTypeSchema {
       'api::tag.tag'
     >;
     cover: MediaAttribute & RequiredAttribute;
-    hero: ComponentAttribute<'blocks.hero'> & RequiredAttribute;
+    hero: ComponentAttribute<'blocks.hero'>;
     description: TextAttribute;
+    youtubeEmbed: StringAttribute;
     createdAt: DateTimeAttribute;
     updatedAt: DateTimeAttribute;
     publishedAt: DateTimeAttribute;
@@ -905,6 +906,71 @@ export interface ApiHomepageHomepage extends SingleTypeSchema {
   };
 }
 
+export interface ApiPhotoGalleryPhotoGallery extends SingleTypeSchema {
+  info: {
+    singularName: 'photo-gallery';
+    pluralName: 'photo-galleries';
+    displayName: 'photoGallery';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    imageCollections: ComponentAttribute<'image.image-collection', true>;
+    title: StringAttribute;
+    createdAt: DateTimeAttribute;
+    updatedAt: DateTimeAttribute;
+    publishedAt: DateTimeAttribute;
+    createdBy: RelationAttribute<
+      'api::photo-gallery.photo-gallery',
+      'oneToOne',
+      'admin::user'
+    > &
+      PrivateAttribute;
+    updatedBy: RelationAttribute<
+      'api::photo-gallery.photo-gallery',
+      'oneToOne',
+      'admin::user'
+    > &
+      PrivateAttribute;
+  };
+}
+
+export interface ApiRiderInfoRiderInfo extends SingleTypeSchema {
+  info: {
+    singularName: 'rider-info';
+    pluralName: 'rider-infos';
+    displayName: 'riderInfo';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: StringAttribute & RequiredAttribute;
+    cards: ComponentAttribute<'shared.card', true>;
+    content: DynamicZoneAttribute<
+      ['blocks.cta', 'blocks.hero', 'blocks.rich-text']
+    >;
+    createdAt: DateTimeAttribute;
+    updatedAt: DateTimeAttribute;
+    publishedAt: DateTimeAttribute;
+    createdBy: RelationAttribute<
+      'api::rider-info.rider-info',
+      'oneToOne',
+      'admin::user'
+    > &
+      PrivateAttribute;
+    updatedBy: RelationAttribute<
+      'api::rider-info.rider-info',
+      'oneToOne',
+      'admin::user'
+    > &
+      PrivateAttribute;
+  };
+}
+
 export interface ApiSeasonSeason extends CollectionTypeSchema {
   info: {
     singularName: 'season';
@@ -923,7 +989,6 @@ export interface ApiSeasonSeason extends CollectionTypeSchema {
       SetMinMax<{
         min: 1;
       }>;
-    active: BooleanAttribute & RequiredAttribute & DefaultTo<true>;
     start: DateAttribute & RequiredAttribute;
     end: DateAttribute & RequiredAttribute;
     championship: EnumerationAttribute<
@@ -1108,6 +1173,27 @@ export interface BlocksRichText extends ComponentSchema {
   };
 }
 
+export interface ImageImageCollectionGroup extends ComponentSchema {
+  info: {
+    displayName: 'imageCollectionGroup';
+  };
+  attributes: {
+    title: StringAttribute;
+  };
+}
+
+export interface ImageImageCollection extends ComponentSchema {
+  info: {
+    displayName: 'imageCollection';
+    description: '';
+  };
+  attributes: {
+    title: StringAttribute & RequiredAttribute;
+    files: MediaAttribute;
+    links: ComponentAttribute<'shared.link', true>;
+  };
+}
+
 export interface ImageImageLink extends ComponentSchema {
   info: {
     displayName: 'imageLink';
@@ -1190,6 +1276,19 @@ export interface SharedButton extends ComponentSchema {
   };
 }
 
+export interface SharedCard extends ComponentSchema {
+  info: {
+    displayName: 'card';
+    description: '';
+  };
+  attributes: {
+    title: StringAttribute & RequiredAttribute;
+    label: StringAttribute;
+    description: TextAttribute;
+    link: ComponentAttribute<'shared.link'>;
+  };
+}
+
 export interface SharedHeader extends ComponentSchema {
   info: {
     displayName: 'header';
@@ -1217,10 +1316,11 @@ export interface SharedLink extends ComponentSchema {
 export interface SharedSocial extends ComponentSchema {
   info: {
     displayName: 'social';
+    description: '';
   };
   attributes: {
     platform: EnumerationAttribute<
-      ['twitter', 'instagram', 'facebook', 'meta', 'tiktok']
+      ['twitter', 'instagram', 'facebook', 'meta', 'tiktok', 'youtube']
     > &
       RequiredAttribute &
       DefaultTo<'instagram'>;
@@ -1284,6 +1384,8 @@ declare global {
       'api::calendar.calendar': ApiCalendarCalendar;
       'api::calendar-item.calendar-item': ApiCalendarItemCalendarItem;
       'api::homepage.homepage': ApiHomepageHomepage;
+      'api::photo-gallery.photo-gallery': ApiPhotoGalleryPhotoGallery;
+      'api::rider-info.rider-info': ApiRiderInfoRiderInfo;
       'api::season.season': ApiSeasonSeason;
       'api::sponsor.sponsor': ApiSponsorSponsor;
       'api::tag.tag': ApiTagTag;
@@ -1292,6 +1394,8 @@ declare global {
       'blocks.cta': BlocksCta;
       'blocks.hero': BlocksHero;
       'blocks.rich-text': BlocksRichText;
+      'image.image-collection-group': ImageImageCollectionGroup;
+      'image.image-collection': ImageImageCollection;
       'image.image-link': ImageImageLink;
       'image.logo': ImageLogo;
       'scores.podium': ScoresPodium;
@@ -1299,6 +1403,7 @@ declare global {
       'seo.meta': SeoMeta;
       'seo.seo': SeoSeo;
       'shared.button': SharedButton;
+      'shared.card': SharedCard;
       'shared.header': SharedHeader;
       'shared.link': SharedLink;
       'shared.social': SharedSocial;

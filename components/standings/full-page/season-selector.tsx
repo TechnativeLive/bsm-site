@@ -19,15 +19,8 @@ export const SeasonSelector = ({
 }) => {
   const [championship, setChampionship] = useState<Championship>('British Supermoto');
   const [seasonIndex, setSeasonIndex] = useState(0);
-
-  const selectChampionship = useCallback<ChangeEventHandler<HTMLSelectElement>>(
-    (ev) => setChampionship(ev.currentTarget.value as Championship),
-    []
-  );
-  const selectSeasonIndex = useCallback<ChangeEventHandler<HTMLSelectElement>>(
-    (ev) => setSeasonIndex(Number(ev.currentTarget.value)),
-    []
-  );
+  const [key, setKey] = useState(0);
+  const forceRemount = useCallback(() => setKey((k) => k + 1), [setKey]);
 
   const championships = Array.from(new Set(seasons.map((ssn) => ssn.championship))).sort((a, b) =>
     a.localeCompare(b)
@@ -35,6 +28,17 @@ export const SeasonSelector = ({
 
   const championshipSeasons = seasons.filter((seas) => seas.championship === championship);
   const season = championshipSeasons[seasonIndex];
+
+  const selectChampionship = useCallback<ChangeEventHandler<HTMLSelectElement>>((ev) => {
+    const champ = ev.currentTarget.value as Championship;
+    setChampionship(champ);
+    setSeasonIndex(0);
+  }, []);
+
+  const selectSeasonIndex = useCallback<ChangeEventHandler<HTMLSelectElement>>(
+    (ev) => setSeasonIndex(Number(ev.currentTarget.value)),
+    []
+  );
 
   return (
     <>
@@ -54,7 +58,7 @@ export const SeasonSelector = ({
               onChange={selectChampionship}
               id='championship-select'
               className={clsx(
-                'w-max rounded-lg border border-gray-300 bg-gray-50 px-2.5 py-1.5 text-sm text-gray-900',
+                'w-max rounded border border-gray-300 bg-gray-50 px-2.5 py-1.5 text-sm text-gray-900',
                 'focus:border-primary-500 focus:ring-primary-500'
               )}
             >
@@ -69,7 +73,7 @@ export const SeasonSelector = ({
             onChange={selectSeasonIndex}
             id='season-select'
             className={clsx(
-              'w-max rounded-lg border border-gray-300 bg-gray-50 px-2.5 py-1.5 text-sm text-gray-900',
+              'w-max rounded border border-gray-300 bg-gray-50 px-2.5 py-1.5 text-sm text-gray-900',
               'focus:border-primary-500 focus:ring-primary-500'
             )}
           >
@@ -89,7 +93,7 @@ export const SeasonSelector = ({
           {season.championship} Championship Standings
         </h3>
       </div>
-      <Standings standings={season.category} fullView />
+      <Standings standings={season.category} fullView key={key} />
       <div className='mx-auto flex max-w-5xl justify-end px-8 py-2'>
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}

@@ -78,7 +78,7 @@ function Row({ entrant }: { entrant: Standings[number] }) {
           'before:absolute before:bottom-0 before:left-0 before:h-full before:w-1 before:-translate-y-full before:bg-primary-800 before:transition-transform before:duration-300 before:ease-slide before:group-hover:translate-y-0'
         )}
       >
-        <div className='py-1 font-bold'>{entrant.rank}</div>
+        <div className='w-[2.5ch] py-1 font-bold'>{entrant.rank}</div>
         <div className='py-1 pr-1 uppercase'>
           <span>{firstname}</span> <span className='font-bold'>{lastname}</span>
         </div>

@@ -9,6 +9,8 @@ export const metadata: Metadata = {
   // TODO: Better description
   description:
     'All things British Supermoto - Event details, news, live championship scores and more',
+
+  themeColor: '#002550',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
