@@ -28,10 +28,25 @@ export const StandingsTable = ({
           <Row key={`${entrant.name}-${i}`} entrant={entrant} />
         ))}
       </div>
+      <div className='flex flex-wrap items-center justify-end gap-6 px-8 py-4'>
+        <div className='text-slate-500'>Joker: </div>
+        <div className='flex items-center gap-1.5'>
+          <Joker state='active' />
+          Active
+        </div>
+        <div className='flex items-center gap-1.5'>
+          <Joker state='available' />
+          Available
+        </div>
+        <div className='flex items-center gap-1.5'>
+          <Joker state='used' />
+          Used
+        </div>
+      </div>
       {!fullView && (
         <Link
           href='/results'
-          className='text-emboss/50 flex items-center justify-center gap-2 rounded-md bg-slate-300 p-1 text-center text-sm font-bold uppercase drop-shadow-sm transition-all hover:bg-slate-200 hover:text-primary-700 hover:drop-shadow'
+          className='text-emboss/50 mt-2 flex items-center justify-center gap-2 rounded-md bg-slate-300 p-1 text-center text-sm font-bold uppercase drop-shadow-sm transition-all hover:bg-slate-200 hover:text-primary-700 hover:drop-shadow'
         >
           See full standings
         </Link>
@@ -68,29 +83,95 @@ function Podium({ entrant }: { entrant: Standings[number] & { rank: number } }) 
 
 function Row({ entrant }: { entrant: Standings[number] }) {
   const [firstname, lastname] = entrant.name?.split(' ') ?? ['', ''];
+
   return (
     <div className='group py-1 drop-shadow-sm first:pt-0 last:mb-2 last:pb-0'>
       <div
         className={clsx(
-          'flex flex-wrap items-center gap-x-3 rounded-md bg-slate-50 pl-3 transition-colors duration-300 group-hover:bg-slate-200 group-hover:duration-150 sm:pl-8',
+          'flex gap-x-1 rounded-md bg-slate-50 pl-3 transition-colors duration-300 group-hover:bg-slate-200 group-hover:duration-150 sm:pl-8',
           'relative overflow-hidden',
           'after:absolute after:bottom-0 after:right-0 after:h-full after:w-1 after:-translate-y-full after:bg-primary-800 after:transition-transform after:duration-300 after:ease-slide after:group-hover:translate-y-0',
           'before:absolute before:bottom-0 before:left-0 before:h-full before:w-1 before:-translate-y-full before:bg-primary-800 before:transition-transform before:duration-300 before:ease-slide before:group-hover:translate-y-0'
         )}
       >
-        <div className='w-[2.5ch] py-1 font-bold'>{entrant.rank}</div>
-        <div className='py-1 pr-1 uppercase'>
-          <span>{firstname}</span> <span className='font-bold'>{lastname}</span>
+        <div className='flex w-[2.5ch] items-center font-bold'>{entrant.rank}</div>
+        <div className='flex min-h-[2.5rem] grow flex-wrap items-center gap-x-1 py-1'>
+          {/* Rank */}
+          <div className='flex items-center'>
+            <span className='uppercase'>{firstname}</span>
+          </div>
+
+          {/* Name */}
+          <div className='pr-1 uppercase'>
+            <span className='font-bold'>{lastname}</span>
+          </div>
+
+          {/* Team */}
+          {entrant.team && <div className='grow pr-1 text-xs font-medium'>{entrant.team}</div>}
         </div>
-        {entrant.team && <div className='grow py-1 pr-1 text-xs font-medium'>{entrant.team}</div>}
-        <div
-          className={clsx(
-            'relative ml-auto flex items-center justify-end self-stretch py-3 pr-3 text-right sm:pr-6',
-            'after:absolute after:right-0 after:top-0 after:z-0 after:h-full after:w-28 after:bg-gradient-to-l after:from-slate-300'
-          )}
-        >
-          <div className='text-emboss z-10 font-extrabold text-slate-600'>{entrant.total} PTS</div>
+
+        {/* Points */}
+        <div className='flex items-center'>
+          {/* Joker */}
+          {entrant.joker && <Joker state={entrant.joker} tooltip />}
+
+          <div
+            className={clsx(
+              'relative flex w-28 items-center justify-end self-stretch py-3 pr-3 text-right sm:pr-6',
+              'after:absolute after:right-0 after:top-0 after:z-0 after:h-full after:w-28 after:bg-gradient-to-l after:from-slate-300'
+            )}
+          >
+            <div className='text-emboss z-10 font-extrabold text-slate-600'>
+              {entrant.total} PTS
+            </div>
+          </div>
         </div>
+      </div>
+    </div>
+  );
+}
+
+function Joker({
+  state,
+  tooltip = false,
+}: {
+  state: 'active' | 'used' | 'available';
+  tooltip?: boolean;
+}) {
+  return (
+    <div
+      className={clsx(
+        'group/joker relative ml-auto h-7 w-7 transition-colors',
+        state === 'available' && 'text-slate-400/60 group-hover:text-slate-600',
+        state === 'used' && 'text-slate-300/60 group-hover:text-slate-400',
+        state === 'active' && 'text-slate-700 group-hover:text-slate-900'
+      )}
+    >
+      <svg
+        className='p-1'
+        height='100%'
+        viewBox='0 0 260 210'
+        fill='none'
+        xmlns='http://www.w3.org/2000/svg'
+      >
+        <g fill='currentColor'>
+          <path d='M59 182H177V204C177 206.761 174.761 209 172 209H64C61.2386 209 59 206.761 59 204V182Z' />
+          <path d='M34.4974 110.5C54.4974 110.5 59.164 151.5 58.9974 172H177C177 142.8 187.5 120 208.5 120C233 120 241 133 246 128C253 121 230 71 192 70.5C169.602 70.2053 154.333 83.1667 149.5 89.5C146 86 137 80.5 137 66C137 51.5 146.752 44.2133 155 39.5C167 32.6429 179.062 42 182.5 36.5C186.439 30.1968 168 2 139 2C89 2 79.1646 55.3333 80.4969 82.5C75 77 66 67 46.4974 67C9.49888 67 0.50232 128 10.9998 128C18.9993 128 16.9969 110.5 34.4974 110.5Z' />
+          <circle cx='12' cy='141' r='11' />
+          <circle cx='247' cy='141' r='11' />
+          <circle cx='193' cy='44' r='11' />
+        </g>
+      </svg>
+      {tooltip && (
+        <div className='absolute right-full top-1/2 mr-3 flex -translate-y-1/2 items-center whitespace-nowrap rounded bg-slate-600 px-2 py-0.5 text-xs uppercase text-slate-300 opacity-0 transition-opacity duration-300 group-hover/joker:opacity-100'>
+          <span className='pr-1'>Joker: </span>
+          <span>{state}</span>
+        </div>
+      )}
+      <div className={clsx('absolute inset-1', state === 'used' ? 'opacity-100' : 'opacity-0')}>
+        <svg width='100%' height='100%' viewBox='0 0 100 100' preserveAspectRatio='none'>
+          <path d='M0 100 100 0' stroke='currentColor' strokeWidth={10} />
+        </svg>
       </div>
     </div>
   );

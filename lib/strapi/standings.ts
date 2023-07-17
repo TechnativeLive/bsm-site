@@ -2,6 +2,7 @@ import { StrapiQuery, cms } from '@/utils/cms';
 import { GetAttributesValues } from '@strapi/strapi';
 
 type Entrant = {
+  joker?: 'used' | 'available' | 'active';
   rank?: number;
   driverNumber?: string;
   name?: string;

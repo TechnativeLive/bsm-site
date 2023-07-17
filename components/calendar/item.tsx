@@ -248,7 +248,7 @@ const Schedule = ({
                 </div>
                 <div className='flex flex-col md:pb-2'>
                   {day.items?.map((item, index) => (
-                    <div key={index} className='flex items-center justify-between'>
+                    <div key={index} className='flex items-center justify-between gap-3'>
                       <div className='font-semibold uppercase tracking-wider'>{item.label}</div>
                       {(item.start || item.end) && (
                         <div className='font-mono'>
