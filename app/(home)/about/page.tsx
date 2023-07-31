@@ -1,8 +1,11 @@
 import { CallToAction } from '@/components/strapi/cta';
 import { container } from '@/components/tailwind';
+import { getNoraEventLink } from '@/lib/strapi/nora-event-link';
 import clsx from 'clsx';
 
 export default async function Page() {
+  const noraEventLink = await getNoraEventLink();
+
   return (
     <section className={clsx(container, 'my-24')}>
       <article className='prose prose-slate lg:prose-lg'>
@@ -38,7 +41,7 @@ export default async function Page() {
           link={{
             label: 'Sign up to ride in the next event',
             isExternal: true,
-            url: 'https://nora92.com/events/',
+            url: noraEventLink,
           }}
         />
       </article>
