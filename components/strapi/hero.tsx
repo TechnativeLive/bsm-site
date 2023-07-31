@@ -6,7 +6,6 @@ type HeroProps = GetAttributesValues<'blocks.hero'> & { priority?: boolean; embe
 
 export function Hero(props: HeroProps) {
   const cover = props.images?.[0] as StrapiMedia | undefined;
-  console.log({ a: props.embed });
 
   return (
     <div className='mb-8 last:mb-0'>

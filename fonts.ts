@@ -13,3 +13,5 @@ export const audiowide = Audiowide({
 });
 
 export const saira = Saira({ variable: '--font-numeric', subsets: ['latin'], display: 'swap' });
+
+console.log({ figtree, audiowide, saira });
