@@ -2,7 +2,7 @@ import './globals.css';
 
 import { Metadata } from 'next';
 import { Analytics } from '@vercel/analytics/react';
-import { figtree, audiowide, saira } from '@/fonts';
+// import { figtree, audiowide, saira } from '@/fonts';
 
 export const metadata: Metadata = {
   title: { default: 'British Supermoto', template: '%s | British Supermoto' },
@@ -17,7 +17,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang='en'>
       <body
-        className={`font-sans ${figtree.variable} ${audiowide.variable} ${saira.variable} overflow-y-scroll scrollbar-thin scrollbar-track-zinc-100 scrollbar-thumb-zinc-400`}
+        // className={`font-sans ${figtree.variable} ${audiowide.variable} ${saira.variable} overflow-y-scroll scrollbar-thin scrollbar-track-zinc-100 scrollbar-thumb-zinc-400`}
+        className={`overflow-y-scroll font-sans scrollbar-thin scrollbar-track-zinc-100 scrollbar-thumb-zinc-400`}
       >
         {children}
         <Analytics />

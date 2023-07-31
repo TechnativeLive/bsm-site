@@ -5,6 +5,7 @@ import radix from 'tailwindcss-radix';
 import { Icons, SCALE, type Options } from 'tailwindcss-plugin-icons';
 import typography from '@tailwindcss/typography';
 import path from 'path';
+import defaultTheme from 'tailwindcss/defaultTheme';
 
 const flattenColorPalette: any = (colors: any) =>
   Object.assign(
@@ -171,10 +172,15 @@ export default {
         },
       },
       fontFamily: {
-        sans: ['var(--font-sans)'],
-        display: ['var(--font-display)'],
-        numeric: ['var(--font-numeric)'],
+        sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+        display: ['Audiowide', ...defaultTheme.fontFamily.sans],
+        numeric: ['Saira', ...defaultTheme.fontFamily.sans],
       },
+      // fontFamily: {
+      //   sans: ['var(--font-sans)'],
+      //   display: ['var(--font-display)'],
+      //   numeric: ['var(--font-numeric)'],
+      // },
       colors: {
         primary: {
           DEFAULT: '#002550',
