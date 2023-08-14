@@ -64,97 +64,69 @@ function RiderPage({ rider }: { rider: Rider }) {
   }
 
   return (
-    <div className={clsx(container, 'mt-8 w-full max-w-7xl')}>
-      <div className='flex flex-col md:flex-row'>
-        <Image
-          className='relative z-10 max-h-72 w-full grow basis-0 self-center object-contain'
-          src={headshot?.url ?? '/not-found.svg'}
-          alt={`${rider.firstname} ${rider.lastname} profile image`}
-          width={headshot.width}
-          height={headshot.height}
-        />
-        <div className='flex grow basis-0 flex-col'>
-          {(rider.bike || rider.tyres || dob || dateStarted) && (
-            <div className='mt-4 flex flex-col'>
-              {rider.bike && (
-                <div className='flex items-center justify-between gap-2.5'>
-                  <p className='text-sm uppercase opacity-70'>Bike</p>
-                  <p className='font-semibold tracking-wider'>{rider.bike}</p>
-                </div>
-              )}
-              {rider.tyres && (
-                <div className='flex items-center justify-between gap-2.5'>
-                  <p className='text-sm uppercase opacity-70'>Tyres</p>
-                  <p className='font-semibold tracking-wider'>{rider.tyres}</p>
-                </div>
-              )}
-              {dob && (
-                <div className='flex items-center justify-between gap-2.5'>
-                  <p className='text-sm uppercase opacity-70'>Age</p>
-                  <p className='font-semibold tracking-wider'>
-                    {Math.abs(dob.getUTCFullYear() - 1970)}
-                  </p>
-                </div>
-              )}
-              {dateStarted && (
-                <div className='flex items-center justify-between gap-2.5'>
-                  <p className='text-sm uppercase opacity-70'>Years Competing</p>
-                  <p className='font-semibold tracking-wider'>
-                    {Math.abs(dateStarted.getUTCFullYear() - 1970)}
-                  </p>
-                </div>
-              )}
-            </div>
+    <div className='w-full'>
+      <div className={'w-full bg-slate-800 text-lg text-slate-300'}>
+        <div
+          className={clsx(
+            container,
+            'relative flex w-full max-w-7xl flex-col justify-end md:flex-row'
           )}
+        >
+          <div className='mt-8 flex grow-[2] basis-0 flex-col pb-8'>
+            <p className='font-display text-5xl'>{rider.bib}</p>
+            <h1 className='mb-8 text-2xl font-semibold uppercase tracking-wide text-slate-100'>
+              {rider.firstname} {rider.lastname}
+            </h1>
+
+            {rider.bike && (
+              <>
+                <p className='text-sm uppercase opacity-70 max-md:leading-none'>Bike</p>
+                <p className='mb-4 font-semibold tracking-wider max-md:leading-none md:mb-6'>
+                  {rider.bike}
+                </p>
+              </>
+            )}
+
+            {rider.tyres && (
+              <>
+                <p className='text-sm uppercase opacity-70 max-md:leading-none'>Tyres</p>
+                <p className='mb-4 font-semibold tracking-wider max-md:leading-none md:mb-6'>
+                  {rider.tyres}
+                </p>
+              </>
+            )}
+
+            {dob && (
+              <>
+                <p className='text-sm uppercase opacity-70 max-md:leading-none'>Age</p>
+                <p className='mb-4 font-semibold tracking-wider max-md:leading-none md:mb-6'>
+                  {Math.abs(dob.getUTCFullYear() - 1970)}
+                </p>
+              </>
+            )}
+
+            {dateStarted && (
+              <>
+                <p className='text-sm uppercase opacity-70 max-md:leading-none'>Years Competing</p>
+                <p className='mb-4 font-semibold tracking-wider max-md:leading-none md:mb-6'>
+                  {Math.abs(dateStarted.getUTCFullYear() - 1970)}
+                </p>
+              </>
+            )}
+          </div>
+
+          <Image
+            className='h-96 w-full grow-[3] basis-0 self-end object-contain object-bottom max-md:absolute max-md:bottom-0 max-md:left-1/4 max-md:right-0 md:relative'
+            src={headshot?.url ?? '/not-found.svg'}
+            alt={`${rider.firstname} ${rider.lastname} profile image`}
+            width={headshot.width}
+            height={headshot.height}
+          />
         </div>
       </div>
-      <div
-        className={clsx(
-          // headshot ? 'bg-gradient-to-bl from-slate-950 to-blue-200' : 'bg-slate-800',
-          'bg-slate-800 text-slate-300',
-          'relative flex flex-col p-4 before:corner-tl-4 before:corner-slate-200 after:corner-4 after:corner-slate-200'
-        )}
-      >
-        <h3 className='text-2xl font-semibold uppercase tracking-wide text-slate-300'>
-          {rider.firstname} {rider.lastname}
-        </h3>
-        {headshot && (
-          <div className='relative mt-6'>
-            <p
-              className={clsx(
-                rider.bib.length > 3 ? 'text-[3rem] sm:text-[5rem]' : 'text-[5rem] sm:text-[7rem]',
-                'absolute -top-2 right-0 font-display leading-[0.8] text-slate-400'
-              )}
-              style={{
-                WebkitTextStroke: '2px rgb(178, 183, 204)',
-                WebkitTextFillColor: 'transparent',
-              }}
-            >
-              {rider.bib}
-            </p>
-            <Image
-              className='relative z-10 max-h-72 w-full self-center object-contain'
-              src={headshot.url}
-              alt={`${rider.firstname} ${rider.lastname} profile image`}
-              width={headshot.width}
-              height={headshot.height}
-            />
-          </div>
-        )}
-        {!headshot && rider.bib && (
-          <p
-            className={clsx(
-              rider.bib.length > 3 ? '' : '',
-              'text-right font-display text-[4rem] leading-[0.8] text-slate-400 sm:text-[7rem]'
-            )}
-            style={{
-              WebkitTextStroke: '2px rgb(178, 183, 204)',
-              WebkitTextFillColor: 'transparent',
-            }}
-          >
-            {rider.bib}
-          </p>
-        )}
+      <div className={clsx(container, 'w-full max-w-7xl py-8')}>
+        <h2 className='mb-4 font-display text-3xl tracking-wide'>Biography</h2>
+        <p>yo its all about me</p>
       </div>
     </div>
   );
