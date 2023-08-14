@@ -3,7 +3,7 @@ import { BannerSeparator, HomeLogo } from '@/components/logos/main';
 import { Footer } from '@/components/footer/footer';
 import { containerRow } from '@/components/tailwind';
 import { Suspense } from 'react';
-import { MainNavLink, MobileNav } from '@/components/nav/client-components';
+import { MainNavLink, MobileNav } from '@/components/nav/nav';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -34,6 +34,7 @@ export function Header() {
           <MainNavLink href='/latest'>Latest</MainNavLink> {/* Article feed */}
           {/* <MainNavLink href="/teams">Teams & Drivers</MainNavLink> */}
           <MainNavLink href='/results'>Results</MainNavLink>
+          <MainNavLink href='/teams'>Teams</MainNavLink>
           {/* <MainNavLink href='/calendar'>Calendar</MainNavLink> */}
           <MainNavLink
             href='https://speedhive.mylaps.com/Organizations/19155'

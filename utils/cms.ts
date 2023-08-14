@@ -32,6 +32,23 @@ export function cms(path: string, query?: StrapiQuery, queryOpts?: IStringifyOpt
   return `${base}/api/${path}?${qs}`;
 }
 
+export function getImage(media: Strapi.Image, largest: keyof Strapi.Image['formats'] = 'large') {
+  if (largest === 'thumbnail') {
+    return media?.formats?.thumbnail;
+  } else if (largest === 'small') {
+    return media?.formats?.small ?? media?.formats?.thumbnail;
+  } else if (largest === 'medium') {
+    return media?.formats?.medium ?? media?.formats?.small ?? media?.formats?.thumbnail;
+  } else {
+    return (
+      media?.formats?.large ??
+      media?.formats?.medium ??
+      media?.formats?.small ??
+      media?.formats?.thumbnail
+    );
+  }
+}
+
 // type ArrayExtract<T> = T extends (unknown[] | readonly unknown[]) ? T[number] : T
 
 // // type Filter = Record<string,

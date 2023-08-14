@@ -33,7 +33,7 @@ export const FeedPrimaryArticle = ({
           </div>
         )}
         <Image
-          src={cover?.url ?? article.hero?.images?.[0]?.url}
+          src={cover?.url ?? article.hero?.images?.[0]?.url ?? '/no-image.svg'}
           priority
           alt={cover?.alternativeText ?? 'Cover Image'}
           width={cover?.width ?? 800}

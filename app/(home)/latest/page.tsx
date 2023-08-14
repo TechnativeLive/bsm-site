@@ -21,7 +21,7 @@ export default async function Page() {
   return (
     <>
       <header className='grid w-full place-items-center border-b border-slate-300 bg-slate-100'>
-        <h1 className='text-emboss py-8 text-3xl font-bold uppercase'>Latest News</h1>
+        <h1 className='text-emboss py-8 font-display text-3xl uppercase'>Latest News</h1>
         <ul className='flex flex-wrap items-center justify-center gap-4 px-8 pb-4'>
           {tags.map((tag) => (
             <Link key={tag.slug} href={`/latest/tag/${tag.slug}`} className={tagStyles}>

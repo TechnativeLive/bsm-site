@@ -25,7 +25,7 @@ export function Hero(props: HeroProps) {
         <div className='relative aspect-video max-h-[550px] w-full'>
           <Image
             className='object-contain object-left-top'
-            src={cover.url}
+            src={cover.url ?? '/no-image.svg'}
             alt={cover.alternativeText ?? cover.caption ?? 'Banner image'}
             fill
             priority={props.priority}

@@ -9,7 +9,7 @@ export default async function Page() {
   return (
     <section className={clsx(container, 'my-24')}>
       <article className='prose prose-slate lg:prose-lg'>
-        <h1>Welcome To BSM</h1>
+        <h1 className=''>Welcome To BSM</h1>
         <p>
           Welcome to the exciting new era of supermoto racing! The 2023 British Supermoto
           Championship (BSSC) is finally here, and it promises to be the most thrilling season yet.
