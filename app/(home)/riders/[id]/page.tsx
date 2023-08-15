@@ -117,10 +117,10 @@ function RiderPage({ rider }: { rider: Rider }) {
 
           <Image
             className='h-96 w-full grow-[3] basis-0 self-end object-contain object-bottom max-md:absolute max-md:bottom-0 max-md:left-1/4 max-md:right-0 md:relative'
-            src={headshot?.url ?? '/not-found.svg'}
+            src={headshot?.url ?? '/no-image.svg'}
             alt={`${rider.firstname} ${rider.lastname} profile image`}
-            width={headshot.width}
-            height={headshot.height}
+            width={headshot?.width ?? 220}
+            height={headshot?.height ?? 114}
           />
         </div>
       </div>
