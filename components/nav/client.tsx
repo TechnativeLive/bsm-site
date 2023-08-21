@@ -47,7 +47,7 @@ export const MobileNav = () => {
   const close = useCallback(() => ref.current && (ref.current.checked = false), [ref]);
 
   return (
-    <div className='z-10 -mr-2 ml-7 flex grow items-center justify-end gap-2 font-bold uppercase text-black md:hidden lg:gap-6'>
+    <div className='z-10 -mr-2 ml-7 flex grow items-center justify-end gap-2 font-bold uppercase text-black lg:hidden lg:gap-6'>
       <input ref={ref} type='checkbox' id='nav-menu' className='modal peer absolute h-0 w-0' />
       <label
         htmlFor='nav-menu'
@@ -58,7 +58,7 @@ export const MobileNav = () => {
       </label>
       <nav
         // style={{ top: 'clamp(53px, 8vw, 81px)' }}
-        className='fixed left-0 right-0 top-[81px] z-40 hidden bg-white p-4 shadow-lg peer-checked:block md:!hidden'
+        className='fixed left-0 right-0 top-[81px] z-40 hidden bg-white p-4 shadow-lg peer-checked:block'
       >
         <div className='mb-6 ml-auto flex w-fit flex-col gap-2'>
           <MobileNavLink onClick={close} href='/latest'>
@@ -70,7 +70,10 @@ export const MobileNav = () => {
             Results
           </MobileNavLink>
           <MobileNavLink onClick={close} href='/teams'>
-            Teams & Riders
+            Teams
+          </MobileNavLink>
+          <MobileNavLink onClick={close} href='/riders'>
+            Riders
           </MobileNavLink>
           {/* <MobileNavLink href='/calendar'>Calendar</MobileNavLink> */}
           <MobileNavLink

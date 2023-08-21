@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 
-export const containerRow = clsx('mx-auto flex max-w-7xl px-8');
+export const containerRow = clsx('mx-auto flex max-w-7xl px-4 md:px-8');
 export const container = clsx(containerRow, 'flex-col');
 
 export const linkHighlight = clsx(

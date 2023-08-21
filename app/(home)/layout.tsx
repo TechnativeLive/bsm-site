@@ -3,7 +3,8 @@ import { BannerSeparator, HomeLogo } from '@/components/logos/main';
 import { Footer } from '@/components/footer/footer';
 import { containerRow } from '@/components/tailwind';
 import { Suspense } from 'react';
-import { MainNavLink, MobileNav } from '@/components/nav/nav';
+import { MobileNav } from '@/components/nav/client';
+import { MainNav } from '@/components/nav/main';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -30,22 +31,7 @@ export function Header() {
         >
           <BannerSeparator />
         </div>
-        <nav className='z-10 -mr-2 hidden shrink-0 grow items-center justify-end gap-2 font-bold uppercase md:flex lg:gap-6'>
-          <MainNavLink href='/latest'>Latest</MainNavLink> {/* Article feed */}
-          {/* <MainNavLink href="/teams">Teams & Drivers</MainNavLink> */}
-          <MainNavLink href='/results'>Results</MainNavLink>
-          <MainNavLink href='/teams'>Teams</MainNavLink>
-          {/* <MainNavLink href='/calendar'>Calendar</MainNavLink> */}
-          <MainNavLink
-            href='https://speedhive.mylaps.com/Organizations/19155'
-            target='_blank'
-            className='gap-1'
-          >
-            Live Timing <span className='i-ic-baseline-launch mb-0.5 inline-block' />
-          </MainNavLink>
-          <MainNavLink href='/about'>About BSM</MainNavLink>
-          {/* Includes rules and regs, rider entry */}
-        </nav>
+        <MainNav />
         <Suspense>
           <MobileNav />
         </Suspense>

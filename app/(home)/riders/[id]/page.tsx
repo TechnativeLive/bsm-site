@@ -69,10 +69,10 @@ function RiderPage({ rider }: { rider: Rider }) {
         <div
           className={clsx(
             container,
-            'relative flex w-full max-w-7xl flex-col justify-end md:flex-row'
+            'relative flex w-full max-w-7xl flex-col justify-end overflow-hidden md:flex-row'
           )}
         >
-          <div className='mt-8 flex grow-[2] basis-0 flex-col pb-8'>
+          <div className='mt-8 flex min-h-[24rem] grow-[2] basis-0 flex-col pb-8'>
             <p className='font-display text-5xl'>{rider.bib}</p>
             <h1 className='mb-8 text-2xl font-semibold uppercase tracking-wide text-slate-100'>
               {rider.firstname} {rider.lastname}
@@ -124,10 +124,12 @@ function RiderPage({ rider }: { rider: Rider }) {
           />
         </div>
       </div>
-      <div className={clsx(container, 'w-full max-w-7xl py-8')}>
-        <h2 className='mb-4 font-display text-3xl tracking-wide'>Biography</h2>
-        <p>yo its all about me</p>
-      </div>
+      {rider.bio && (
+        <div className={clsx(container, 'w-full max-w-7xl py-8')}>
+          <h2 className='mb-4 font-display text-3xl tracking-wide'>Biography</h2>
+          <p className='whitespace-pre-wrap'>{rider.bio}</p>
+        </div>
+      )}
     </div>
   );
 }

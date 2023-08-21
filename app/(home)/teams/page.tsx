@@ -6,7 +6,7 @@ import { container } from '@/components/tailwind';
 import Image from 'next/image';
 import { Rider, RiderCard } from '@/components/rider-card';
 import Link from 'next/link';
-import { MainNavLink } from '@/components/nav/nav';
+import { MainNavLink } from '@/components/nav/client';
 
 export default async function Page() {
   const ridersQuery = cms('riders', {

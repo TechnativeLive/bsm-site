@@ -4,7 +4,7 @@ import { Metadata } from 'next';
 import { cms } from '@/utils/cms';
 import { container } from '@/components/tailwind';
 import { RiderCard } from '@/components/rider-card';
-import { MainNavLink } from '@/components/nav/nav';
+import { MainNavLink } from '@/components/nav/client';
 
 export default async function Page() {
   const ridersQuery = cms('riders', {
@@ -31,7 +31,7 @@ export default async function Page() {
           </MainNavLink>
         </h1>
       </header>
-      <section className={clsx(container, 'my-6 w-full items-start gap-4')}>
+      <section className={clsx(container, 'relative my-6 w-full items-start gap-4')}>
         <div className='relative flex w-full flex-col bg-slate-200 before:corner-tl-6 after:corner-6'>
           <div
             className='my-4 grid gap-4 px-4'

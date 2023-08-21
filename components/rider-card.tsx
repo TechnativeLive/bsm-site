@@ -29,11 +29,11 @@ export function RiderCard({ rider, team }: { rider: Rider; team?: string }) {
       className={clsx(
         // headshot ? 'bg-gradient-to-bl from-slate-950 to-blue-200' : 'bg-slate-800',
         'bg-slate-800 text-slate-300',
-        'relative flex flex-col pt-4 before:corner-tl-4 before:corner-slate-200 after:corner-4 after:corner-slate-200'
+        'relative flex min-h-[7.5rem] flex-col pt-4 before:corner-tl-4 before:corner-slate-200 after:corner-4 after:corner-slate-200'
       )}
     >
       {headshot && (
-        <div className='relative mt-6'>
+        <div className='relative mt-6 flex h-full'>
           <p
             className={clsx(
               rider.bib.length > 3 ? 'text-[3rem] sm:text-[5rem]' : 'text-[5rem] sm:text-[7rem]',
@@ -47,7 +47,7 @@ export function RiderCard({ rider, team }: { rider: Rider; team?: string }) {
             {rider.bib}
           </p>
           <Image
-            className='relative max-h-72 w-full self-center object-contain'
+            className='relative max-h-72 w-full self-end object-contain'
             src={headshot.url}
             alt={`${rider.firstname} ${rider.lastname} profile image`}
             width={headshot.width}
@@ -69,7 +69,7 @@ export function RiderCard({ rider, team }: { rider: Rider; team?: string }) {
           {rider.bib}
         </p>
       )}
-      <div className='absolute bottom-0 left-0 right-0 flex flex-col bg-gradient-to-t from-slate-950/60 from-50% to-transparent px-6 pb-4 pt-12'>
+      <div className='absolute bottom-0 left-0 right-0 flex flex-col bg-gradient-to-t from-slate-950/70 from-40% to-transparent to-90% px-6 pb-4 pt-12'>
         {rider.bike && (
           <div className='flex items-center justify-between gap-2.5'>
             <p className='text-sm uppercase opacity-70'>Bike</p>
