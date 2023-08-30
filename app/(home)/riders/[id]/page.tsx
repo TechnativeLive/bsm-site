@@ -1,9 +1,7 @@
 import { GetAttributesValues } from '@strapi/strapi';
 import { cms, getImage } from '@/utils/cms';
 import { getRiderById } from '@/lib/strapi';
-import { getMetadata } from '@/lib/meta';
 import clsx from 'clsx';
-import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { container } from '@/components/tailwind';
@@ -44,10 +42,9 @@ export async function generateMetadata({ params: { id } }: PageParams) {
   };
 }
 
-type Rider = Omit<
-  Strapi.Response<GetAttributesValues<'api::rider.rider'>[]>['data'][number],
-  'team'
-> & { id: number };
+type Rider = Strapi.Response<GetAttributesValues<'api::rider.rider'>[]>['data'][number] & {
+  id: number;
+};
 
 function RiderPage({ rider }: { rider: Rider }) {
   const headshot = getImage(rider.headshot, 'small');
@@ -77,6 +74,15 @@ function RiderPage({ rider }: { rider: Rider }) {
             <h1 className='mb-8 text-2xl font-semibold uppercase tracking-wide text-slate-100'>
               {rider.firstname} {rider.lastname}
             </h1>
+
+            {rider.team?.name && (
+              <>
+                <p className='text-sm uppercase opacity-70 max-md:leading-none'>Team</p>
+                <p className='mb-4 font-semibold tracking-wider max-md:leading-none md:mb-6'>
+                  {rider.team.name}
+                </p>
+              </>
+            )}
 
             {rider.bike && (
               <>
@@ -115,13 +121,15 @@ function RiderPage({ rider }: { rider: Rider }) {
             )}
           </div>
 
-          <Image
-            className='h-96 w-full grow-[3] basis-0 self-end object-contain object-bottom max-md:absolute max-md:bottom-0 max-md:left-1/4 max-md:right-0 md:relative'
-            src={headshot?.url ?? '/no-image.svg'}
-            alt={`${rider.firstname} ${rider.lastname} profile image`}
-            width={headshot?.width ?? 220}
-            height={headshot?.height ?? 114}
-          />
+          {headshot?.url && (
+            <Image
+              className='h-96 w-full grow-[3] basis-0 self-end object-contain object-bottom max-md:absolute max-md:bottom-0 max-md:left-1/4 max-md:right-0 md:relative'
+              src={headshot.url}
+              alt={`${rider.firstname} ${rider.lastname} profile image`}
+              width={headshot?.width ?? 220}
+              height={headshot?.height ?? 114}
+            />
+          )}
         </div>
       </div>
       {rider.bio && (

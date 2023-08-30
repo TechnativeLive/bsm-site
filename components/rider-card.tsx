@@ -29,7 +29,8 @@ export function RiderCard({ rider, team }: { rider: Rider; team?: string }) {
       className={clsx(
         // headshot ? 'bg-gradient-to-bl from-slate-950 to-blue-200' : 'bg-slate-800',
         'bg-slate-800 text-slate-300',
-        'relative flex min-h-[7.5rem] flex-col pt-4 before:corner-tl-4 before:corner-slate-200 after:corner-4 after:corner-slate-200'
+        team ? ' min-h-[10rem]' : ' min-h-[8.5rem]',
+        'relative flex flex-col overflow-hidden pt-4 before:z-30 before:corner-tl-4 before:corner-slate-200 after:corner-4 after:corner-slate-200'
       )}
     >
       {headshot && (
@@ -71,33 +72,33 @@ export function RiderCard({ rider, team }: { rider: Rider; team?: string }) {
       )}
       <div className='absolute bottom-0 left-0 right-0 flex flex-col bg-gradient-to-t from-slate-950/70 from-40% to-transparent to-90% px-6 pb-4 pt-12'>
         {rider.bike && (
-          <div className='flex items-center justify-between gap-2.5'>
+          <div className='flex items-center justify-between gap-2.5 drop-shadow'>
             <p className='text-sm uppercase opacity-70'>Bike</p>
             <p className='tracking-wider'>{rider.bike}</p>
           </div>
         )}
         {rider.tyres && (
-          <div className='flex items-center justify-between gap-2.5'>
+          <div className='flex items-center justify-between gap-2.5 drop-shadow'>
             <p className='text-sm uppercase opacity-70'>Tyres</p>
             <p className='tracking-wider'>{rider.tyres}</p>
           </div>
         )}
         {dob && (
-          <div className='flex items-center justify-between gap-2.5'>
+          <div className='flex items-center justify-between gap-2.5 drop-shadow'>
             <p className='text-sm uppercase opacity-70'>Age</p>
             <p className='tracking-wider'>{Math.abs(dob.getUTCFullYear() - 1970)}</p>
           </div>
         )}
         {dateStarted && (
-          <div className='flex items-center justify-between gap-2.5'>
+          <div className='flex items-center justify-between gap-2.5 drop-shadow'>
             <p className='text-sm uppercase opacity-70'>Years Competing</p>
             <p className='tracking-wider'>{Math.abs(dateStarted.getUTCFullYear() - 1970)}</p>
           </div>
         )}
-        <h3 className='text-2xl font-semibold uppercase tracking-wide text-slate-300'>
+        <h3 className='text-2xl font-semibold uppercase tracking-wide text-slate-300 drop-shadow'>
           {rider.firstname} {rider.lastname}
         </h3>
-        {team && <h4 className='opacity-85 italic'>Team {team}</h4>}
+        {team && <h4 className='italic tracking-widest opacity-80 drop-shadow'>Team {team}</h4>}
       </div>
     </Link>
   );
