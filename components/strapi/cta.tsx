@@ -1,8 +1,11 @@
 import { GetAttributesValues } from '@strapi/strapi';
 import { classed } from '@tw-classed/react';
+import clsx from 'clsx';
 import Link from 'next/link';
 
-type CallToActionProps = GetAttributesValues<'blocks.cta'>;
+type CallToActionProps = GetAttributesValues<'blocks.cta'> & {
+  icon?: string;
+};
 
 export function CallToAction(props: CallToActionProps) {
   return (
@@ -25,7 +28,11 @@ export function CallToAction(props: CallToActionProps) {
   );
 }
 
-function CallToActionContents({ heading, link }: CallToActionProps) {
+function CallToActionContents({
+  heading,
+  link,
+  icon = 'i-ic-baseline-keyboard-arrow-right',
+}: CallToActionProps) {
   return (
     <>
       <CtaTransitionBackground theme={link?.theme} />
@@ -33,9 +40,24 @@ function CallToActionContents({ heading, link }: CallToActionProps) {
         <div>{heading}</div>
         {link && <div className={heading ? 'font-normal' : undefined}>{link?.label}</div>}
       </div>
-      <span className='i-ic-baseline-keyboard-arrow-right z-20 -mx-1 inline-block shrink-0 transition-transform duration-700 ease-slide group-hover:translate-x-1' />{' '}
-      <span className='i-ic-baseline-keyboard-arrow-right z-20 -mx-1 inline-block shrink-0 transition-transform duration-500 ease-slide group-hover:translate-x-3' />{' '}
-      <span className='i-ic-baseline-keyboard-arrow-right z-20 -mx-1 inline-block shrink-0 transition-transform duration-300 ease-slide group-hover:translate-x-5' />{' '}
+      <span
+        className={clsx(
+          icon,
+          'i-ic-baseline-keyboard-arrow-right z-20 -mx-1 inline-block shrink-0 transition-transform duration-700 ease-slide group-hover:translate-x-1'
+        )}
+      />{' '}
+      <span
+        className={clsx(
+          icon,
+          'i-ic-baseline-keyboard-arrow-right z-20 -mx-1 inline-block shrink-0 transition-transform duration-500 ease-slide group-hover:translate-x-3'
+        )}
+      />{' '}
+      <span
+        className={clsx(
+          icon,
+          'i-ic-baseline-keyboard-arrow-right z-20 -mx-1 inline-block shrink-0 transition-transform duration-300 ease-slide group-hover:translate-x-5'
+        )}
+      />{' '}
     </>
   );
 }

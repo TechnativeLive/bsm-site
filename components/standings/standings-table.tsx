@@ -122,7 +122,7 @@ function Row({ entrant }: { entrant: Standings[number] }) {
             )}
           >
             <div className='text-emboss z-10 font-extrabold text-slate-600'>
-              {entrant.total} PTS
+              {entrant.total} <span className='text-xs'>PTS</span>
             </div>
           </div>
         </div>

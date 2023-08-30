@@ -117,7 +117,7 @@ const FooterLinks = async () => {
 
   return (
     <>
-      <div className='flex gap-6'>
+      <div className='flex flex-col gap-x-6 gap-y-2 md:flex-row'>
         {footerLinks?.map((link, i) =>
           link.url ? (
             <FooterActiveLink
@@ -137,7 +137,7 @@ const FooterLinks = async () => {
           )
         )}
       </div>
-      <div className='flex grow justify-end gap-1'>
+      <div className='flex grow flex-col items-end justify-end gap-1 xs:flex-row xs:items-center'>
         {socials?.map((social, i) => (
           <a
             key={i}

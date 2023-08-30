@@ -937,6 +937,51 @@ export interface ApiPhotoGalleryPhotoGallery extends SingleTypeSchema {
   };
 }
 
+export interface ApiRiderRider extends CollectionTypeSchema {
+  info: {
+    singularName: 'rider';
+    pluralName: 'riders';
+    displayName: 'rider';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    firstname: StringAttribute & RequiredAttribute;
+    lastname: StringAttribute & RequiredAttribute;
+    bib: StringAttribute & RequiredAttribute;
+    dob: DateAttribute;
+    bike: StringAttribute;
+    startedCompeting: DateAttribute;
+    tyres: StringAttribute;
+    job: StringAttribute;
+    team: RelationAttribute<'api::rider.rider', 'manyToOne', 'api::team.team'>;
+    headshot: MediaAttribute;
+    bio: TextAttribute;
+    sponsors: RelationAttribute<
+      'api::rider.rider',
+      'oneToMany',
+      'api::sponsor.sponsor'
+    >;
+    createdAt: DateTimeAttribute;
+    updatedAt: DateTimeAttribute;
+    publishedAt: DateTimeAttribute;
+    createdBy: RelationAttribute<
+      'api::rider.rider',
+      'oneToOne',
+      'admin::user'
+    > &
+      PrivateAttribute;
+    updatedBy: RelationAttribute<
+      'api::rider.rider',
+      'oneToOne',
+      'admin::user'
+    > &
+      PrivateAttribute;
+  };
+}
+
 export interface ApiRiderInfoRiderInfo extends SingleTypeSchema {
   info: {
     singularName: 'rider-info';
@@ -1079,6 +1124,39 @@ export interface ApiTagTag extends CollectionTypeSchema {
     createdBy: RelationAttribute<'api::tag.tag', 'oneToOne', 'admin::user'> &
       PrivateAttribute;
     updatedBy: RelationAttribute<'api::tag.tag', 'oneToOne', 'admin::user'> &
+      PrivateAttribute;
+  };
+}
+
+export interface ApiTeamTeam extends CollectionTypeSchema {
+  info: {
+    singularName: 'team';
+    pluralName: 'teams';
+    displayName: 'team';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: StringAttribute;
+    sponsors: RelationAttribute<
+      'api::team.team',
+      'oneToMany',
+      'api::sponsor.sponsor'
+    >;
+    riders: RelationAttribute<
+      'api::team.team',
+      'oneToMany',
+      'api::rider.rider'
+    >;
+    slug: UIDAttribute<'api::team.team', 'name'> & RequiredAttribute;
+    createdAt: DateTimeAttribute;
+    updatedAt: DateTimeAttribute;
+    publishedAt: DateTimeAttribute;
+    createdBy: RelationAttribute<'api::team.team', 'oneToOne', 'admin::user'> &
+      PrivateAttribute;
+    updatedBy: RelationAttribute<'api::team.team', 'oneToOne', 'admin::user'> &
       PrivateAttribute;
   };
 }
@@ -1385,10 +1463,12 @@ declare global {
       'api::calendar-item.calendar-item': ApiCalendarItemCalendarItem;
       'api::homepage.homepage': ApiHomepageHomepage;
       'api::photo-gallery.photo-gallery': ApiPhotoGalleryPhotoGallery;
+      'api::rider.rider': ApiRiderRider;
       'api::rider-info.rider-info': ApiRiderInfoRiderInfo;
       'api::season.season': ApiSeasonSeason;
       'api::sponsor.sponsor': ApiSponsorSponsor;
       'api::tag.tag': ApiTagTag;
+      'api::team.team': ApiTeamTeam;
       'api::test.test': ApiTestTest;
       'api::track.track': ApiTrackTrack;
       'blocks.cta': BlocksCta;

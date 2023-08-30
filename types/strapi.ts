@@ -3,7 +3,7 @@ export {};
 declare global {
   namespace Strapi {
     type Response<T> = {
-      data: T & { id: number };
+      data: T extends ArrayLike<unknown> ? (T[number] & { id: number })[] : T & { id: number };
       meta?: Record<string, unknown>;
       error?: {
         status: string; // HTTP status
@@ -12,6 +12,7 @@ declare global {
         details: unknown;
       };
     };
+    type Image = SingleImage;
   }
 }
 

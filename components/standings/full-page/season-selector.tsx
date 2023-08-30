@@ -19,8 +19,6 @@ export const SeasonSelector = ({
 }) => {
   const [championship, setChampionship] = useState<Championship>('British Supermoto');
   const [seasonIndex, setSeasonIndex] = useState(0);
-  const [key, setKey] = useState(0);
-  const forceRemount = useCallback(() => setKey((k) => k + 1), [setKey]);
 
   const championships = Array.from(new Set(seasons.map((ssn) => ssn.championship))).sort((a, b) =>
     a.localeCompare(b)
@@ -93,7 +91,7 @@ export const SeasonSelector = ({
           {season.championship} Championship Standings
         </h3>
       </div>
-      <Standings standings={season.category} fullView key={key} />
+      <Standings standings={season.category} fullView />
       <div className='mx-auto flex max-w-5xl justify-end px-8 py-2'>
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}

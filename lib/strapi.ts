@@ -52,6 +52,22 @@ export async function getArticleBySlug(slug: string) {
   return transformedArticle;
 }
 
+export async function getRiderById(id: number) {
+  const ridersQuery = cms(`riders/${id}`, {
+    populate: {
+      team: { populate: { sponsors: { populate: { logos: { populate: '*' } } } } },
+      headshot: { populate: '*' },
+    },
+  });
+  // console.log({ ridersQuery });
+
+  const rider: Strapi.Response<GetAttributesValues<'api::rider.rider'>> = await fetch(
+    ridersQuery
+  ).then((res) => res.json());
+
+  return rider;
+}
+
 async function transformArticleContent(article: GetAttributesValues<'api::article.article'>) {
   if (!article) return undefined;
 
