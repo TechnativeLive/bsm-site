@@ -57,6 +57,7 @@ export async function getRiderById(id: number) {
     populate: {
       team: { populate: { sponsors: { populate: { logos: { populate: '*' } } } } },
       headshot: { populate: '*' },
+      sponsors: { populate: { logos: { populate: '*' } } },
     },
   });
   // console.log({ ridersQuery });
