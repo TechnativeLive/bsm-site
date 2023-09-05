@@ -61,12 +61,16 @@ const Sponsors = async () => {
   );
 };
 
-const SponsorImage = (sponsor: GetAttributesValues<'api::sponsor.sponsor'>) => {
+export const SponsorImage = (sponsor: GetAttributesValues<'api::sponsor.sponsor'>) => {
   const logo =
     sponsor.logos?.find((l) => l.kind === (sponsor.name === 'Tripz' ? 'base' : 'light')) ??
     sponsor.logos?.find((l) => l.kind === 'base');
+
   if (!logo) {
-    return null;
+    return <div>{JSON.stringify(sponsor)}</div>;
+  }
+  if (!logo.image) {
+    return <div>{JSON.stringify(logo)}</div>;
   }
 
   const image = logo.image as StrapiMedia;

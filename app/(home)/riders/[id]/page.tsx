@@ -5,6 +5,7 @@ import clsx from 'clsx';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { container } from '@/components/tailwind';
+import { SponsorImage } from '@/components/footer/footer';
 
 type PageParams = { params: { id: string } };
 
@@ -70,66 +71,106 @@ function RiderPage({ rider }: { rider: Rider }) {
           )}
         >
           <div className='mt-8 flex min-h-[24rem] grow-[2] basis-0 flex-col pb-8'>
-            <p className='font-display text-5xl'>{rider.bib}</p>
-            <h1 className='mb-8 text-2xl font-semibold uppercase tracking-wide text-slate-100'>
-              {rider.firstname} {rider.lastname}
-            </h1>
+            <div className='absolute inset-0'>
+              <div className='absolute bottom-0 right-0 font-display font-extrabold uppercase leading-none opacity-50'>
+                <div
+                  className={clsx(
+                    'p-4',
+                    rider.lastname.length > 8 ? 'text-[9rem]' : 'text-[11rem]'
+                  )}
+                >
+                  {rider.lastname}
+                </div>
+              </div>
+              <div
+                className='relative h-full w-full'
+                style={{ boxShadow: 'inset 4rem -4rem 2rem rgb(30, 41, 59)' }}
+              />
+            </div>
 
-            {rider.team?.name && (
-              <>
-                <p className='text-sm uppercase opacity-70 max-md:leading-none'>Team</p>
-                <p className='mb-4 font-semibold tracking-wider max-md:leading-none md:mb-6'>
-                  {rider.team.name}
-                </p>
-              </>
+            <div className='relative'>
+              <p className='font-display text-5xl'>{rider.bib}</p>
+              <h1 className='mb-8 text-2xl font-semibold uppercase tracking-wide text-slate-100'>
+                {rider.firstname} {rider.lastname}
+              </h1>
+
+              {rider.team?.name && (
+                <>
+                  <p className='text-sm uppercase opacity-70 max-md:leading-none'>Team</p>
+                  <p className='mb-4 font-semibold tracking-wider max-md:leading-none md:mb-6'>
+                    {rider.team.name}
+                  </p>
+                </>
+              )}
+
+              {rider.bike && (
+                <>
+                  <p className='text-sm uppercase opacity-70 max-md:leading-none'>Bike</p>
+                  <p className='mb-4 font-semibold tracking-wider max-md:leading-none md:mb-6'>
+                    {rider.bike}
+                  </p>
+                </>
+              )}
+
+              {rider.tyres && (
+                <>
+                  <p className='text-sm uppercase opacity-70 max-md:leading-none'>Tyres</p>
+                  <p className='mb-4 font-semibold tracking-wider max-md:leading-none md:mb-6'>
+                    {rider.tyres}
+                  </p>
+                </>
+              )}
+
+              {dob && (
+                <>
+                  <p className='text-sm uppercase opacity-70 max-md:leading-none'>Age</p>
+                  <p className='mb-4 font-semibold tracking-wider max-md:leading-none md:mb-6'>
+                    {Math.abs(dob.getUTCFullYear() - 1970)}
+                  </p>
+                </>
+              )}
+
+              {dateStarted && (
+                <>
+                  <p className='text-sm uppercase opacity-70 max-md:leading-none'>
+                    Years Competing
+                  </p>
+                  <p className='mb-4 font-semibold tracking-wider max-md:leading-none md:mb-6'>
+                    {Math.abs(dateStarted.getUTCFullYear() - 1970)}
+                  </p>
+                </>
+              )}
+            </div>
+
+            {rider.sponsors && (
+              <div className='absolute right-0 top-0 flex w-3/4 flex-wrap justify-end gap-8 p-4 opacity-70'>
+                {rider.sponsors.map((sponsor, i) => (
+                  <SponsorImage key={i} {...sponsor} />
+                ))}
+              </div>
             )}
 
-            {rider.bike && (
-              <>
-                <p className='text-sm uppercase opacity-70 max-md:leading-none'>Bike</p>
-                <p className='mb-4 font-semibold tracking-wider max-md:leading-none md:mb-6'>
-                  {rider.bike}
-                </p>
-              </>
-            )}
-
-            {rider.tyres && (
-              <>
-                <p className='text-sm uppercase opacity-70 max-md:leading-none'>Tyres</p>
-                <p className='mb-4 font-semibold tracking-wider max-md:leading-none md:mb-6'>
-                  {rider.tyres}
-                </p>
-              </>
-            )}
-
-            {dob && (
-              <>
-                <p className='text-sm uppercase opacity-70 max-md:leading-none'>Age</p>
-                <p className='mb-4 font-semibold tracking-wider max-md:leading-none md:mb-6'>
-                  {Math.abs(dob.getUTCFullYear() - 1970)}
-                </p>
-              </>
-            )}
-
-            {dateStarted && (
-              <>
-                <p className='text-sm uppercase opacity-70 max-md:leading-none'>Years Competing</p>
-                <p className='mb-4 font-semibold tracking-wider max-md:leading-none md:mb-6'>
-                  {Math.abs(dateStarted.getUTCFullYear() - 1970)}
-                </p>
-              </>
+            {headshot?.url && (
+              <div
+                className='absolute bottom-0 right-0 h-full w-3/4 animate-appear'
+                style={{ animationDelay: '300ms' }}
+              >
+                <Image
+                  className='object-contain object-bottom pt-8'
+                  // className={clsx(
+                  //   'h-96 w-full grow-[3] basis-0 self-end object-contain object-bottom',
+                  //   'max-md:absolute max-md:bottom-0 max-md:left-1/4 max-md:right-0',
+                  //   'md:relative'
+                  // )}
+                  src={headshot.url}
+                  alt={`${rider.firstname} ${rider.lastname} profile image`}
+                  // width={headshot?.width ?? 220}
+                  // height={headshot?.height ?? 114}
+                  fill
+                />
+              </div>
             )}
           </div>
-
-          {headshot?.url && (
-            <Image
-              className='h-96 w-full grow-[3] basis-0 self-end object-contain object-bottom max-md:absolute max-md:bottom-0 max-md:left-1/4 max-md:right-0 md:relative'
-              src={headshot.url}
-              alt={`${rider.firstname} ${rider.lastname} profile image`}
-              width={headshot?.width ?? 220}
-              height={headshot?.height ?? 114}
-            />
-          )}
         </div>
       </div>
       {rider.bio && (
