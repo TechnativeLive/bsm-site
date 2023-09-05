@@ -66,11 +66,8 @@ export const SponsorImage = (sponsor: GetAttributesValues<'api::sponsor.sponsor'
     sponsor.logos?.find((l) => l.kind === (sponsor.name === 'Tripz' ? 'base' : 'light')) ??
     sponsor.logos?.find((l) => l.kind === 'base');
 
-  if (!logo) {
-    return <div>{JSON.stringify(sponsor)}</div>;
-  }
-  if (!logo.image) {
-    return <div>{JSON.stringify(logo)}</div>;
+  if (!logo || !logo.image) {
+    return null;
   }
 
   const image = logo.image as StrapiMedia;
