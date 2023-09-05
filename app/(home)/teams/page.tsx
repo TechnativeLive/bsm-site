@@ -75,12 +75,23 @@ export default async function Page() {
                     Team {team.name}
                   </h2>
                   <div className='grid grow place-content-center'>
-                    <Image
-                      src={sponsorLogo.url ?? '/no-image.svg'}
-                      alt={`${team.name} logo`}
-                      width={sponsorLogo.width ?? 200}
-                      height={sponsorLogo.height ?? 100}
-                    />
+                    {sponsor?.url ? (
+                      <a href={sponsor.url} target='_blank'>
+                        <Image
+                          src={sponsorLogo.url ?? '/no-image.svg'}
+                          alt={`${team.name} logo`}
+                          width={sponsorLogo.width ?? 200}
+                          height={sponsorLogo.height ?? 100}
+                        />
+                      </a>
+                    ) : (
+                      <Image
+                        src={sponsorLogo.url ?? '/no-image.svg'}
+                        alt={`${team.name} logo`}
+                        width={sponsorLogo.width ?? 200}
+                        height={sponsorLogo.height ?? 100}
+                      />
+                    )}
                   </div>
                 </div>
                 {riders.map((rider) => (

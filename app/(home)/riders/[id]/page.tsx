@@ -142,14 +142,6 @@ function RiderPage({ rider }: { rider: Rider }) {
               )}
             </div>
 
-            {rider.sponsors && (
-              <div className='absolute right-0 top-0 flex w-3/4 flex-wrap justify-end gap-8 p-4 opacity-70'>
-                {rider.sponsors.map((sponsor, i) => (
-                  <SponsorImage key={i} {...sponsor} />
-                ))}
-              </div>
-            )}
-
             {headshot?.url && (
               <div
                 className='absolute bottom-0 right-0 h-full w-3/4 animate-appear'
@@ -173,6 +165,19 @@ function RiderPage({ rider }: { rider: Rider }) {
           </div>
         </div>
       </div>
+      {rider.sponsors && (
+        <div className='flex flex-wrap justify-center gap-8 border-b border-t border-b-slate-700 border-t-slate-500 bg-slate-600 p-4'>
+          {rider.sponsors.map((sponsor, i) =>
+            sponsor.url ? (
+              <a key={i} href={sponsor.url} target='_blank'>
+                <SponsorImage {...sponsor} />
+              </a>
+            ) : (
+              <SponsorImage key={i} {...sponsor} />
+            )
+          )}
+        </div>
+      )}
       {rider.bio && (
         <div className={clsx(container, 'w-full max-w-7xl py-8')}>
           <h2 className='mb-4 font-display text-3xl tracking-wide'>Biography</h2>
