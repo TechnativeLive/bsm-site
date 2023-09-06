@@ -88,6 +88,27 @@ function RiderPage({ rider }: { rider: Rider }) {
               />
             </div>
 
+            {headshot?.url && (
+              <div
+                className='absolute bottom-0 right-0 h-full w-3/4 animate-appear'
+                style={{ animationDelay: '300ms' }}
+              >
+                <Image
+                  className='object-contain object-bottom pt-8'
+                  // className={clsx(
+                  //   'h-96 w-full grow-[3] basis-0 self-end object-contain object-bottom',
+                  //   'max-md:absolute max-md:bottom-0 max-md:left-1/4 max-md:right-0',
+                  //   'md:relative'
+                  // )}
+                  src={headshot.url}
+                  alt={`${rider.firstname} ${rider.lastname} profile image`}
+                  // width={headshot?.width ?? 220}
+                  // height={headshot?.height ?? 114}
+                  fill
+                />
+              </div>
+            )}
+
             <div className='relative'>
               <p className='font-display text-5xl'>{rider.bib}</p>
               <h1 className='mb-8 text-2xl font-semibold uppercase tracking-wide text-slate-100'>
@@ -141,27 +162,6 @@ function RiderPage({ rider }: { rider: Rider }) {
                 </>
               )}
             </div>
-
-            {headshot?.url && (
-              <div
-                className='absolute bottom-0 right-0 h-full w-3/4 animate-appear'
-                style={{ animationDelay: '300ms' }}
-              >
-                <Image
-                  className='object-contain object-bottom pt-8'
-                  // className={clsx(
-                  //   'h-96 w-full grow-[3] basis-0 self-end object-contain object-bottom',
-                  //   'max-md:absolute max-md:bottom-0 max-md:left-1/4 max-md:right-0',
-                  //   'md:relative'
-                  // )}
-                  src={headshot.url}
-                  alt={`${rider.firstname} ${rider.lastname} profile image`}
-                  // width={headshot?.width ?? 220}
-                  // height={headshot?.height ?? 114}
-                  fill
-                />
-              </div>
-            )}
           </div>
         </div>
       </div>
