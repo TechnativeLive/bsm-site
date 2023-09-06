@@ -77,14 +77,15 @@ export const SponsorImage = (sponsor: GetAttributesValues<'api::sponsor.sponsor'
 
     return (
       <div
-        style={{ aspectRatio: img.width / img.height }}
-        className='flex h-24 max-w-[10rem] items-center justify-center'
+        // style={{ aspectRatio: img.width / img.height }}
+        className='relative flex h-24 w-40 items-center justify-center'
       >
         <Image
           src={img.url}
           alt={image.alternativeText ?? `${sponsor.name} Logo`}
-          width={image.formats.thumbnail.width}
-          height={image.formats.thumbnail.height}
+          // width={image.formats.thumbnail.width}
+          // height={image.formats.thumbnail.height}
+          fill
           className='object-contain'
         />
       </div>
