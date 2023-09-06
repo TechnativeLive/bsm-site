@@ -1,3 +1,4 @@
+'use client';
 import { StrapiMedia } from '@/types/strapi';
 import { GetAttributesValues } from '@strapi/strapi';
 import Image from 'next/image';
@@ -14,7 +15,7 @@ export function Hero(props: HeroProps) {
           <iframe
             width='100%'
             height='100%'
-            src={props.embed}
+            src={props.embed.replace('/live/', '/embed/')}
             title='YouTube video player'
             frameBorder='0'
             allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
@@ -32,7 +33,7 @@ export function Hero(props: HeroProps) {
           />
         </div>
       ) : null}
-      {cover?.caption && <caption>{cover.caption}</caption>}
+      {cover?.caption && <div className='italic underline'>{cover.caption}</div>}
     </div>
   );
 }
