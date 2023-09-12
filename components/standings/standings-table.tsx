@@ -28,7 +28,7 @@ export const StandingsTable = ({
           <Row key={`${entrant.name}-${i}`} entrant={entrant} />
         ))}
       </div>
-      <div className='flex flex-wrap items-center justify-end gap-6 px-8 py-4'>
+      {/* <div className='flex flex-wrap items-center justify-end gap-6 px-8 py-4'>
         <div className='text-slate-500'>Joker: </div>
         <div className='flex items-center gap-1.5'>
           <Joker state='active' />
@@ -42,7 +42,7 @@ export const StandingsTable = ({
           <Joker state='used' />
           Used
         </div>
-      </div>
+      </div> */}
       {!fullView && (
         <Link
           href='/results'
@@ -142,9 +142,10 @@ function Joker({
     <div
       className={clsx(
         'group/joker relative ml-auto h-7 w-7 transition-colors',
-        state === 'available' && 'text-slate-400/60 group-hover:text-slate-600',
-        state === 'used' && 'text-slate-300/60 group-hover:text-slate-400',
-        state === 'active' && 'text-slate-700 group-hover:text-slate-900'
+        // state === 'available' && 'text-slate-400/60 group-hover:text-slate-600',
+        // state === 'used' && 'text-slate-300/60 group-hover:text-slate-400',
+        // state === 'active' && 'text-slate-700 group-hover:text-slate-900'
+        state === 'available' ? 'opacity-0' : 'text-slate-400/60 group-hover:text-slate-600'
       )}
     >
       <svg
@@ -164,15 +165,15 @@ function Joker({
       </svg>
       {tooltip && (
         <div className='absolute right-full top-1/2 mr-3 flex -translate-y-1/2 items-center whitespace-nowrap rounded bg-slate-600 px-2 py-0.5 text-xs uppercase text-slate-300 opacity-0 transition-opacity duration-300 group-hover/joker:opacity-100'>
-          <span className='pr-1'>Joker: </span>
+          <span className='pr-1'>Joker </span>
           <span>{state}</span>
         </div>
       )}
-      <div className={clsx('absolute inset-1', state === 'used' ? 'opacity-100' : 'opacity-0')}>
+      {/* <div className={clsx('absolute inset-1', state === 'used' ? 'opacity-100' : 'opacity-0')}>
         <svg width='100%' height='100%' viewBox='0 0 100 100' preserveAspectRatio='none'>
           <path d='M0 100 100 0' stroke='currentColor' strokeWidth={10} />
         </svg>
-      </div>
+      </div> */}
     </div>
   );
 }
