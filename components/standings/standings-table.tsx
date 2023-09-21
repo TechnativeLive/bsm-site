@@ -166,7 +166,7 @@ function Joker({
       {tooltip && (
         <div className='absolute right-full top-1/2 mr-3 flex -translate-y-1/2 items-center whitespace-nowrap rounded bg-slate-600 px-2 py-0.5 text-xs uppercase text-slate-300 opacity-0 transition-opacity duration-300 group-hover/joker:opacity-100'>
           <span className='pr-1'>Joker </span>
-          <span>{state}</span>
+          <span>{state === 'available' ? 'available' : 'used'}</span>
         </div>
       )}
       {/* <div className={clsx('absolute inset-1', state === 'used' ? 'opacity-100' : 'opacity-0')}>
