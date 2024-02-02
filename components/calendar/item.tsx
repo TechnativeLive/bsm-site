@@ -134,7 +134,7 @@ export const CalendarItem = ({
         )}
         <div className='relative h-24 w-32 md:mb-2'>
           <Image
-            src={item.track?.layout.url ?? '/no-image.svg'}
+            src={item.track?.layout?.url ?? '/no-image.svg'}
             alt={item.track.name}
             fill
             className={clsx('select-none object-contain', status === 'complete' && 'opacity-80')}
