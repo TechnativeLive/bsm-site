@@ -5,17 +5,18 @@ import clsx from 'clsx';
 
 export default async function Page() {
   const noraEventLink = await getNoraEventLink();
+  const year = new Date().getFullYear();
 
   return (
     <section className={clsx(container, 'my-24')}>
       <article className='prose prose-slate lg:prose-lg'>
         <h1 className=''>Welcome To BSM</h1>
         <p>
-          Welcome to the exciting new era of supermoto racing! The 2023 British Supermoto
+          Welcome to the exciting new era of supermoto racing! The {year} British Supermoto
           Championship (BSSC) is finally here, and it promises to be the most thrilling season yet.
         </p>
 
-        <h2>The 2023 BSSC Season</h2>
+        <h2>The {year} BSSC Season</h2>
         <p>
           The BSSC will feature some of the best supermoto riders in the UK, as they compete across
           multiple rounds in various locations throughout the country. From the winding roads of
@@ -35,7 +36,7 @@ export default async function Page() {
         </p>
         <p>
           So what are you waiting for? Get ready to witness the speed, skill, and excitement of the
-          2023 British Supermoto Championship. This is one event you won&apos;t want to miss!
+          {year} British Supermoto Championship. This is one event you won&apos;t want to miss!
         </p>
         <CallToAction
           link={{
