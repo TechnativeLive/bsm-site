@@ -2,7 +2,7 @@
 
 import clsx from 'clsx';
 import dynamic from 'next/dynamic';
-import { useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 
 const year = 2024;
 const pdfConditions = `https://dinxiwhaebootclzzzmr.supabase.co/storage/v1/object/public/motorsport/bsm/rules-and-regs/1-${year}_Championship_Conditions.pdf`;
@@ -42,15 +42,26 @@ const PdfViewer = dynamic(() => import('@/components/pdf-viewer/viewer'), {
 export function RulesPageClientComponent() {
   const [shownPdf, setShownPdf] = useState<string | undefined>(undefined);
 
+  const pdfContainerRef = useRef<HTMLDivElement>(null);
+
+  const setShownPdfAndScroll = useCallback(
+    (href: string) => {
+      setShownPdf(href);
+      pdfContainerRef.current?.scrollIntoView({ behavior: 'smooth' });
+    },
+    [pdfContainerRef, setShownPdf]
+  );
+
   return (
     <>
       <div className='mx-auto my-12 grid w-full max-w-4xl grid-cols-1 gap-x-12 gap-y-8 md:grid-cols-2'>
         {cards.map((card, i) => (
-          <Card key={i} {...card} setShownPdf={setShownPdf} />
+          <Card key={i} {...card} setShownPdf={setShownPdfAndScroll} />
         ))}
       </div>
 
       <div
+        ref={pdfContainerRef}
         className={clsx(
           'grid transition-all duration-500 ease-in-out',
           shownPdf ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'
@@ -73,7 +84,7 @@ function Card({
   title: string;
   href: string;
   description?: string;
-  setShownPdf: React.Dispatch<React.SetStateAction<string | undefined>>;
+  setShownPdf: (href: string) => void;
 }) {
   return (
     <div className='relative flex flex-col justify-end bg-slate-50 px-5 pb-4 pt-8 text-center ring-1 ring-slate-700/10 transition-colors hover:bg-slate-50/40'>

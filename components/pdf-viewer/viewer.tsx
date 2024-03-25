@@ -31,7 +31,15 @@ function PdfViewer({ file }: { file: string }) {
           loading='Loading file...'
           noData='File missing. Please try the download link'
         >
-          <Page pageNumber={currentPage} width={pageWidth} height={pageHeight} />
+          <Page
+            pageNumber={currentPage}
+            width={pageWidth}
+            height={pageHeight}
+            devicePixelRatio={Math.min(
+              2,
+              typeof window !== 'undefined' ? window.devicePixelRatio : 1
+            )}
+          />
         </Document>
       </div>
 
