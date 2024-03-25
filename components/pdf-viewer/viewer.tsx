@@ -1,6 +1,6 @@
 'use client';
 
-import { memo, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { useWindowSize } from 'usehooks-ts';
 import { Document, Page, pdfjs } from 'react-pdf';
 import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
@@ -18,6 +18,10 @@ function PdfViewer({ file }: { file: string }) {
 
   const pageWidth = Math.min(565, width - 50);
   const pageHeight = pageWidth * (800 / 565);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [file]);
 
   return (
     <div className='flex flex-col items-center gap-4'>
