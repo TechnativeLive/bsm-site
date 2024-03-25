@@ -9,7 +9,21 @@ const nextConfig = {
   },
   typescript: {
     ignoreBuildErrors: true,
-  }
+  },
+  webpack: (config) => {
+    // Important: return the modified config
+    config.module.rules.push({
+      test: /\.node/,
+      use: 'raw-loader',
+    });
+    return config;
+  },
+  experimental: {
+    outputFileTracingExcludes: {
+      // Avoids including canvas in the trace to avoid 50 Mb+ serverless functions
+      '*': ['node_modules/.pnpm/canvas@*'],
+    },
+  },
 };
 
 module.exports = nextConfig;
