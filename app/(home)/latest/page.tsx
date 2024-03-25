@@ -13,7 +13,10 @@ export default async function Page() {
   ).then((res) => res.json());
   const tags = allTags.data.filter((tag) => tag.articles && tag.articles.length > 0);
 
-  const articlesQuery = cms('articles', { populate: '*' });
+  const articlesQuery = cms('articles', {
+    populate: '*',
+    sort: [{ publishedAt: 'desc' }, { title: 'asc' }],
+  });
   const articles: Strapi.Response<GetAttributesValues<'api::article.article'>[]> = await fetch(
     articlesQuery
   ).then((res) => res.json());
