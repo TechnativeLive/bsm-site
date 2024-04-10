@@ -37,6 +37,10 @@ export default async function Page() {
     return acc;
   }, [] as { team: GetAttributesValues<'api::team.team'>; riders: Rider[] }[]);
 
+  teams.map(
+    (team) => (team.riders = team.riders.sort((a, b) => a.lastname.localeCompare(b.lastname)))
+  );
+
   return (
     <>
       <header className='grid w-full place-items-center border-b border-slate-300 bg-slate-100'>

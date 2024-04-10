@@ -12,11 +12,11 @@ export default async function Page() {
       team: 'name',
       headshot: { populate: '*' },
     },
+    sort: ['lastname'],
   });
-  const allRiders: Strapi.Response<GetAttributesValues<'api::rider.rider'>[]> = await fetch(
+  const riders: Strapi.Response<GetAttributesValues<'api::rider.rider'>[]> = await fetch(
     ridersQuery
   ).then((res) => res.json());
-  const riders = allRiders.data.sort((a, b) => Number(a.bib) - Number(b.bib));
 
   return (
     <>
@@ -39,7 +39,7 @@ export default async function Page() {
               gridTemplateColumns: 'repeat(auto-fill, minmax(min(20rem, 100%), 1fr))',
             }}
           >
-            {riders.map((rider) => (
+            {riders.data.map((rider) => (
               <RiderCard key={rider.id} rider={rider} team={rider.team?.name} />
             ))}
           </div>
