@@ -98,7 +98,11 @@ export function RiderCard({ rider, team }: { rider: Rider; team?: string }) {
         <h3 className='text-2xl font-semibold uppercase tracking-wide text-slate-300 drop-shadow'>
           {rider.firstname} {rider.lastname}
         </h3>
-        {team && <h4 className='italic tracking-widest opacity-80 drop-shadow'>Team {team}</h4>}
+        {team && (
+          <h4 className='capitalize italic tracking-widest opacity-80 drop-shadow'>
+            {team.toLowerCase().startsWith('team') ? team : `Team ${team}`}
+          </h4>
+        )}
       </div>
     </Link>
   );

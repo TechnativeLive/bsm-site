@@ -76,7 +76,7 @@ export default async function Page() {
               >
                 <div className='bg-pattern flex flex-col'>
                   <h2 className='pt-4 text-center font-display text-2xl uppercase'>
-                    Team {team.name}
+                    {team.name?.toLowerCase().startsWith('team') ? team.name : `Team ${team.name}`}
                   </h2>
                   <div className='grid grow place-content-center'>
                     {sponsor?.url ? (
