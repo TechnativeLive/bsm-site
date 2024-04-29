@@ -17,7 +17,7 @@ export { dynamicParams };
 export async function generateStaticParams() {
   const posts: Strapi.Response<GetAttributesValues<'api::article.article'>[]> = await fetch(
     cms('articles'),
-    { next: { revalidate: 1 } }
+    { cache: 'no-store' }
   ).then((res) => res.json());
 
   return posts.data.map((post) => ({

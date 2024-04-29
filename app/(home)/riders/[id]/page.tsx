@@ -19,12 +19,13 @@ export default async function Page({ params: { id } }: PageParams) {
   return <RiderPage rider={rider.data} />;
 }
 
-// const dynamicParams = false;
-// export { dynamicParams };
+const dynamicParams = false;
+export { dynamicParams };
 
 export async function generateStaticParams() {
   const riders: Strapi.Response<GetAttributesValues<'api::rider.rider'>[]> = await fetch(
-    cms('riders')
+    cms('riders'),
+    { cache: 'no-store' }
   ).then((res) => res.json());
 
   return riders.data.map((rider) => ({
