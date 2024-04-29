@@ -61,7 +61,7 @@ export default async function Page() {
             sponsor?.logos?.find((l) => l.kind === 'dark') ??
             sponsor?.logos?.find((l) => l.kind === 'base');
 
-          const sponsorLogo = logo?.image.formats.thumbnail;
+          const sponsorLogo = logo?.image?.formats?.thumbnail;
 
           return (
             <div
@@ -82,18 +82,18 @@ export default async function Page() {
                     {sponsor?.url ? (
                       <a href={sponsor.url} target='_blank'>
                         <Image
-                          src={sponsorLogo.url ?? '/no-image.svg'}
+                          src={sponsorLogo?.url ?? '/no-image.svg'}
                           alt={`${team.name} logo`}
-                          width={sponsorLogo.width ?? 200}
-                          height={sponsorLogo.height ?? 100}
+                          width={sponsorLogo?.width ?? 200}
+                          height={sponsorLogo?.height ?? 100}
                         />
                       </a>
                     ) : (
                       <Image
-                        src={sponsorLogo.url ?? '/no-image.svg'}
+                        src={sponsorLogo?.url ?? '/no-image.svg'}
                         alt={`${team.name} logo`}
-                        width={sponsorLogo.width ?? 200}
-                        height={sponsorLogo.height ?? 100}
+                        width={sponsorLogo?.width ?? 200}
+                        height={sponsorLogo?.height ?? 100}
                       />
                     )}
                   </div>
