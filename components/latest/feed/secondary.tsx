@@ -30,14 +30,14 @@ export const FeedSecondaryArticle = ({
               />
             </div>
 
-            <div className='flex flex-col space-y-1'>
+            <div className='flex flex-col'>
               {article.tags?.map((tag, i) => (
                 <p key={i} className='inline-block font-display text-sm uppercase text-primary-500'>
                   {tag.label}
                 </p>
               ))}
 
-              <h2 className='text-xl font-bold uppercase md:text-base lg:text-xl'>
+              <h2 className='line-clamp-4 text-lg font-bold uppercase md:text-base lg:text-lg'>
                 {article.title}
               </h2>
             </div>
