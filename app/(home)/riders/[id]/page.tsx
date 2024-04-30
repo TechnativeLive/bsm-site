@@ -110,7 +110,7 @@ function RiderPage({ rider }: { rider: Rider }) {
               </div>
             )}
 
-            <div className='relative'>
+            <div className='relative min-h-[25rem]'>
               <p className='font-display text-5xl'>{rider.bib}</p>
               <h1 className='mb-8 text-2xl font-semibold uppercase tracking-wide text-slate-100'>
                 {rider.firstname} {rider.lastname}
@@ -159,6 +159,24 @@ function RiderPage({ rider }: { rider: Rider }) {
                   </p>
                   <p className='mb-4 font-semibold tracking-wider max-md:leading-none md:mb-6'>
                     {Math.abs(dateStarted.getUTCFullYear() - 1970)}
+                  </p>
+                </>
+              )}
+
+              {rider.hometown && (
+                <>
+                  <p className='text-sm uppercase opacity-70 max-md:leading-none'>Hometown</p>
+                  <p className='mb-4 font-semibold tracking-wider max-md:leading-none md:mb-6'>
+                    {rider.hometown}
+                  </p>
+                </>
+              )}
+
+              {rider.championship && (
+                <>
+                  <p className='text-sm uppercase opacity-70 max-md:leading-none'>Championship</p>
+                  <p className='mb-4 font-semibold tracking-wider max-md:leading-none md:mb-6'>
+                    {rider.championship}
                   </p>
                 </>
               )}

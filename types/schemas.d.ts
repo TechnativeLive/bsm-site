@@ -964,6 +964,14 @@ export interface ApiRiderRider extends CollectionTypeSchema {
       'oneToMany',
       'api::sponsor.sponsor'
     >;
+    championship: EnumerationAttribute<
+      [
+        'British Supermoto',
+        'National Supermoto',
+        'British & National Supermoto'
+      ]
+    >;
+    hometown: StringAttribute;
     createdAt: DateTimeAttribute;
     updatedAt: DateTimeAttribute;
     publishedAt: DateTimeAttribute;
@@ -1157,31 +1165,6 @@ export interface ApiTeamTeam extends CollectionTypeSchema {
     createdBy: RelationAttribute<'api::team.team', 'oneToOne', 'admin::user'> &
       PrivateAttribute;
     updatedBy: RelationAttribute<'api::team.team', 'oneToOne', 'admin::user'> &
-      PrivateAttribute;
-  };
-}
-
-export interface ApiTestTest extends CollectionTypeSchema {
-  info: {
-    singularName: 'test';
-    pluralName: 'tests';
-    displayName: 'TEST';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    multipleMediaImage: MediaAttribute;
-    mediaImage: MediaAttribute;
-    mm: MediaAttribute;
-    m: MediaAttribute;
-    createdAt: DateTimeAttribute;
-    updatedAt: DateTimeAttribute;
-    publishedAt: DateTimeAttribute;
-    createdBy: RelationAttribute<'api::test.test', 'oneToOne', 'admin::user'> &
-      PrivateAttribute;
-    updatedBy: RelationAttribute<'api::test.test', 'oneToOne', 'admin::user'> &
       PrivateAttribute;
   };
 }
@@ -1406,18 +1389,6 @@ export interface SharedSocial extends ComponentSchema {
   };
 }
 
-export interface UtilsScheduleGroup extends ComponentSchema {
-  info: {
-    displayName: 'schedule';
-    description: '';
-  };
-  attributes: {
-    items: ComponentAttribute<'utils.schedule-item', true>;
-    title: StringAttribute & RequiredAttribute;
-    file: MediaAttribute;
-  };
-}
-
 export interface UtilsScheduleItem extends ComponentSchema {
   info: {
     displayName: 'scheduleItem';
@@ -1469,7 +1440,6 @@ declare global {
       'api::sponsor.sponsor': ApiSponsorSponsor;
       'api::tag.tag': ApiTagTag;
       'api::team.team': ApiTeamTeam;
-      'api::test.test': ApiTestTest;
       'api::track.track': ApiTrackTrack;
       'blocks.cta': BlocksCta;
       'blocks.hero': BlocksHero;
@@ -1487,7 +1457,6 @@ declare global {
       'shared.header': SharedHeader;
       'shared.link': SharedLink;
       'shared.social': SharedSocial;
-      'utils.schedule-group': UtilsScheduleGroup;
       'utils.schedule-item': UtilsScheduleItem;
       'utils.schedule': UtilsSchedule;
     }
