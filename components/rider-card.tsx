@@ -71,38 +71,38 @@ export function RiderCard({ rider, team }: { rider: Rider; team?: string }) {
         </p>
       )}
       <div className='absolute bottom-0 left-0 right-0 flex flex-col bg-gradient-to-t from-slate-950/70 from-40% to-transparent to-90% px-6 pb-4 pt-12'>
-        {rider.bike && (
+        {headshot && rider.bike && (
           <div className='flex items-center justify-between gap-2.5 drop-shadow'>
             <p className='text-sm uppercase opacity-70'>Bike</p>
             <p className='tracking-wider'>{rider.bike}</p>
           </div>
         )}
-        {rider.tyres && (
+        {headshot && rider.tyres && (
           <div className='flex items-center justify-between gap-2.5 drop-shadow'>
             <p className='text-sm uppercase opacity-70'>Tyres</p>
             <p className='tracking-wider'>{rider.tyres}</p>
           </div>
         )}
-        {dob && (
+        {headshot && dob && (
           <div className='flex items-center justify-between gap-2.5 drop-shadow'>
             <p className='text-sm uppercase opacity-70'>Age</p>
             <p className='tracking-wider'>{Math.abs(dob.getUTCFullYear() - 1970)}</p>
           </div>
         )}
-        {dateStarted && (
+        {headshot && dateStarted && (
           <div className='flex items-center justify-between gap-2.5 drop-shadow'>
             <p className='text-sm uppercase opacity-70'>Years Competing</p>
             <p className='tracking-wider'>{Math.abs(dateStarted.getUTCFullYear() - 1970)}</p>
           </div>
         )}
-        <h3 className='text-2xl font-semibold uppercase tracking-wide text-slate-300 drop-shadow'>
-          {rider.firstname} {rider.lastname}
-        </h3>
         {team && (
           <h4 className='capitalize italic tracking-widest opacity-80 drop-shadow'>
             {team.toLowerCase().startsWith('team') ? team : `Team ${team}`}
           </h4>
         )}
+        <h3 className='text-2xl font-semibold uppercase tracking-wide text-slate-300 drop-shadow'>
+          {rider.firstname} {rider.lastname}
+        </h3>
       </div>
     </Link>
   );
