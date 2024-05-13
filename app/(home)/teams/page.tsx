@@ -76,25 +76,28 @@ export default async function Page() {
               >
                 <div className='bg-pattern flex flex-col'>
                   <h2 className='pt-4 text-center font-display text-2xl uppercase'>
-                    {team.name?.toLowerCase().startsWith('team') ? team.name : `Team ${team.name}`}
+                    {sponsor?.url ? (
+                      <a href={sponsor?.url}>
+                        {team.name?.toLowerCase().startsWith('team')
+                          ? team.name
+                          : `Team ${team.name}`}
+                      </a>
+                    ) : team.name?.toLowerCase().startsWith('team') ? (
+                      team.name
+                    ) : (
+                      `Team ${team.name}`
+                    )}
                   </h2>
                   <div className='grid grow place-content-center'>
-                    {sponsor?.url ? (
-                      <a href={sponsor.url} target='_blank'>
+                    {sponsorLogo?.url && (
+                      <a href={sponsor?.url} target='_blank'>
                         <Image
-                          src={sponsorLogo?.url ?? '/no-image.svg'}
+                          src={sponsorLogo.url}
                           alt={`${team.name} logo`}
                           width={sponsorLogo?.width ?? 200}
                           height={sponsorLogo?.height ?? 100}
                         />
                       </a>
-                    ) : (
-                      <Image
-                        src={sponsorLogo?.url ?? '/no-image.svg'}
-                        alt={`${team.name} logo`}
-                        width={sponsorLogo?.width ?? 200}
-                        height={sponsorLogo?.height ?? 100}
-                      />
                     )}
                   </div>
                 </div>
