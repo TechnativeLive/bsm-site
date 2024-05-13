@@ -5,6 +5,7 @@ const nextConfig = {
     minimumCacheTTL: 60 * 60 * 2,
     remotePatterns: [
       { protocol: 'https', hostname: 'bsm-cms-images.s3.eu-west-2.amazonaws.com', port: '' },
+      { protocol: 'https', hostname: 'dinxiwhaebootclzzzmr.supabase.co', port: '' },
     ],
   },
   typescript: {

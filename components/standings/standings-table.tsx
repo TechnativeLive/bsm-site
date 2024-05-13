@@ -1,6 +1,8 @@
+import { Headshot } from '@/components/standings/headshot';
 import { Standings } from '@/lib/strapi/standings';
 import { ordinalSuffix } from '@/utils/ordinal-suffix';
 import clsx from 'clsx';
+import Image from 'next/image';
 import Link from 'next/link';
 
 export const StandingsTable = ({
@@ -17,7 +19,7 @@ export const StandingsTable = ({
   return (
     <div className='-m-1 flex flex-col p-1'>
       <div className='overflow-hidden pt-16'>
-        <div className='mx-16 flex grid-flow-col grid-cols-3 grid-rows-[1fr,1fr,3fr] gap-x-4 md:grid'>
+        <div className='mx-16 mt-48 flex grid-flow-col grid-cols-3 grid-rows-[1fr,1fr,3fr] gap-x-4 max-md:justify-center md:grid'>
           <Podium entrant={{ ...standings[0], rank: 1 }} />
           <Podium entrant={{ ...standings[1], rank: 2 }} />
           <Podium entrant={{ ...standings[2], rank: 3 }} />
@@ -58,25 +60,32 @@ export const StandingsTable = ({
 function Podium({ entrant }: { entrant: Standings[number] & { rank: number } }) {
   return (
     <div
-      className={clsx(
-        entrant.rank === 1 ? 'flex font-semibold italic' : 'hidden md:flex',
-        'relative after:absolute after:inset-0 after:top-full after:h-6 after:bg-slate-500',
-        'transform-gpu transition-transform duration-200 ease-slide hover:-translate-y-6',
-        'grow flex-col items-stretch rounded-t-md bg-slate-500 px-4 py-1 text-xl font-extralight uppercase text-white md:text-base lg:text-xl'
-      )}
+      className='relative'
       style={{
         gridColumnStart: (entrant.rank % 3) + 1,
         gridRow: `${entrant.rank} / 4`,
       }}
     >
-      <div className='flex flex-nowrap items-center gap-3'>
-        <div className='grow leading-5 tracking-wider'>{entrant.name}</div>
-        <div className='flex shrink-0 items-start text-xl font-semibold italic'>
-          <span>{entrant.rank}</span>
-          <span className='pl-0.5 pt-[3px] text-sm'>{ordinalSuffix(entrant.rank)}</span>
-        </div>
+      <div className='absolute bottom-full left-2 right-2 flex h-56 items-center justify-center'>
+        <Headshot entrant={entrant} />
       </div>
-      {entrant.team && <div className='text-sm font-semibold italic'>{entrant.team}</div>}
+      <div
+        className={clsx(
+          entrant.rank === 1 ? 'flex font-semibold italic' : 'hidden md:flex',
+          'relative h-full after:absolute after:inset-0 after:top-full after:h-6 after:bg-slate-500',
+          'transform-gpu transition-transform duration-200 ease-slide will-change-transform hover:-translate-y-6',
+          'grow flex-col items-stretch rounded-t-md bg-slate-500 px-4 py-1 text-xl font-extralight uppercase text-white md:text-base lg:text-xl'
+        )}
+      >
+        <div className='flex flex-nowrap items-center gap-3'>
+          <div className='grow leading-5 tracking-wider'>{entrant.name}</div>
+          <div className='flex shrink-0 items-start text-xl font-semibold italic'>
+            <span>{entrant.rank}</span>
+            <span className='pl-0.5 pt-[3px] text-sm'>{ordinalSuffix(entrant.rank)}</span>
+          </div>
+        </div>
+        {entrant.team && <div className='text-sm font-semibold italic'>{entrant.team}</div>}
+      </div>
     </div>
   );
 }
