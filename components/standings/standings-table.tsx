@@ -60,7 +60,7 @@ export const StandingsTable = ({
 function Podium({ entrant }: { entrant: Standings[number] & { rank: number } }) {
   return (
     <div
-      className='relative'
+      className='group relative'
       style={{
         gridColumnStart: (entrant.rank % 3) + 1,
         gridRow: `${entrant.rank} / 4`,
@@ -73,7 +73,7 @@ function Podium({ entrant }: { entrant: Standings[number] & { rank: number } }) 
         className={clsx(
           entrant.rank === 1 ? 'flex font-semibold italic' : 'hidden md:flex',
           'relative h-full after:absolute after:inset-0 after:top-full after:h-6 after:bg-slate-500',
-          'transform-gpu transition-transform duration-200 ease-slide will-change-transform hover:-translate-y-6',
+          'transform-gpu transition-transform duration-200 ease-slide will-change-transform group-hover:-translate-y-6',
           'grow flex-col items-stretch rounded-t-md bg-slate-500 px-4 py-1 text-xl font-extralight uppercase text-white md:text-base lg:text-xl'
         )}
       >
