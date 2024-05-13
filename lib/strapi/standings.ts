@@ -1,4 +1,3 @@
-import { getSeasonsGSheetData } from '@/lib/gsheets/standings';
 import { StrapiQuery, cms } from '@/utils/cms';
 import { GetAttributesValues } from '@strapi/strapi';
 

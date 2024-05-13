@@ -1300,6 +1300,7 @@ export interface ScoresStandingsTable extends ComponentSchema {
     podiumFirst: ComponentAttribute<'scores.podium'>;
     podiumSecond: ComponentAttribute<'scores.podium', true>;
     podiumThird: ComponentAttribute<'scores.podium'>;
+    standingsSheetName: StringAttribute;
   };
 }
 
