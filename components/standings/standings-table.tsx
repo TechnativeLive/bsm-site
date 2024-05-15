@@ -94,7 +94,8 @@ function Row({ entrant }: { entrant: Standings[number] }) {
   const [firstname, lastname] = entrant.name?.split(' ') ?? ['', ''];
 
   return (
-    <div className='group py-1 drop-shadow-sm first:pt-0 last:mb-2 last:pb-0'>
+    // TODO: Add link to rider page
+    <MaybeLink className='group py-1 drop-shadow-sm first:pt-0 last:mb-2 last:pb-0'>
       <div
         className={clsx(
           'flex gap-x-1 rounded-md bg-slate-50 pl-3 transition-colors duration-300 group-hover:bg-slate-200 group-hover:duration-150 sm:pl-8',
@@ -114,6 +115,16 @@ function Row({ entrant }: { entrant: Standings[number] }) {
           <div className='pr-1 uppercase'>
             <span className='font-bold'>{lastname}</span>
           </div>
+
+          {/* Rider number */}
+          {entrant.driverNumber && (
+            <div className='flex items-center justify-end'>
+              <div className='font-bold italic opacity-60'>
+                <span className='pr-0.5 text-xs'>#</span>
+                {entrant.driverNumber}
+              </div>
+            </div>
+          )}
 
           {/* Team */}
           {entrant.team && <div className='grow pr-1 text-xs font-medium'>{entrant.team}</div>}
@@ -136,8 +147,19 @@ function Row({ entrant }: { entrant: Standings[number] }) {
           </div>
         </div>
       </div>
-    </div>
+    </MaybeLink>
   );
+}
+
+function MaybeLink({
+  href,
+  ...props
+}: {
+  href?: string;
+  className?: string;
+  children: React.ReactNode;
+}) {
+  return href ? <Link href={href} {...props} /> : <div {...props} />;
 }
 
 function Joker({
