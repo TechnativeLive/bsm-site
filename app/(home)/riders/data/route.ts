@@ -2,6 +2,7 @@ import { cms } from '@/utils/cms';
 
 export const dynamic = 'force-dynamic';
 export async function GET(request: Request) {
+  // console.log(request.headers.get('host'));
   try {
     const ridersQuery = cms('riders', {
       fields: ['firstname', 'lastname', 'bib', 'hometown'],
@@ -17,7 +18,10 @@ export async function GET(request: Request) {
     }));
 
     return new Response(JSON.stringify(riderData), {
-      headers: { 'content-type': 'application/json' },
+      headers: {
+        'content-type': 'application/json',
+        'Access-Control-Allow-Origin': 'https://app.singular.live',
+      },
     });
   } catch (error) {
     // @ts-ignore
