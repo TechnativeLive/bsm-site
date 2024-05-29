@@ -4,11 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "tsx lib/prebuild.ts && next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
+    "@dotenvx/dotenvx": "^0.44.1",
     "@radix-ui/react-tabs": "^1.0.3",
     "@sentry/nextjs": "^7.55.1",
     "@tw-classed/react": "^1.5.0",
@@ -45,12 +46,14 @@
     "@strapi/strapi": "^4.10.5",
     "@tailwindcss/typography": "^0.5.9",
     "@types/qs": "^6.9.7",
+    "eslint-plugin-react-compiler": "0.0.0-experimental-53bb89e-20240515",
     "prettier": "^2.8.8",
     "prettier-plugin-tailwindcss": "^0.2.8",
     "raw-loader": "^4.0.2",
     "tailwind-scrollbar": "^3.0.1",
     "tailwindcss-plugin-icons": "^2.1.1",
-    "tailwindcss-radix": "^2.8.0"
+    "tailwindcss-radix": "^2.8.0",
+    "tsx": "^4.11.0"
   },
   "pnpm": {
     "peerDependencyRules": {
