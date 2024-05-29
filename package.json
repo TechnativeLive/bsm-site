@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "tsx lib/prebuild.ts && next build",
+    "riders": "dotenvx run -f  .env.local -- tsx lib/prebuild.ts",
+    "build": "dotenvx run -f  .env.local -- tsx lib/prebuild.ts && next build",
     "start": "next start",
     "lint": "next lint"
   },
@@ -46,6 +47,7 @@
     "@strapi/strapi": "^4.10.5",
     "@tailwindcss/typography": "^0.5.9",
     "@types/qs": "^6.9.7",
+    "@vercel/blob": "^0.23.3",
     "eslint-plugin-react-compiler": "0.0.0-experimental-53bb89e-20240515",
     "prettier": "^2.8.8",
     "prettier-plugin-tailwindcss": "^0.2.8",

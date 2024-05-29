@@ -1,6 +1,7 @@
 import { cms } from '@/utils/cms';
-import { writeFile } from 'fs/promises';
-import path from 'path';
+import { put } from '@vercel/blob';
+// import { writeFile } from 'fs/promises';
+// import path from 'path';
 
 (async () => {
   try {
@@ -17,12 +18,18 @@ import path from 'path';
       title: `${rider.firstname} ${rider.lastname}, ${rider.bib}`,
     }));
 
-    const riderDataDirectory = path.join(process.cwd(), 'public', 'data', 'riders.json');
-    await writeFile(riderDataDirectory, JSON.stringify(riderData), {
-      encoding: 'utf-8',
-      flag: 'w',
+    // const riderDataDirectory = path.join(process.cwd(), 'public', 'data', 'riders.json');
+    // await writeFile(riderDataDirectory, JSON.stringify(riderData), {
+    //   encoding: 'utf-8',
+    //   flag: 'w',
+    // });
+
+    const { url } = await put('riders.json', JSON.stringify(riderData), {
+      access: 'public',
+      contentType: 'application/json',
+      addRandomSuffix: false,
     });
-    console.log(`Rider data written to ${riderDataDirectory}`);
+    console.log(`Rider data written to ${url}`);
   } catch (e) {
     console.warn(e);
   }
