@@ -6,7 +6,8 @@ export async function getFeatureLinks() {
   // console.log({ homepageQuery });
 
   const homepage: Strapi.Response<GetAttributesValues<'api::homepage.homepage'>> = await fetch(
-    homepageQuery
+    homepageQuery,
+    { next: { revalidate: 60 * 60 } }
   ).then((res) => res.json());
 
   const featureLinks = homepage.data.featureLinks;
@@ -18,7 +19,8 @@ export async function getFooterLinks() {
   // console.log({ homepageQuery });
 
   const homepage: Strapi.Response<GetAttributesValues<'api::homepage.homepage'>> = await fetch(
-    homepageQuery
+    homepageQuery,
+    { next: { revalidate: 60 * 60 } }
   ).then((res) => res.json());
 
   const footerLinks = homepage.data.footerLinks;
@@ -30,7 +32,8 @@ export async function getSocials() {
   // console.log({ homepageQuery });
 
   const homepage: Strapi.Response<GetAttributesValues<'api::homepage.homepage'>> = await fetch(
-    homepageQuery
+    homepageQuery,
+    { next: { revalidate: 60 * 60 } }
   ).then((res) => res.json());
 
   const socials = homepage.data.socials;
@@ -44,7 +47,8 @@ export async function getSponsors() {
   // console.log({ homepageQuery });
 
   const homepage: Strapi.Response<GetAttributesValues<'api::homepage.homepage'>> = await fetch(
-    homepageQuery
+    homepageQuery,
+    { next: { revalidate: 60 * 60 } }
   ).then((res) => res.json());
 
   const sponsors = homepage.data.sponsors;
@@ -66,7 +70,8 @@ export async function getCalendar() {
   // console.log({ calendarQuery });
 
   const calendar: Strapi.Response<GetAttributesValues<'api::calendar.calendar'>> = await fetch(
-    calendarQuery
+    calendarQuery,
+    { next: { revalidate: 60 * 60 } }
   ).then((res) => res.json());
 
   const currentCalendar = calendar.data.current;

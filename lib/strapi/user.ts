@@ -8,9 +8,9 @@ export async function getUser(username: string) {
   });
   // console.log({ userQuery });
 
-  const user: GetAttributesValues<'plugin::users-permissions.user'>[] = await fetch(userQuery).then(
-    (res) => res.json()
-  );
+  const user: GetAttributesValues<'plugin::users-permissions.user'>[] = await fetch(userQuery, {
+    next: { revalidate: 60 * 60 },
+  }).then((res) => res.json());
 
   return user?.[0];
 }

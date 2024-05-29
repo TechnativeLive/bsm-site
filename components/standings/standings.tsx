@@ -1,7 +1,6 @@
 'use client';
 
 import { StandingsTable } from '@/components/standings/standings-table';
-import { container } from '@/components/tailwind';
 import { Standings as TStandings } from '@/lib/strapi/standings';
 import * as Tabs from '@radix-ui/react-tabs';
 import { GetAttributesValues } from '@strapi/strapi';

@@ -17,7 +17,8 @@ export async function getSeasons(query?: StrapiQuery) {
   // console.log({ seasonQuery });
 
   const seasons: Strapi.Response<GetAttributesValues<'api::season.season'>[]> = await fetch(
-    seasonQuery
+    seasonQuery,
+    { next: { revalidate: 60 * 60 } }
   ).then((res) => res.json());
 
   return seasons;
