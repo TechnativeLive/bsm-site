@@ -7,8 +7,7 @@ export async function getNoraEventLink() {
   });
 
   const homepage: Strapi.Response<GetAttributesValues<'api::homepage.homepage'>> = await fetch(
-    homepageQuery,
-    { next: { revalidate: 60 * 60 } }
+    homepageQuery
   ).then((res) => res.json());
 
   const footerLinks = homepage.data.footerLinks;
