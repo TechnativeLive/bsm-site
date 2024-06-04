@@ -1,18 +1,18 @@
 import { GetAttributesValues } from '@strapi/strapi';
 import { cms, getImage } from '@/utils/cms';
-import { getRiderById } from '@/lib/strapi';
+import { getRiderByBib } from '@/lib/strapi';
 import clsx from 'clsx';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { container } from '@/components/tailwind';
 import { SponsorImage } from '@/components/footer/footer';
 
-type PageParams = { params: { id: string } };
+type PageParams = { params: { bib: string } };
 
-export default async function Page({ params: { id } }: PageParams) {
-  const rider = await getRiderById(Number(id));
+export default async function Page({ params: { bib } }: PageParams) {
+  const rider = await getRiderByBib(bib);
 
-  if (!rider.data) {
+  if (!rider.data || !rider.data.firstname) {
     notFound();
   }
 
@@ -29,15 +29,21 @@ export async function generateStaticParams() {
   ).then((res) => res.json());
 
   return riders.data.map((rider) => ({
-    id: rider.id.toString(),
+    bib: rider.bib,
   }));
 }
 
-export async function generateMetadata({ params: { id } }: PageParams) {
-  const rider = await getRiderById(Number(id));
+export async function generateMetadata({ params: { bib } }: PageParams) {
+  const rider = await getRiderByBib(bib);
+  if (!rider.data) {
+    return {
+      title: '404 - Rider not found',
+      description: 'The rider you are looking for could not be found',
+    };
+  }
 
   return {
-    title: `${rider.data.firstname} ${rider.data.lastname} - BSM Rider${
+    title: `${rider.data.firstname} ${rider.data.lastname} ${rider.data.bib} - BSM Rider${
       rider.data.team?.name ? ` for ${rider.data.team.name}` : ''
     }`,
     description: `Learn more about ${rider.data.firstname} ${rider.data.lastname}`,

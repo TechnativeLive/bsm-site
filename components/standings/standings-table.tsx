@@ -59,7 +59,8 @@ export const StandingsTable = ({
 
 function Podium({ entrant }: { entrant: Standings[number] & { rank: number } }) {
   return (
-    <div
+    <Link
+      href={`/riders/${entrant.driverNumber}`}
       className='group relative'
       style={{
         gridColumnStart: (entrant.rank % 3) + 1,
@@ -86,7 +87,7 @@ function Podium({ entrant }: { entrant: Standings[number] & { rank: number } }) 
         </div>
         {entrant.team && <div className='text-sm font-semibold italic'>{entrant.team}</div>}
       </div>
-    </div>
+    </Link>
   );
 }
 
@@ -95,7 +96,10 @@ function Row({ entrant }: { entrant: Standings[number] }) {
 
   return (
     // TODO: Add link to rider page
-    <MaybeLink className='group py-1 drop-shadow-sm first:pt-0 last:mb-2 last:pb-0'>
+    <MaybeLink
+      href={`/riders/${entrant.driverNumber}`}
+      className='group py-1 drop-shadow-sm first:pt-0 last:mb-2 last:pb-0'
+    >
       <div
         className={clsx(
           'flex gap-x-1 rounded-md bg-slate-50 pl-3 transition-colors duration-300 group-hover:bg-slate-200 group-hover:duration-150 sm:pl-8',

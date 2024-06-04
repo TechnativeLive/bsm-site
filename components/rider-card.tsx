@@ -25,7 +25,7 @@ export function RiderCard({ rider, team }: { rider: Rider; team?: string }) {
 
   return (
     <Link
-      href={`/riders/${rider.id}`}
+      href={`/riders/${rider.bib}`}
       className={clsx(
         // headshot ? 'bg-gradient-to-bl from-slate-950 to-blue-200' : 'bg-slate-800',
         'bg-slate-800 text-slate-300',

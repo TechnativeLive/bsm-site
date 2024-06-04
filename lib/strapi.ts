@@ -7,7 +7,6 @@ import remarkRehype from 'remark-rehype';
 import { GetAttributesValues } from '@strapi/strapi';
 import { StrapiQuery, cms } from '@/utils/cms';
 import { unified } from 'unified';
-import QueryString from 'qs';
 
 // memoize/cache the creation of the markdown parser
 let parser: ReturnType<typeof getParser> | undefined;
@@ -52,7 +51,9 @@ export async function getArticleBySlug(slug: string) {
   return transformedArticle;
 }
 
-export async function getRiderById(id: number) {
+export async function getRiderById(
+  id: number
+): Promise<Strapi.Response<GetAttributesValues<'api::rider.rider'>>> {
   const ridersQuery = cms(`riders/${id}`, {
     populate: {
       team: { populate: { sponsors: { populate: { logos: { populate: '*' } } } } },
@@ -67,6 +68,27 @@ export async function getRiderById(id: number) {
   ).then((res) => res.json());
 
   return rider;
+}
+
+export async function getRiderByBib(
+  bib: string
+): Promise<Strapi.Response<GetAttributesValues<'api::rider.rider'>>> {
+  const ridersQuery = cms(`riders`, {
+    populate: {
+      team: { populate: { sponsors: { populate: { logos: { populate: '*' } } } } },
+      headshot: { populate: '*' },
+      sponsors: { populate: { logos: { populate: '*' } } },
+    },
+    filters: {
+      bib: { $eqi: bib },
+    },
+  });
+
+  const riders: Strapi.Response<GetAttributesValues<'api::rider.rider'>[]> = await fetch(
+    ridersQuery
+  ).then((res) => res.json());
+
+  return { ...riders, data: riders.data[0] };
 }
 
 async function transformArticleContent(article: GetAttributesValues<'api::article.article'>) {
