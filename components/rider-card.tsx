@@ -83,12 +83,12 @@ export function RiderCard({ rider, team }: { rider: Rider; team?: string }) {
             <p className='tracking-wider'>{rider.tyres}</p>
           </div>
         )}
-        {headshot && dob && (
+        {/* {headshot && dob && (
           <div className='flex items-center justify-between gap-2.5 drop-shadow'>
             <p className='text-sm uppercase opacity-70'>Age</p>
             <p className='tracking-wider'>{Math.abs(dob.getUTCFullYear() - 1970)}</p>
           </div>
-        )}
+        )} */}
         {headshot && dateStarted && (
           <div className='flex items-center justify-between gap-2.5 drop-shadow'>
             <p className='text-sm uppercase opacity-70'>Years Competing</p>
