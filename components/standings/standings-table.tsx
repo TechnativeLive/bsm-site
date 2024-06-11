@@ -47,7 +47,7 @@ export const StandingsTable = ({
       </div> */}
       {!fullView && (
         <Link
-          href='/results'
+          href='/standings'
           className='text-emboss/50 mt-2 flex items-center justify-center gap-2 rounded-md bg-slate-300 p-1 text-center text-sm font-bold uppercase drop-shadow-sm transition-all hover:bg-slate-200 hover:text-primary-700 hover:drop-shadow'
         >
           See full standings

@@ -66,8 +66,8 @@ export const MobileNav = () => {
           </MobileNavLink>{' '}
           {/* Article feed */}
           {/* <MobileNavLink href="/teams">Teams & Drivers</MobileNavLink> */}
-          <MobileNavLink onClick={close} href='/results'>
-            Results
+          <MobileNavLink onClick={close} href='/standings'>
+            Standings
           </MobileNavLink>
           <MobileNavLink onClick={close} href='/teams'>
             Teams

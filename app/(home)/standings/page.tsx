@@ -1,9 +1,9 @@
 import { FullPageStandings } from '@/components/standings/full-page/full-page';
 
 export const metadata = {
-  title: 'Results',
-  description: 'View the official results for BSM 2024.'
-}
+  title: 'Standings',
+  description: 'View the official standings for BSM 2024.',
+};
 
 export default async function Page() {
   return (

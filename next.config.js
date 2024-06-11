@@ -8,6 +8,9 @@ const nextConfig = {
       { protocol: 'https', hostname: 'dinxiwhaebootclzzzmr.supabase.co', port: '' },
     ],
   },
+  redirects: async () => {
+    return [{ source: '/results', destination: '/standings', permanent: true }];
+  },
   typescript: {
     ignoreBuildErrors: true,
   },

@@ -5,7 +5,7 @@ export function MainNav() {
     <nav className='z-10 -mr-2 hidden shrink-0 grow items-center justify-end gap-2 font-bold uppercase lg:flex lg:gap-6'>
       <MainNavLink href='/latest'>Latest</MainNavLink> {/* Article feed */}
       {/* <MainNavLink href="/teams">Teams & Drivers</MainNavLink> */}
-      <MainNavLink href='/results'>Results</MainNavLink>
+      <MainNavLink href='/standings'>Standings</MainNavLink>
       <MainNavLink href='/teams'>Teams</MainNavLink>
       <MainNavLink href='/riders'>Riders</MainNavLink>
       {/* <MainNavLink href='/calendar'>Calendar</MainNavLink> */}
