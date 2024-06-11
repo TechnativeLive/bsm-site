@@ -48,7 +48,12 @@ export const MobileNav = () => {
 
   return (
     <div className='z-10 -mr-2 ml-7 flex grow items-center justify-end gap-2 font-bold uppercase text-black lg:hidden lg:gap-6'>
-      <input ref={ref} type='checkbox' id='nav-menu' className='modal peer absolute h-0 w-0' />
+      <input
+        ref={ref}
+        type='checkbox'
+        id='nav-menu'
+        className='modal peer absolute -left-[999em] -top-[999em] h-0 w-0'
+      />
       <label
         htmlFor='nav-menu'
         className='rounded [&>div]:i-basil-menu-solid peer-checked:[&>div]:i-basil-cancel-outline hover:bg-slate-200'

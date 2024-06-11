@@ -61,13 +61,13 @@ function Podium({ entrant }: { entrant: Standings[number] & { rank: number } }) 
   return (
     <Link
       href={`/riders/${entrant.driverNumber}`}
-      className='group relative'
+      className={clsx('group relative', entrant.rank > 1 && 'max-md:hidden')}
       style={{
         gridColumnStart: (entrant.rank % 3) + 1,
         gridRow: `${entrant.rank} / 4`,
       }}
     >
-      <div className='absolute bottom-full left-2 right-2 flex h-56 items-center justify-center'>
+      <div className='absolute bottom-full left-2 right-2 flex h-56 items-end justify-center'>
         <Headshot entrant={entrant} />
       </div>
       <div
