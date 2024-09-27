@@ -2,14 +2,23 @@
 
 import { Standings } from '@/lib/strapi/standings';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export function Headshot({ entrant }: { entrant: Standings[number] }) {
+  console.log(entrant);
   const [src, setSrc] = useState(
     `https://dinxiwhaebootclzzzmr.supabase.co/storage/v1/object/public/motorsport/headshots/_${
       entrant.driverNumber
     }_${(entrant.name?.split(' ') || ['', ''])[1].toUpperCase()}.png`
   );
+
+  useEffect(() => {
+    setSrc(
+      `https://dinxiwhaebootclzzzmr.supabase.co/storage/v1/object/public/motorsport/headshots/_${
+        entrant.driverNumber
+      }_${(entrant.name?.split(' ') || ['', ''])[1].toUpperCase()}.png`
+    );
+  }, [entrant.driverNumber, entrant.name]);
 
   return (
     <Image
