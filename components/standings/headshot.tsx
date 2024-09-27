@@ -5,7 +5,6 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
 export function Headshot({ entrant }: { entrant: Standings[number] }) {
-  console.log(entrant);
   const [src, setSrc] = useState(
     `https://dinxiwhaebootclzzzmr.supabase.co/storage/v1/object/public/motorsport/headshots/_${
       entrant.driverNumber
