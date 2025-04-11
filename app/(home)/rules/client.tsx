@@ -4,11 +4,13 @@ import clsx from 'clsx';
 import dynamic from 'next/dynamic';
 import { useCallback, useRef, useState } from 'react';
 
-const year = 2024;
-const pdfConditions = `https://dinxiwhaebootclzzzmr.supabase.co/storage/v1/object/public/motorsport/bsm/rules-and-regs/1-${year}_Championship_Conditions.pdf`;
-const pdfStanding = `https://dinxiwhaebootclzzzmr.supabase.co/storage/v1/object/public/motorsport/bsm/rules-and-regs/2-${year}_Standing_Regulations.pdf`;
-const pdfSporting = `https://dinxiwhaebootclzzzmr.supabase.co/storage/v1/object/public/motorsport/bsm/rules-and-regs/3-${year}_Sporting_Code.pdf`;
-const pdfTechnical = `https://dinxiwhaebootclzzzmr.supabase.co/storage/v1/object/public/motorsport/bsm/rules-and-regs/4-${year}_Solo_Technical_Regulations.pdf`;
+const year = new Date().getFullYear();
+const bucket = `https://dinxiwhaebootclzzzmr.supabase.co/storage/v1/object/public/motorsport/bsm/rules-and-regs/${year}`
+const pdfConditions = `${bucket}/Championship_Conditions.pdf`;
+const pdfStanding = `${bucket}/Standing_Regulations.pdf`;
+const pdfSporting = `${bucket}/Sporting_Code.pdf`;
+const pdfTechnicalSupermoto = `${bucket}/Solo_Technical_Regulations.pdf`;
+const pdfTechnicalSuperlite = `${bucket}/Superlite_Technical_Regulations.pdf`;
 
 type CardProps = { title: string; href: string; description?: string };
 
@@ -16,22 +18,27 @@ const cards: CardProps[] = [
   {
     title: 'Championship Conditions',
     href: pdfConditions,
-    description: `${year} British Supermoto Championship Conditions`,
+    description: `${year} British Supermoto/Superlite Championship Conditions`,
   },
   {
     title: 'Standing Regulations',
     href: pdfStanding,
-    description: `${year} British Supermoto Standing Regulations`,
+    description: `${year} British Supermoto/Superlite Standing Regulations`,
+  },
+  {
+    title: 'Supermoto Solo Technical Regulations',
+    href: pdfTechnicalSupermoto,
+    description: `${year} British Supermoto Solo Technical Regulations`,
+  },
+  {
+    title: 'Superlite Technical Regulations',
+    href: pdfTechnicalSuperlite,
+    description: `${year} British Superlite Technical Regulations`,
   },
   {
     title: 'Sporting Code',
     href: pdfSporting,
-    description: `${year} British Supermoto Sporting Code`,
-  },
-  {
-    title: 'Technical Regulations',
-    href: pdfTechnical,
-    description: `${year} British Supermoto Technical Regulations`,
+    description: `${year} British Supermoto/Superlite Sporting Code`,
   },
 ];
 
